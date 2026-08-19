@@ -28,6 +28,8 @@ import {
   BookOpen,
   FileText,
   Leaf,
+  Activity,
+  Moon,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -74,38 +76,38 @@ const ADMISSION_CTA: MegaFeatured = {
   primaryCta: "Speak to us now",
   primaryHref: "#contact",
   secondaryCta: "How admissions works",
-  secondaryHref: "#admissions",
+  secondaryHref: "/admissions/",
 };
 
 const NAV: NavEntry[] = [
-  { kind: "link", label: "Admissions", href: "#admissions" },
+  { kind: "link", label: "Admissions", href: "/admissions/" },
 
   {
     kind: "mega",
     label: "Addiction",
-    href: "#treatment",
+    href: "/addiction/",
     panel: {
       intro: {
         desc: "We treat all forms of substance and behavioural addiction in a safe, medically supervised environment.",
         allLabel: "All addiction types",
-        allHref: "#treatment",
+        allHref: "/addiction/",
       },
       groups: [
         {
           title: "Substance addiction",
           items: [
-            { icon: Wine, label: "Alcohol addiction", desc: "Most commonly treated addiction", href: "#treatment" },
-            { icon: Pill, label: "Drug addiction", desc: "Cocaine, heroin, cannabis & more", href: "#treatment" },
-            { icon: Stethoscope, label: "Prescription drugs", desc: "Opioids, benzos & painkillers", href: "#treatment" },
-            { icon: Cigarette, label: "Nicotine addiction", desc: "Tobacco & vaping dependency", href: "#treatment" },
+            { icon: Wine, label: "Alcohol addiction", desc: "Most commonly treated addiction", href: "/addiction/alcohol/" },
+            { icon: Pill, label: "Drug addiction", desc: "Cocaine, heroin, cannabis & more", href: "/addiction/drug/" },
+            { icon: Stethoscope, label: "Prescription drugs", desc: "Opioids, benzos & painkillers", href: "/addiction/prescription-drug/" },
+            { icon: Cigarette, label: "Legal highs", desc: "Synthetic & novel substances", href: "/addiction/legal-high/" },
           ],
         },
         {
           title: "Behavioural addiction",
           items: [
-            { icon: Brain, label: "Dual diagnosis", desc: "Mental health & addiction together", href: "#treatment" },
-            { icon: Dices, label: "Gambling addiction", desc: "Online & offline dependency", href: "#treatment" },
-            { icon: Zap, label: "Other addictions", desc: "Food, gaming, sex & more", href: "#treatment" },
+            { icon: Brain, label: "Dual diagnosis", desc: "Mental health & addiction together", href: "/dual-diagnosis/" },
+            { icon: Dices, label: "Gambling addiction", desc: "Online & offline dependency", href: "/addiction/behavioural/gambling/" },
+            { icon: Zap, label: "Other addictions", desc: "Food, gaming, sex & more", href: "/addiction/behavioural/" },
           ],
         },
       ],
@@ -116,18 +118,18 @@ const NAV: NavEntry[] = [
   {
     kind: "mega",
     label: "Detox",
-    href: "#treatment",
+    href: "/detox/",
     panel: {
       groups: [
         {
           title: "Our detox programmes",
           items: [
-            { icon: Wine, label: "Alcohol detox", desc: "Safe, medically managed withdrawal", href: "#treatment" },
-            { icon: Pill, label: "Drug detox", desc: "Supervised from all substances", href: "#treatment" },
-            { icon: Stethoscope, label: "Medical detox", desc: "24/7 clinical care throughout", href: "#treatment" },
-            { icon: Home, label: "Residential detox", desc: "Detox within our private facility", href: "#facility" },
-            { icon: Droplets, label: "Detox process", desc: "What to expect, step by step", href: "#admissions" },
-            { icon: ShieldCheck, label: "Is detox safe?", desc: "CQC-registered, fully supervised", href: "#team" },
+            { icon: Wine, label: "Alcohol detox", desc: "Safe, medically managed withdrawal", href: "/detox/alcohol/" },
+            { icon: Pill, label: "Drug detox", desc: "Supervised from all substances", href: "/detox/drug/" },
+            { icon: Stethoscope, label: "Medical detox", desc: "24/7 clinical care throughout", href: "/detox/" },
+            { icon: Home, label: "Residential detox", desc: "Detox within our private facility", href: "/detox/" },
+            { icon: Droplets, label: "Detox process", desc: "What to expect, step by step", href: "/admissions/" },
+            { icon: ShieldCheck, label: "Is detox safe?", desc: "CQC-registered, fully supervised", href: "/cqc-report/" },
           ],
         },
       ],
@@ -138,22 +140,22 @@ const NAV: NavEntry[] = [
   {
     kind: "mega",
     label: "Rehab Treatment",
-    href: "#treatment",
+    href: "/rehab-treatment/",
     panel: {
       intro: {
         desc: "Comprehensive residential rehabilitation addressing root causes through evidence-based therapy and holistic support.",
         allLabel: "All programmes",
-        allHref: "#treatment",
+        allHref: "/rehab-treatment/",
       },
       groups: [
         {
           items: [
-            { icon: Wine, label: "Alcohol rehab", desc: "Inpatient alcohol rehabilitation", href: "#treatment" },
-            { icon: Pill, label: "Drug rehab", desc: "Cannabis, cocaine, heroin & more", href: "#treatment" },
-            { icon: Sparkles, label: "Therapy programmes", desc: "CBT, DBT, holistic & more", href: "#treatment" },
-            { icon: HeartHandshake, label: "Aftercare", desc: "Support that continues after you leave", href: "#family" },
-            { icon: DollarSign, label: "Cost of rehab", desc: "Transparent, no-surprise pricing", href: "#contact" },
-            { icon: CalendarCheck, label: "Secondary care", desc: "Bridging rehab & independent living", href: "#admissions" },
+            { icon: Wine, label: "Alcohol rehab", desc: "Inpatient alcohol rehabilitation", href: "/rehab-treatment/alcohol/" },
+            { icon: Pill, label: "Drug rehab", desc: "Cannabis, cocaine, heroin & more", href: "/rehab-treatment/drug/" },
+            { icon: Sparkles, label: "Therapy programmes", desc: "CBT, DBT, holistic & more", href: "/rehab-programme/" },
+            { icon: HeartHandshake, label: "Aftercare", desc: "Support that continues after you leave", href: "/rehab-treatment/aftercare/" },
+            { icon: DollarSign, label: "Cost of rehab", desc: "Transparent, no-surprise pricing", href: "/rehab-treatment/cost-alcohol-drug-rehab/" },
+            { icon: CalendarCheck, label: "Secondary care", desc: "Bridging rehab & independent living", href: "/rehab-treatment/secondary-care-programme/" },
           ],
         },
       ],
@@ -161,30 +163,57 @@ const NAV: NavEntry[] = [
     },
   },
 
-  { kind: "link", label: "Dual Diagnosis", href: "#treatment" },
+  {
+    kind: "mega",
+    label: "Dual Diagnosis",
+    href: "/dual-diagnosis/",
+    panel: {
+      intro: {
+        desc: "We treat co-occurring mental health conditions alongside addiction, with specialist dual diagnosis consultants on site.",
+        allLabel: "All conditions we treat",
+        allHref: "/dual-diagnosis/",
+      },
+      groups: [
+        {
+          title: "Mental health conditions",
+          items: [
+            { icon: Zap, label: "ADHD", desc: "Attention & hyperactivity", href: "/dual-diagnosis/adhd/" },
+            { icon: Activity, label: "Anxiety", desc: "Generalised & panic disorders", href: "/dual-diagnosis/anxiety/" },
+            { icon: Moon, label: "Depression", desc: "Clinical & treatment-resistant", href: "/dual-diagnosis/depression/" },
+            { icon: ShieldCheck, label: "PTSD", desc: "Trauma & post-traumatic stress", href: "/dual-diagnosis/ptsd/" },
+            { icon: Sparkles, label: "Bipolar disorder", desc: "Mood stabilisation & recovery", href: "/dual-diagnosis/bipolar/" },
+            { icon: Brain, label: "OCD", desc: "Obsessive compulsive disorder", href: "/dual-diagnosis/ocd/" },
+            { icon: Users, label: "Personality disorder", desc: "BPD & EUPD", href: "/dual-diagnosis/personality-disorder/" },
+            { icon: BookOpen, label: "Other conditions", desc: "Self-harm, schizophrenia & more", href: "/dual-diagnosis/" },
+          ],
+        },
+      ],
+      featured: ADMISSION_CTA,
+    },
+  },
 
   {
     kind: "mega",
     label: "About Us",
-    href: "#team",
+    href: "/about/",
     panel: {
       groups: [
         {
           items: [
-            { icon: Building2, label: "Our facility", desc: "Private grounds, en-suite rooms", href: "#facility" },
-            { icon: Users, label: "Our team", desc: "Experienced doctors & therapists", href: "#team" },
-            { icon: ShieldCheck, label: "CQC registered", desc: "Regulated, inspected, trusted", href: "#team" },
-            { icon: MapPin, label: "Location", desc: "Bradford, West Yorkshire", href: "#contact" },
-            { icon: Star, label: "Testimonials", desc: "What our clients say about us", href: "#contact" },
-            { icon: MessageCircle, label: "Contact us", desc: "Get in touch, any time", href: "#contact" },
+            { icon: Building2, label: "Our facility", desc: "Private grounds, en-suite rooms", href: "/about/facilities/" },
+            { icon: Users, label: "Our team", desc: "Experienced doctors & therapists", href: "/about/our-team/" },
+            { icon: ShieldCheck, label: "CQC registered", desc: "Regulated, inspected, trusted", href: "/cqc-report/" },
+            { icon: MapPin, label: "Location", desc: "Bradford, West Yorkshire", href: "/about/" },
+            { icon: Star, label: "Testimonials", desc: "What our clients say about us", href: "/reviews/" },
+            { icon: MessageCircle, label: "Contact us", desc: "Get in touch, any time", href: "/about/contact/" },
           ],
         },
       ],
     },
   },
 
-  { kind: "link", label: "Blog", href: "#resources" },
-  { kind: "link", label: "Help Guides", href: "#resources" },
+  { kind: "link", label: "Blog", href: "/blog/" },
+  { kind: "link", label: "Help Guides", href: "/help-guides/" },
 ];
 
 /* ────────────────────────────────── sub-components */
@@ -309,7 +338,7 @@ export function SiteHeader() {
       <div className="section-x mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:py-4">
 
         {/* Logo */}
-        <a href="#top" className="flex min-w-0 items-center gap-2.5">
+        <a href="/" className="flex min-w-0 items-center gap-2.5">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
             <span className="font-display text-base leading-none">O</span>
           </span>
@@ -532,7 +561,7 @@ export function SiteHeader() {
                 </a>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <a href="#contact">Request a callback</a>
+                <a href="/admissions/">How admissions works</a>
               </Button>
             </div>
           </nav>

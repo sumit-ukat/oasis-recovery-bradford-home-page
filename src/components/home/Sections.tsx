@@ -128,12 +128,12 @@ export function Hero() {
 /* ------------------------------------------------------------- Treatment */
 
 const PROGRAMMES = [
-  { icon: ShieldCheck, title: "Medically assisted detox" },
-  { icon: Sparkles, title: "Residential rehabilitation" },
-  { icon: Users, title: "Group & 1:1 therapy" },
-  { icon: Leaf, title: "Wellbeing & holistic therapy" },
-  { icon: HeartHandshake, title: "Family programme" },
-  { icon: CalendarCheck, title: "Structured aftercare" },
+  { icon: ShieldCheck, title: "Medically assisted detox", href: "/detox/" },
+  { icon: Sparkles, title: "Residential rehabilitation", href: "/rehab-treatment/" },
+  { icon: Users, title: "Group & 1:1 therapy", href: "/rehab-programme/" },
+  { icon: Leaf, title: "Wellbeing & holistic therapy", href: "/rehab-programme/holistic-therapy/" },
+  { icon: HeartHandshake, title: "Family programme", href: "/rehab-programme/family-support/" },
+  { icon: CalendarCheck, title: "Structured aftercare", href: "/rehab-treatment/aftercare/" },
 ];
 
 export function Treatment() {
@@ -145,7 +145,7 @@ export function Treatment() {
         intro={LOREM}
       />
       <ul className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-4">
-        {PROGRAMMES.map(({ icon: Icon, title }) => (
+        {PROGRAMMES.map(({ icon: Icon, title, href }) => (
           <li
             key={title}
             className="rounded-xl border border-border bg-card p-5 shadow-[var(--shadow-soft)] transition-shadow hover:shadow-[var(--shadow-lift)]"
@@ -156,7 +156,7 @@ export function Treatment() {
             <h3 className="mt-4 text-lg">{title}</h3>
             <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
             <a
-              href="#contact"
+              href={href}
               className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
             >
               Learn more <ArrowRight className="size-4" aria-hidden />
@@ -209,9 +209,14 @@ export function Facility() {
           ))}
         </div>
 
-        <div className="mt-8">
+        <div className="mt-8 flex flex-wrap gap-3">
           <Button asChild size="lg" className="w-full sm:w-auto">
-            <a href="#contact">Arrange a visit</a>
+            <a href="/about/contact/">Arrange a visit</a>
+          </Button>
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+            <a href="/about/virtual-facility-tour/">
+              Virtual facility tour <ArrowRight className="size-4" aria-hidden />
+            </a>
           </Button>
         </div>
       </div>
@@ -260,6 +265,14 @@ export function Admissions() {
           </li>
         ))}
       </ol>
+
+      <div className="mt-10 text-center">
+        <Button asChild variant="cta" size="lg">
+          <a href="/admissions/">
+            <Phone aria-hidden /> Start your admissions today
+          </a>
+        </Button>
+      </div>
     </section>
   );
 }
@@ -276,7 +289,15 @@ export function Team() {
   return (
     <section id="team" className="bg-secondary/50 py-14 sm:py-20">
       <div className="section-x mx-auto max-w-7xl">
-        <SectionHead eyebrow="Our team" title="Led by experienced clinicians" intro={LOREM} />
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+          <SectionHead eyebrow="Our team" title="Led by experienced clinicians" intro={LOREM} />
+          <a
+            href="/about/our-team/"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline sm:inline-flex"
+          >
+            Meet the team <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
         <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {TEAM.map((m) => (
             <li key={m.letter} className="overflow-hidden rounded-2xl bg-card">
@@ -313,7 +334,7 @@ export function FamilyAftercare() {
           <SectionHead eyebrow="Family support" title="Recovery involves the whole family" />
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
           <Button asChild variant="outline" size="lg" className="mt-6 w-full sm:w-auto">
-            <a href="#contact">Family enquiry</a>
+            <a href="/rehab-programme/family-support/">Family support programme</a>
           </Button>
         </div>
       </div>
@@ -327,9 +348,16 @@ export function FamilyAftercare() {
         <div className="lg:order-1">
           <SectionHead eyebrow="Aftercare" title="Support that continues after you leave" />
           <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
-          <Button asChild variant="outline" size="lg" className="mt-6 w-full sm:w-auto">
-            <a href="#contact">Explore aftercare</a>
-          </Button>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
+              <a href="/rehab-treatment/aftercare/">Explore aftercare</a>
+            </Button>
+            <Button asChild variant="ghost" size="lg" className="w-full sm:w-auto">
+              <a href="/about/alumni/">
+                Alumni programme <ArrowRight className="size-4" aria-hidden />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>
@@ -342,10 +370,20 @@ export function Testimonials() {
   return (
     <section className="bg-deep py-14 text-deep-foreground sm:py-20">
       <div className="section-x mx-auto max-w-7xl">
-        <p className="eyebrow text-deep-foreground/60">Client stories</p>
-        <h2 className="mt-3 max-w-xl text-[1.75rem] leading-[1.15] sm:text-4xl">
-          What people say about Oasis
-        </h2>
+        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+          <div>
+            <p className="eyebrow text-deep-foreground/60">Client stories</p>
+            <h2 className="mt-3 max-w-xl text-[1.75rem] leading-[1.15] sm:text-4xl">
+              What people say about Oasis
+            </h2>
+          </div>
+          <a
+            href="/reviews/"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-deep-foreground/70 hover:text-deep-foreground hover:underline sm:inline-flex"
+          >
+            View all reviews <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
         <ul className="mt-8 grid gap-4 md:grid-cols-3">
           {[1, 2, 3].map((n) => (
             <li
@@ -353,7 +391,7 @@ export function Testimonials() {
               className="rounded-2xl border border-deep-foreground/15 bg-deep-foreground/5 p-6"
             >
               <p className="text-[0.9375rem] leading-relaxed text-deep-foreground/85">
-                “{LOREM}”
+                "{LOREM}"
               </p>
               <div className="mt-5 flex items-center gap-3">
                 <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-deep-foreground/15 text-xs font-semibold">
@@ -367,6 +405,14 @@ export function Testimonials() {
             </li>
           ))}
         </ul>
+        <div className="mt-8 sm:hidden">
+          <a
+            href="/reviews/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-deep-foreground/70 hover:text-deep-foreground hover:underline"
+          >
+            View all reviews <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -394,6 +440,14 @@ export function Faq() {
           </AccordionItem>
         ))}
       </Accordion>
+      <div className="mt-8 text-center">
+        <a
+          href="/about/questions-and-answers/"
+          className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+        >
+          View all FAQs <ArrowRight className="size-4" aria-hidden />
+        </a>
+      </div>
     </section>
   );
 }
@@ -407,7 +461,7 @@ export function Resources() {
         <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
           <SectionHead eyebrow="Resources" title="Guides and articles" />
           <a
-            href="#resources"
+            href="/blog/"
             className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline sm:inline-flex"
           >
             View all <ArrowRight className="size-4" aria-hidden />
@@ -429,6 +483,21 @@ export function Resources() {
             </li>
           ))}
         </ul>
+        <div className="mt-6 flex flex-wrap gap-3 sm:hidden">
+          <a
+            href="/blog/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          >
+            All blog posts <ArrowRight className="size-4" aria-hidden />
+          </a>
+          <span className="text-muted-foreground">·</span>
+          <a
+            href="/help-guides/"
+            className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+          >
+            Help guides <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
       </div>
     </section>
   );
@@ -507,27 +576,60 @@ export function Contact() {
 
 /* ---------------------------------------------------------------- Footer */
 
+const FOOTER_COLS = [
+  {
+    title: "Treatment",
+    links: [
+      { label: "Detox", href: "/detox/" },
+      { label: "Residential rehab", href: "/rehab-treatment/" },
+      { label: "Therapy programmes", href: "/rehab-programme/" },
+      { label: "Aftercare", href: "/rehab-treatment/aftercare/" },
+    ],
+  },
+  {
+    title: "About",
+    links: [
+      { label: "Our facility", href: "/about/facilities/" },
+      { label: "Our team", href: "/about/our-team/" },
+      { label: "Admissions", href: "/admissions/" },
+      { label: "Fees & funding", href: "/rehab-treatment/cost-alcohol-drug-rehab/" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Family support", href: "/rehab-programme/family-support/" },
+      { label: "Help guides", href: "/help-guides/" },
+      { label: "Contact us", href: "/about/contact/" },
+      { label: "Reviews", href: "/reviews/" },
+    ],
+  },
+];
+
 export function SiteFooter() {
   return (
     <footer className="border-t border-border bg-sand pb-24 lg:pb-0">
       <div className="section-x mx-auto max-w-7xl py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <span className="font-display text-lg">Oasis Recovery</span>
+            <a href="/" className="font-display text-lg">Oasis Recovery</a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
+            <a
+              href="/cqc-report/"
+              className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+            >
+              <ShieldCheck className="size-3.5" aria-hidden />
+              CQC registered provider
+            </a>
           </div>
-          {[
-            { title: "Treatment", links: ["Detox", "Residential rehab", "Therapy", "Aftercare"] },
-            { title: "About", links: ["Our facility", "Our team", "Admissions", "Fees"] },
-            { title: "Support", links: ["Family support", "Resources", "Contact", "Privacy"] },
-          ].map((col) => (
+          {FOOTER_COLS.map((col) => (
             <div key={col.title}>
               <h3 className="text-sm font-semibold tracking-wide">{col.title}</h3>
               <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
-                {col.links.map((l) => (
-                  <li key={l}>
-                    <a href="#top" className="hover:text-foreground hover:underline">
-                      {l}
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <a href={link.href} className="hover:text-foreground hover:underline">
+                      {link.label}
                     </a>
                   </li>
                 ))}
