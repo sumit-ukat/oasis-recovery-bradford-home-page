@@ -810,7 +810,7 @@ export function SiteFooter() {
               <img
                 src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
                 alt="Oasis Recovery Bradford"
-                className="h-9 w-auto object-contain"
+                className="h-9 w-auto object-contain mix-blend-multiply"
               />
             </a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>

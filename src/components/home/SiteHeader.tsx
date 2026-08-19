@@ -726,7 +726,7 @@ export function SiteHeader() {
           <img
             src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
             alt="Oasis Recovery Bradford"
-            className="h-10 w-auto object-contain lg:h-12"
+            className="h-10 w-auto object-contain mix-blend-multiply lg:h-12"
           />
         </a>
 
