@@ -507,7 +507,7 @@ function PanelRailLayout({
   onClose: () => void;
 }) {
   const allItems = panel.groups.flatMap((g) => g.items);
-  const [activeItem, setActiveItem] = useState<MegaItem>(allItems[0]);
+  const [activeItem, setActiveItem] = useState<MegaItem>(allItems[0]!);
 
   const subCount = activeItem.subLinks?.length ?? 0;
   const subCols =
