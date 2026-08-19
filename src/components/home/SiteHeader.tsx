@@ -81,6 +81,11 @@ const NAV: NavEntry[] = [
     href: "/addiction/",
     panel: {
       layout: "rail",
+      intro: {
+        desc: "We treat alcohol, drug, and behavioural addictions with medically supervised residential rehabilitation at our private Bradford facility.",
+        allLabel: "All addiction information",
+        allHref: "/addiction/",
+      },
       groups: [
         {
           title: "Substance addiction",
@@ -168,6 +173,11 @@ const NAV: NavEntry[] = [
     href: "/detox/",
     panel: {
       layout: "rail",
+      intro: {
+        desc: "Safe, CQC-registered medical detox with 24/7 clinical care. Our doctors manage every stage of withdrawal so you can focus on recovery.",
+        allLabel: "All detox information",
+        allHref: "/detox/",
+      },
       groups: [
         {
           items: [
@@ -228,6 +238,11 @@ const NAV: NavEntry[] = [
     href: "/rehab-treatment/",
     panel: {
       layout: "rail",
+      intro: {
+        desc: "Comprehensive residential rehabilitation programmes — evidence-based therapies, holistic support, and structured aftercare tailored to you.",
+        allLabel: "All treatment options",
+        allHref: "/rehab-treatment/",
+      },
       groups: [
         {
           items: [
@@ -386,7 +401,7 @@ function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void })
   );
 }
 
-/* ──────────────────────────── PanelRailLayout (Recovery.com style) */
+/* ──────────────────────────── PanelRailLayout (editorial) */
 
 function PanelRailLayout({
   panel,
@@ -397,97 +412,106 @@ function PanelRailLayout({
   panelLabel: string;
   onClose: () => void;
 }) {
-  const allItems = panel.groups.flatMap((g) => g.items);
-  const defaultItem = allItems[0];
-  const [activeItem, setActiveItem] = useState<MegaItem>(defaultItem);
-
   return (
-    <div className="grid lg:grid-cols-[220px_1fr_260px]">
+    <div className="grid lg:grid-cols-[220px_1fr_240px]">
 
-      {/* ── Left rail ── */}
-      <div className="border-r border-border py-1 pr-5">
-        <p className="eyebrow mb-3 text-primary">{panelLabel}</p>
+      {/* ── Left: dark intro panel ── */}
+      <div className="mr-8 flex flex-col justify-between rounded-2xl bg-primary px-5 py-6 text-primary-foreground">
+        <div>
+          <p className="mb-2 text-[0.625rem] font-bold uppercase tracking-[0.14em] text-primary-foreground/50">
+            Oasis Recovery Bradford
+          </p>
+          <h3 className="font-display text-xl font-bold leading-tight">
+            {panelLabel}
+          </h3>
+          <p className="mt-3 text-[0.8125rem] leading-relaxed text-primary-foreground/70">
+            {panel.intro?.desc ??
+              "Expert residential treatment at our private Bradford facility."}
+          </p>
+        </div>
+        <a
+          href={panel.intro?.allHref ?? "/"}
+          onClick={onClose}
+          className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground/90 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline"
+        >
+          {panel.intro?.allLabel ?? `All ${panelLabel.toLowerCase()} pages`}
+          <ArrowRight className="size-3.5" aria-hidden />
+        </a>
+      </div>
+
+      {/* ── Centre: item columns ── */}
+      <div
+        className={cn(
+          "grid gap-x-10 gap-y-6",
+          panel.groups.length > 1 ? "grid-cols-2" : "grid-cols-1",
+        )}
+      >
         {panel.groups.map((group, gi) => (
-          <div key={gi} className={gi > 0 ? "mt-5" : ""}>
+          <div key={gi}>
             {group.title && (
-              <p className="eyebrow mb-2 text-muted-foreground/60">{group.title}</p>
+              <p className="mb-3 text-[0.625rem] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
+                {group.title}
+              </p>
             )}
-            <ul className="space-y-0.5">
-              {group.items.map((item) => (
-                <li key={item.label}>
-                  <button
-                    type="button"
-                    onMouseEnter={() => setActiveItem(item)}
-                    onClick={() => { window.location.href = item.href; onClose(); }}
-                    className={cn(
-                      "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[0.8125rem] transition-colors",
-                      activeItem.label === item.label
-                        ? "bg-primary/10 font-semibold text-primary"
-                        : "font-medium text-foreground hover:bg-secondary",
-                    )}
-                  >
-                    <span className="truncate">{item.label}</span>
-                    <ChevronRight
-                      className={cn(
-                        "size-3.5 shrink-0 transition-colors",
-                        activeItem.label === item.label
-                          ? "text-primary"
-                          : "text-muted-foreground/40",
+            <ul className="space-y-3">
+              {group.items.map((item) => {
+                const visibleSubs = item.subLinks?.slice(0, 6) ?? [];
+                const extraCount = (item.subLinks?.length ?? 0) - visibleSubs.length;
+                return (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={onClose}
+                      className="group/item block"
+                    >
+                      <span className="flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground transition-colors group-hover/item:text-primary">
+                        <ChevronRight
+                          className="size-3 shrink-0 text-primary/30 transition-transform group-hover/item:translate-x-0.5"
+                          aria-hidden
+                        />
+                        {item.label}
+                      </span>
+                      {!item.subLinks?.length && (
+                        <span className="mt-0.5 block pl-[1.125rem] text-xs leading-snug text-muted-foreground">
+                          {item.desc}
+                        </span>
                       )}
-                      aria-hidden
-                    />
-                  </button>
-                </li>
-              ))}
+                    </a>
+
+                    {visibleSubs.length > 0 && (
+                      <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 pl-[1.125rem]">
+                        {visibleSubs.map((sub) => (
+                          <a
+                            key={sub.label}
+                            href={sub.href}
+                            onClick={onClose}
+                            className="text-[0.6875rem] text-muted-foreground transition-colors hover:text-primary"
+                          >
+                            {sub.label}
+                          </a>
+                        ))}
+                        {extraCount > 0 && (
+                          <a
+                            href={item.href}
+                            onClick={onClose}
+                            className="text-[0.6875rem] font-semibold text-primary hover:underline"
+                          >
+                            +{extraCount} more
+                          </a>
+                        )}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
             </ul>
           </div>
         ))}
       </div>
 
-      {/* ── Middle: active item content + sub-links ── */}
-      <div className="px-8 py-1">
-        <a
-          href={activeItem.href}
-          onClick={onClose}
-          className="group/heading mb-5 block"
-        >
-          <p className="eyebrow text-primary">{activeItem.label}</p>
-          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground group-hover/heading:text-foreground">
-            {activeItem.desc}
-          </p>
-        </a>
-
-        {activeItem.subLinks?.length ? (
-          <>
-            <p className="eyebrow mb-3 text-muted-foreground/60">Treatment pages</p>
-            <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 xl:grid-cols-3">
-              {activeItem.subLinks.map((sub) => (
-                <a
-                  key={sub.label}
-                  href={sub.href}
-                  onClick={onClose}
-                  className="block py-1.5 text-sm font-medium text-foreground transition-colors hover:text-primary hover:underline"
-                >
-                  {sub.label}
-                </a>
-              ))}
-            </div>
-          </>
-        ) : (
-          <a
-            href={activeItem.href}
-            onClick={onClose}
-            className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-          >
-            View {activeItem.label.toLowerCase()}
-            <ArrowRight className="size-3.5" aria-hidden />
-          </a>
-        )}
-      </div>
-
       {/* ── Right: featured card ── */}
       {panel.featured && (
-        <div className="border-l border-border pl-6">
+        <div className="border-l border-border pl-8">
           <FeaturedCard featured={panel.featured} onClose={onClose} />
         </div>
       )}
