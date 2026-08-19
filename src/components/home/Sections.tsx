@@ -806,7 +806,13 @@ export function SiteFooter() {
       <div className="section-x mx-auto max-w-7xl py-12">
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <a href="/" className="font-display text-lg">Oasis Recovery</a>
+            <a href="/">
+              <img
+                src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
+                alt="Oasis Recovery Bradford"
+                className="h-9 w-auto object-contain"
+              />
+            </a>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
             <a
               href="/cqc-report/"

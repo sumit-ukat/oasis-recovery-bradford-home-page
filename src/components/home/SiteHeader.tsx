@@ -722,11 +722,12 @@ export function SiteHeader() {
       {/* ── Top bar ── */}
       <div className="section-x mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:py-4">
 
-        <a href="/" className="flex min-w-0 items-center gap-2.5">
-          <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
-            <span className="font-display text-base leading-none">O</span>
-          </span>
-          <span className="font-display truncate text-lg tracking-tight">Oasis Recovery</span>
+        <a href="/" className="flex min-w-0 items-center">
+          <img
+            src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
+            alt="Oasis Recovery Bradford"
+            className="h-10 w-auto object-contain lg:h-12"
+          />
         </a>
 
         <div className="flex items-center gap-2">
