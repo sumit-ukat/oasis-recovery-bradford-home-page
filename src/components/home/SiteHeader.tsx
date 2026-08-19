@@ -613,7 +613,7 @@ function PanelRailLayout({
       </div>
 
       {/* ── Right: trust panel ── */}
-      <div className="w-[220px] shrink-0 border-l border-border pl-8">
+      <div className="w-[260px] shrink-0 border-l border-border pl-8">
         <TrustPanel onClose={onClose} />
       </div>
     </div>
