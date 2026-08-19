@@ -516,23 +516,23 @@ const PROMISE_INCLUSIONS = [
 
 export function NinetyDayPromise() {
   return (
-    <section id="promise" className="bg-sand py-14 sm:py-20">
+    <section id="promise" className="bg-deep py-14 text-deep-foreground sm:py-20">
       <div className="section-x mx-auto max-w-7xl grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-stretch lg:gap-12">
 
         {/* Left: headline + body + CTAs */}
         <div className="flex flex-col justify-center">
-          <p className="eyebrow">The UKAT 90-day promise</p>
+          <p className="eyebrow text-deep-foreground/60">The UKAT 90-day promise</p>
           <h2 className="mt-3 text-[1.75rem] leading-[1.15] sm:text-4xl">
             90 days of treatment.{" "}
             <span className="text-primary">A lifetime of recovery.</span>
           </h2>
-          <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground">
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-deep-foreground/70">
             Lasting change takes time. That's why we recommend our 90-day residential
             programme — a structured combination of medically managed detox,
             evidence-based therapies, and one-to-one support designed to lay the
             foundation for lifelong sobriety.
           </p>
-          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-deep-foreground/70">
             And because we believe in what we do, we stand behind it with a written
             guarantee.
           </p>
@@ -545,7 +545,7 @@ export function NinetyDayPromise() {
             </button>
             <a
               href="/rehab-treatment/"
-              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary/60 sm:w-auto"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-deep-foreground/20 px-5 py-3 text-sm font-semibold text-deep-foreground transition-colors hover:bg-deep-foreground/10 sm:w-auto"
             >
               View our programmes
               <ArrowRight className="size-4" aria-hidden />
@@ -553,7 +553,7 @@ export function NinetyDayPromise() {
           </div>
         </div>
 
-        {/* Right: blue guarantee card */}
+        {/* Right: guarantee card */}
         <div className="relative overflow-hidden rounded-2xl bg-primary px-7 py-8 text-primary-foreground sm:px-9 sm:py-10">
           {/* Decorative "90" watermark */}
           <span
