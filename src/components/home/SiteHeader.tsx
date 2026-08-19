@@ -407,6 +407,11 @@ const NAV: NavEntry[] = [
     href: "/about/",
     panel: {
       layout: "grid",
+      intro: {
+        desc: "Oasis Recovery Bradford is a CQC-registered private residential rehab centre in West Yorkshire. We offer medically supervised detox, evidence-based therapy, and structured aftercare — all under one roof. Part of the UKAT group, one of the UK's leading addiction treatment providers.",
+        allLabel: "Learn more about us",
+        allHref: "/about/",
+      },
       groups: [
         {
           items: [
