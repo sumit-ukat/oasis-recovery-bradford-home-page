@@ -41,20 +41,15 @@ type Icon = React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>
 type SubLink = { label: string; href: string };
 type MegaItem = { icon: Icon; label: string; desc: string; href: string; subLinks?: SubLink[] };
 type MegaGroup = { title?: string; items: MegaItem[] };
-
 type MegaIntro = { desc: string; allLabel: string; allHref: string };
-
 type MegaFeatured = {
-  badge: string;
-  heading: string;
-  body: string;
-  primaryCta: string;
-  primaryHref: string;
-  secondaryCta: string;
-  secondaryHref: string;
+  badge: string; heading: string; body: string;
+  primaryCta: string; primaryHref: string;
+  secondaryCta: string; secondaryHref: string;
 };
 
 type MegaPanel = {
+  layout?: "rail" | "grid"; // rail = Recovery.com 3-col flyout, grid = icon grid
   intro?: MegaIntro;
   groups: MegaGroup[];
   featured?: MegaFeatured;
@@ -85,6 +80,7 @@ const NAV: NavEntry[] = [
     label: "Addiction",
     href: "/addiction/",
     panel: {
+      layout: "rail",
       groups: [
         {
           title: "Substance addiction",
@@ -92,47 +88,53 @@ const NAV: NavEntry[] = [
             {
               icon: Wine,
               label: "Alcohol addiction",
-              desc: "Most common substance dependency",
+              desc: "Most common substance dependency — our most-treated condition",
               href: "/addiction/alcohol/",
             },
             {
               icon: Pill,
               label: "Drug addiction",
-              desc: "Cocaine, heroin, cannabis & more",
+              desc: "Cocaine, heroin, cannabis, ketamine & many more",
               href: "/addiction/drug/",
               subLinks: [
                 { label: "Cannabis", href: "/addiction/drug/cannabis/" },
                 { label: "Cocaine", href: "/addiction/drug/cocaine/" },
-                { label: "Heroin", href: "/addiction/drug/heroin/" },
-                { label: "Ketamine", href: "/addiction/drug/ketamine/" },
                 { label: "Crack cocaine", href: "/addiction/drug/crack-cocaine/" },
-                { label: "Ecstasy", href: "/addiction/drug/ecstasy/" },
                 { label: "Crystal meth", href: "/addiction/drug/crystal-meth/" },
-                { label: "GHB / GBL", href: "/addiction/drug/ghb/" },
+                { label: "Ecstasy", href: "/addiction/drug/ecstasy/" },
+                { label: "GBL addiction", href: "/addiction/drug/gbl/" },
+                { label: "GHB addiction", href: "/addiction/drug/ghb/" },
+                { label: "Hallucinogens", href: "/addiction/drug/hallucinogen/" },
+                { label: "Heroin", href: "/addiction/drug/heroin/" },
+                { label: "Inhalants", href: "/addiction/drug/inhalants/" },
+                { label: "Ketamine", href: "/addiction/drug/ketamine/" },
+                { label: "LSD", href: "/addiction/drug/lsd/" },
+                { label: "Monkey dust", href: "/addiction/drug/monkey-dust/" },
+                { label: "Steroid addiction", href: "/addiction/drug/steroid/" },
               ],
             },
             {
               icon: Stethoscope,
               label: "Prescription drugs",
-              desc: "Opioids, benzodiazepines & painkillers",
+              desc: "Opioids, benzodiazepines, tramadol & painkillers",
               href: "/addiction/prescription-drug/",
             },
             {
               icon: Leaf,
               label: "Legal high addiction",
-              desc: "Novel psychoactive substances",
+              desc: "Novel psychoactive and synthetic substances",
               href: "/addiction/legal-high/",
             },
             {
               icon: Zap,
               label: "Stimulant addiction",
-              desc: "Speed, amphetamines & stimulants",
+              desc: "Speed, amphetamines & stimulant dependency",
               href: "/addiction/stimulant/",
             },
             {
               icon: Moon,
               label: "Sleeping pill addiction",
-              desc: "Zopiclone, temazepam & z-drugs",
+              desc: "Zopiclone, temazepam, z-drugs & sedatives",
               href: "/addiction/sleeping-pill/",
             },
           ],
@@ -143,13 +145,13 @@ const NAV: NavEntry[] = [
             {
               icon: Dices,
               label: "Gambling addiction",
-              desc: "Online & offline dependency",
+              desc: "Online & offline gambling dependency",
               href: "/addiction/behavioural/gambling/",
             },
             {
               icon: Brain,
               label: "Other behavioural",
-              desc: "Gaming, sex, food & internet",
+              desc: "Gaming, sex, food, internet & more",
               href: "/addiction/behavioural/",
             },
           ],
@@ -165,14 +167,14 @@ const NAV: NavEntry[] = [
     label: "Detox",
     href: "/detox/",
     panel: {
+      layout: "rail",
       groups: [
         {
-          title: "Our detox programmes",
           items: [
             {
               icon: Wine,
               label: "Alcohol detox",
-              desc: "Safe, medically managed withdrawal",
+              desc: "Safe, medically managed alcohol withdrawal at our facility",
               href: "/detox/alcohol/",
             },
             {
@@ -181,35 +183,35 @@ const NAV: NavEntry[] = [
               desc: "Supervised detox from all substances",
               href: "/detox/drug/",
               subLinks: [
-                { label: "Heroin detox", href: "/detox/drug/heroin/" },
-                { label: "Cocaine detox", href: "/detox/drug/cocaine/" },
                 { label: "Cannabis detox", href: "/detox/drug/cannabis/" },
-                { label: "Ketamine detox", href: "/detox/drug/ketamine/" },
+                { label: "Cocaine detox", href: "/detox/drug/cocaine/" },
                 { label: "Crack cocaine detox", href: "/detox/drug/crack-cocaine/" },
+                { label: "Heroin detox", href: "/detox/drug/heroin/" },
+                { label: "Ketamine detox", href: "/detox/drug/ketamine/" },
               ],
             },
             {
               icon: Stethoscope,
               label: "Medical detox",
-              desc: "24/7 clinical care throughout",
+              desc: "24/7 clinical care by our doctors throughout detox",
               href: "/detox/",
             },
             {
               icon: Home,
               label: "Residential detox",
-              desc: "Detox within our private facility",
+              desc: "Detox within the comfort of our private facility",
               href: "/detox/",
             },
             {
               icon: Droplets,
               label: "Detox process",
-              desc: "What to expect, step by step",
+              desc: "What to expect at every stage, explained simply",
               href: "/admissions/",
             },
             {
               icon: ShieldCheck,
               label: "Is detox safe?",
-              desc: "CQC-registered, fully supervised",
+              desc: "CQC-registered and fully supervised — yes",
               href: "/cqc-report/",
             },
           ],
@@ -225,30 +227,26 @@ const NAV: NavEntry[] = [
     label: "Rehab Treatment",
     href: "/rehab-treatment/",
     panel: {
-      intro: {
-        desc: "Comprehensive residential rehabilitation addressing root causes through evidence-based therapy and holistic support.",
-        allLabel: "All programmes",
-        allHref: "/rehab-treatment/",
-      },
+      layout: "rail",
       groups: [
         {
           items: [
             {
               icon: Wine,
               label: "Alcohol rehab",
-              desc: "Inpatient alcohol rehabilitation",
+              desc: "Residential inpatient alcohol rehabilitation",
               href: "/rehab-treatment/alcohol/",
             },
             {
               icon: Pill,
               label: "Drug rehab",
-              desc: "Cannabis, cocaine, heroin & more",
+              desc: "Cannabis, cocaine, heroin, ketamine & more",
               href: "/rehab-treatment/drug/",
             },
             {
               icon: Sparkles,
               label: "Therapy programmes",
-              desc: "CBT, DBT, holistic & more",
+              desc: "Evidence-based and holistic therapy tailored to you",
               href: "/rehab-programme/",
               subLinks: [
                 { label: "Group therapy", href: "/rehab-programme/group-therapy/" },
@@ -259,19 +257,19 @@ const NAV: NavEntry[] = [
             {
               icon: HeartHandshake,
               label: "Aftercare",
-              desc: "Support that continues after you leave",
+              desc: "Structured support that continues after you leave",
               href: "/rehab-treatment/aftercare/",
             },
             {
               icon: DollarSign,
               label: "Cost of rehab",
-              desc: "Transparent, no-surprise pricing",
+              desc: "Transparent pricing with no hidden fees",
               href: "/rehab-treatment/cost-alcohol-drug-rehab/",
             },
             {
               icon: CalendarCheck,
               label: "Secondary care",
-              desc: "Bridging rehab & independent living",
+              desc: "Bridging inpatient rehab and independent living",
               href: "/rehab-treatment/secondary-care-programme/",
             },
           ],
@@ -287,6 +285,7 @@ const NAV: NavEntry[] = [
     label: "Dual Diagnosis",
     href: "/dual-diagnosis/",
     panel: {
+      layout: "grid",
       intro: {
         desc: "We treat co-occurring mental health conditions alongside addiction, with specialist dual diagnosis consultants on site.",
         allLabel: "All conditions we treat",
@@ -296,14 +295,14 @@ const NAV: NavEntry[] = [
         {
           title: "Mental health conditions",
           items: [
-            { icon: Zap,          label: "ADHD",                 desc: "Attention & hyperactivity",         href: "/dual-diagnosis/adhd/" },
-            { icon: Activity,     label: "Anxiety",               desc: "Generalised & panic disorders",     href: "/dual-diagnosis/anxiety/" },
-            { icon: Moon,         label: "Depression",            desc: "Clinical & treatment-resistant",    href: "/dual-diagnosis/depression/" },
-            { icon: ShieldCheck,  label: "PTSD",                  desc: "Trauma & post-traumatic stress",   href: "/dual-diagnosis/ptsd/" },
-            { icon: Sparkles,     label: "Bipolar disorder",      desc: "Mood stabilisation & recovery",    href: "/dual-diagnosis/bipolar/" },
-            { icon: Brain,        label: "OCD",                   desc: "Obsessive compulsive disorder",    href: "/dual-diagnosis/ocd/" },
-            { icon: Users,        label: "Personality disorder",  desc: "BPD & EUPD",                       href: "/dual-diagnosis/personality-disorder/" },
-            { icon: BookOpen,     label: "Other conditions",      desc: "Self-harm, schizophrenia & more",  href: "/dual-diagnosis/" },
+            { icon: Zap,         label: "ADHD",                desc: "Attention & hyperactivity",        href: "/dual-diagnosis/adhd/" },
+            { icon: Activity,    label: "Anxiety",              desc: "Generalised & panic disorders",   href: "/dual-diagnosis/anxiety/" },
+            { icon: Moon,        label: "Depression",           desc: "Clinical & treatment-resistant",  href: "/dual-diagnosis/depression/" },
+            { icon: ShieldCheck, label: "PTSD",                 desc: "Trauma & post-traumatic stress",  href: "/dual-diagnosis/ptsd/" },
+            { icon: Sparkles,    label: "Bipolar disorder",     desc: "Mood stabilisation & recovery",   href: "/dual-diagnosis/bipolar/" },
+            { icon: Brain,       label: "OCD",                  desc: "Obsessive compulsive disorder",   href: "/dual-diagnosis/ocd/" },
+            { icon: Users,       label: "Personality disorder", desc: "BPD & EUPD",                      href: "/dual-diagnosis/personality-disorder/" },
+            { icon: BookOpen,    label: "Other conditions",     desc: "Self-harm, schizophrenia & more", href: "/dual-diagnosis/" },
           ],
         },
       ],
@@ -317,15 +316,16 @@ const NAV: NavEntry[] = [
     label: "About Us",
     href: "/about/",
     panel: {
+      layout: "grid",
       groups: [
         {
           items: [
-            { icon: Building2,    label: "Our facility",     desc: "Private grounds, en-suite rooms",     href: "/about/facilities/" },
-            { icon: FileText,     label: "Virtual tour",     desc: "Explore our facility online",          href: "/about/virtual-facility-tour/" },
-            { icon: Users,        label: "Our team",         desc: "Experienced doctors & therapists",    href: "/about/our-team/" },
-            { icon: ShieldCheck,  label: "CQC registered",   desc: "Regulated, inspected, trusted",       href: "/cqc-report/" },
-            { icon: Star,         label: "Reviews",          desc: "What our clients say about us",       href: "/reviews/" },
-            { icon: MessageCircle, label: "Contact us",      desc: "Get in touch, any time",              href: "/about/contact/" },
+            { icon: Building2,     label: "Our facility",   desc: "Private grounds, en-suite rooms",    href: "/about/facilities/" },
+            { icon: FileText,      label: "Virtual tour",   desc: "Explore our facility online",         href: "/about/virtual-facility-tour/" },
+            { icon: Users,         label: "Our team",       desc: "Experienced doctors & therapists",   href: "/about/our-team/" },
+            { icon: ShieldCheck,   label: "CQC registered", desc: "Regulated, inspected, trusted",      href: "/cqc-report/" },
+            { icon: Star,          label: "Reviews",        desc: "What our clients say about us",      href: "/reviews/" },
+            { icon: MessageCircle, label: "Contact us",     desc: "Get in touch, any time",             href: "/about/contact/" },
           ],
         },
       ],
@@ -333,46 +333,7 @@ const NAV: NavEntry[] = [
   },
 ];
 
-/* ────────────────────────────────── sub-components */
-
-function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void }) {
-  const hasSubLinks = !!item.subLinks?.length;
-
-  return (
-    <div className="group/row rounded-xl p-2.5 transition-colors hover:bg-secondary">
-      {/* Main link — icon + label + desc */}
-      <a href={item.href} onClick={onClose} className="group/link flex items-start gap-3">
-        <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary transition-colors group-hover/link:bg-primary group-hover/link:text-primary-foreground">
-          <item.icon className="size-[1.1rem]" aria-hidden />
-        </span>
-        <span className="min-w-0 pt-0.5">
-          <span className="block text-[0.8125rem] font-semibold leading-snug text-foreground">
-            {item.label}
-          </span>
-          <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-            {item.desc}
-          </span>
-        </span>
-      </a>
-
-      {/* Tier-3 sub-links */}
-      {hasSubLinks && (
-        <div className="mt-1.5 ml-12 flex flex-wrap gap-x-3 gap-y-1">
-          {item.subLinks!.map((sub) => (
-            <a
-              key={sub.label}
-              href={sub.href}
-              onClick={onClose}
-              className="text-[0.6875rem] font-medium text-muted-foreground/80 transition-colors hover:text-primary hover:underline"
-            >
-              {sub.label}
-            </a>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
+/* ──────────────────────────────────────── FeaturedCard */
 
 function FeaturedCard({ featured, onClose }: { featured: MegaFeatured; onClose: () => void }) {
   return (
@@ -388,17 +349,215 @@ function FeaturedCard({ featured, onClose }: { featured: MegaFeatured; onClose: 
       <div className="mt-6 space-y-2">
         <Button asChild variant="cta" size="lg" className="w-full">
           <a href={featured.primaryHref} onClick={onClose}>
-            <Phone aria-hidden />
-            {featured.primaryCta}
+            <Phone aria-hidden /> {featured.primaryCta}
           </a>
         </Button>
         <Button asChild variant="onDeep" size="lg" className="w-full">
           <a href={featured.secondaryHref} onClick={onClose}>
-            {featured.secondaryCta}
-            <ArrowRight className="size-4" aria-hidden />
+            {featured.secondaryCta} <ArrowRight className="size-4" aria-hidden />
           </a>
         </Button>
       </div>
+    </div>
+  );
+}
+
+/* ──────────────────────────────── MegaItemRow (grid layout) */
+
+function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void }) {
+  return (
+    <a
+      href={item.href}
+      onClick={onClose}
+      className="group/link flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-secondary"
+    >
+      <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary transition-colors group-hover/link:bg-primary group-hover/link:text-primary-foreground">
+        <item.icon className="size-[1.1rem]" aria-hidden />
+      </span>
+      <span className="min-w-0 pt-0.5">
+        <span className="block text-[0.8125rem] font-semibold leading-snug text-foreground">
+          {item.label}
+        </span>
+        <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+          {item.desc}
+        </span>
+      </span>
+    </a>
+  );
+}
+
+/* ──────────────────────────── PanelRailLayout (Recovery.com style) */
+
+function PanelRailLayout({
+  panel,
+  panelLabel,
+  onClose,
+}: {
+  panel: MegaPanel;
+  panelLabel: string;
+  onClose: () => void;
+}) {
+  const allItems = panel.groups.flatMap((g) => g.items);
+  const defaultItem = allItems[0];
+  const [activeItem, setActiveItem] = useState<MegaItem>(defaultItem);
+
+  return (
+    <div className="grid lg:grid-cols-[220px_1fr_260px]">
+
+      {/* ── Left rail ── */}
+      <div className="border-r border-border py-1 pr-5">
+        <p className="eyebrow mb-3 text-primary">{panelLabel}</p>
+        {panel.groups.map((group, gi) => (
+          <div key={gi} className={gi > 0 ? "mt-5" : ""}>
+            {group.title && (
+              <p className="eyebrow mb-2 text-muted-foreground/60">{group.title}</p>
+            )}
+            <ul className="space-y-0.5">
+              {group.items.map((item) => (
+                <li key={item.label}>
+                  <button
+                    type="button"
+                    onMouseEnter={() => setActiveItem(item)}
+                    onClick={() => { window.location.href = item.href; onClose(); }}
+                    className={cn(
+                      "flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-[0.8125rem] transition-colors",
+                      activeItem.label === item.label
+                        ? "bg-primary/10 font-semibold text-primary"
+                        : "font-medium text-foreground hover:bg-secondary",
+                    )}
+                  >
+                    <span className="truncate">{item.label}</span>
+                    <ChevronRight
+                      className={cn(
+                        "size-3.5 shrink-0 transition-colors",
+                        activeItem.label === item.label
+                          ? "text-primary"
+                          : "text-muted-foreground/40",
+                      )}
+                      aria-hidden
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {/* ── Middle: active item content + sub-links ── */}
+      <div className="px-8 py-1">
+        <a
+          href={activeItem.href}
+          onClick={onClose}
+          className="group/heading mb-5 block"
+        >
+          <p className="eyebrow text-primary">{activeItem.label}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground group-hover/heading:text-foreground">
+            {activeItem.desc}
+          </p>
+        </a>
+
+        {activeItem.subLinks?.length ? (
+          <>
+            <p className="eyebrow mb-3 text-muted-foreground/60">Treatment pages</p>
+            <div className="grid grid-cols-2 gap-x-6 gap-y-0.5 xl:grid-cols-3">
+              {activeItem.subLinks.map((sub) => (
+                <a
+                  key={sub.label}
+                  href={sub.href}
+                  onClick={onClose}
+                  className="block py-1.5 text-sm font-medium text-foreground transition-colors hover:text-primary hover:underline"
+                >
+                  {sub.label}
+                </a>
+              ))}
+            </div>
+          </>
+        ) : (
+          <a
+            href={activeItem.href}
+            onClick={onClose}
+            className="mt-2 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+          >
+            View {activeItem.label.toLowerCase()}
+            <ArrowRight className="size-3.5" aria-hidden />
+          </a>
+        )}
+      </div>
+
+      {/* ── Right: featured card ── */}
+      {panel.featured && (
+        <div className="border-l border-border pl-6">
+          <FeaturedCard featured={panel.featured} onClose={onClose} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+/* ──────────────────────────── PanelGridLayout (icon grid) */
+
+function PanelGridLayout({
+  panel,
+  panelLabel,
+  onClose,
+}: {
+  panel: MegaPanel;
+  panelLabel: string;
+  onClose: () => void;
+}) {
+  const hasIntro = Boolean(panel.intro);
+  const hasFeatured = Boolean(panel.featured);
+  const outerCols =
+    hasIntro && hasFeatured
+      ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.9fr)_minmax(0,0.85fr)]"
+      : hasFeatured
+        ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,0.85fr)]"
+        : hasIntro
+          ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,2fr)]"
+          : "";
+
+  return (
+    <div className={cn("grid gap-8", outerCols)}>
+      {panel.intro && (
+        <div className="flex flex-col justify-between rounded-2xl bg-secondary/50 p-5">
+          <div>
+            <p className="eyebrow text-primary">{panelLabel}</p>
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+              {panel.intro.desc}
+            </p>
+          </div>
+          <a
+            href={panel.intro.allHref}
+            onClick={onClose}
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+          >
+            {panel.intro.allLabel}
+            <ArrowRight className="size-3.5" aria-hidden />
+          </a>
+        </div>
+      )}
+
+      <div className={cn("grid gap-6", panel.groups.length > 1 && "lg:grid-cols-2")}>
+        {panel.groups.map((group, gi) => (
+          <div key={gi}>
+            {group.title && (
+              <p className="eyebrow mb-2 text-primary">{group.title}</p>
+            )}
+            <ul className={cn("grid gap-0.5", group.items.length >= 4 && "sm:grid-cols-2")}>
+              {group.items.map((item) => (
+                <li key={item.label}>
+                  <MegaItemRow item={item} onClose={onClose} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+
+      {panel.featured && (
+        <FeaturedCard featured={panel.featured} onClose={onClose} />
+      )}
     </div>
   );
 }
@@ -437,17 +596,6 @@ export function SiteHeader() {
   );
   const panel = activeEntry?.panel ?? null;
 
-  const hasIntro = Boolean(panel?.intro);
-  const hasFeatured = Boolean(panel?.featured);
-  const outerCols =
-    hasIntro && hasFeatured
-      ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.9fr)_minmax(0,0.85fr)]"
-      : hasFeatured
-        ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,0.85fr)]"
-        : hasIntro
-          ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,2fr)]"
-          : "";
-
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
 
@@ -462,8 +610,6 @@ export function SiteHeader() {
         </a>
 
         <div className="flex items-center gap-2">
-
-          {/* Desktop nav */}
           <nav className="hidden items-center gap-0.5 lg:flex" aria-label="Primary">
             {NAV.map((item) =>
               item.kind === "mega" ? (
@@ -540,54 +686,22 @@ export function SiteHeader() {
           aria-label={`${activeMega} menu`}
           onMouseEnter={cancelMegaClose}
           onMouseLeave={scheduleMegaClose}
-          className="animate-in fade-in slide-in-from-top-2 absolute inset-x-0 top-full z-50 max-h-[80vh] overflow-y-auto border-b border-border bg-background shadow-[var(--shadow-lift)] duration-150"
+          className="animate-in fade-in slide-in-from-top-2 absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-[var(--shadow-lift)] duration-150"
         >
-          <div className="section-x mx-auto max-w-7xl py-7">
-            <div className={cn("grid gap-8", outerCols)}>
-
-              {/* Intro column */}
-              {panel.intro && (
-                <div className="flex flex-col justify-between rounded-2xl bg-secondary/50 p-5">
-                  <div>
-                    <p className="eyebrow text-primary">{activeMega}</p>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {panel.intro.desc}
-                    </p>
-                  </div>
-                  <a
-                    href={panel.intro.allHref}
-                    onClick={closeMega}
-                    className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
-                  >
-                    {panel.intro.allLabel}
-                    <ArrowRight className="size-3.5" aria-hidden />
-                  </a>
-                </div>
-              )}
-
-              {/* Item groups */}
-              <div className={cn("grid gap-6", panel.groups.length > 1 && "lg:grid-cols-2")}>
-                {panel.groups.map((group, gi) => (
-                  <div key={gi}>
-                    {group.title && (
-                      <p className="eyebrow mb-2 text-primary">{group.title}</p>
-                    )}
-                    <ul className="grid gap-0.5">
-                      {group.items.map((item) => (
-                        <li key={item.label}>
-                          <MegaItemRow item={item} onClose={closeMega} />
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-
-              {/* Featured CTA card */}
-              {panel.featured && (
-                <FeaturedCard featured={panel.featured} onClose={closeMega} />
-              )}
-            </div>
+          <div className="section-x mx-auto max-w-7xl py-6">
+            {panel.layout === "rail" ? (
+              <PanelRailLayout
+                panel={panel}
+                panelLabel={activeMega}
+                onClose={closeMega}
+              />
+            ) : (
+              <PanelGridLayout
+                panel={panel}
+                panelLabel={activeMega}
+                onClose={closeMega}
+              />
+            )}
           </div>
         </div>
       )}
