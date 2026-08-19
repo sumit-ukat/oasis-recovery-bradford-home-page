@@ -9,8 +9,6 @@ import {
   Wine,
   Pill,
   Brain,
-  Dices,
-  Cigarette,
   Zap,
   ShieldCheck,
   Sparkles,
@@ -18,8 +16,6 @@ import {
   HeartHandshake,
   CalendarCheck,
   DollarSign,
-  Droplets,
-  Home,
   Stethoscope,
   Building2,
   Star,
@@ -47,14 +43,12 @@ type MegaFeatured = {
   primaryCta: string; primaryHref: string;
   secondaryCta: string; secondaryHref: string;
 };
-
 type MegaPanel = {
-  layout?: "rail" | "grid"; // rail = Recovery.com 3-col flyout, grid = icon grid
+  layout?: "rail" | "grid";
   intro?: MegaIntro;
   groups: MegaGroup[];
   featured?: MegaFeatured;
 };
-
 type NavEntry =
   | { kind: "link"; label: string; href: string }
   | { kind: "mega"; label: string; href: string; panel: MegaPanel };
@@ -72,9 +66,41 @@ const ADMISSION_CTA: MegaFeatured = {
 };
 
 const NAV: NavEntry[] = [
-  { kind: "link", label: "Admissions", href: "/admissions/" },
 
-  /* ── Addiction ─────────────────────────────────── */
+  /* ── Admissions ──────────────────────────────── */
+  {
+    kind: "mega",
+    label: "Admissions",
+    href: "/admissions/",
+    panel: {
+      layout: "grid",
+      intro: {
+        desc: "Our UKAT network of residential rehab clinics offers expert treatment across the UK. Call us to find the right fit.",
+        allLabel: "View all UKAT clinics",
+        allHref: "/our-rehab-clinics/",
+      },
+      groups: [
+        {
+          title: "UKAT Rehab Clinics",
+          items: [
+            { icon: Building2, label: "Banbury Lodge",       desc: "Oxfordshire",          href: "https://www.banburylodge.com/" },
+            { icon: Building2, label: "Bayberry",            desc: "Kent",                 href: "https://bayberry.org.uk/" },
+            { icon: Building2, label: "Liberty House",       desc: "Luton, Bedfordshire",  href: "https://www.libertyhouseclinic.co.uk/" },
+            { icon: Building2, label: "Linwood House",       desc: "Durham",               href: "https://www.linwoodhouse.co.uk/" },
+            { icon: Building2, label: "Oasis Bradford",      desc: "Bradford — this site", href: "/" },
+            { icon: Building2, label: "Oasis Runcorn",       desc: "Cheshire",             href: "https://www.oasisrehab.co.uk/" },
+            { icon: Building2, label: "Primrose Lodge",      desc: "Surrey",               href: "https://www.primroselodge.com/" },
+            { icon: Building2, label: "Providence Projects", desc: "Bournemouth",          href: "https://providenceproject.org/" },
+            { icon: Building2, label: "Recovery Lighthouse", desc: "Essex",                href: "https://www.recoverylighthouse.com/" },
+            { icon: Building2, label: "Sanctuary Lodge",     desc: "Essex",                href: "https://www.sanctuarylodge.com/" },
+          ],
+        },
+      ],
+      featured: ADMISSION_CTA,
+    },
+  },
+
+  /* ── Addiction ───────────────────────────────── */
   {
     kind: "mega",
     label: "Addiction",
@@ -82,7 +108,7 @@ const NAV: NavEntry[] = [
     panel: {
       layout: "rail",
       intro: {
-        desc: "We treat alcohol, drug, and behavioural addictions with medically supervised residential rehabilitation at our private Bradford facility.",
+        desc: "We treat all forms of addiction with medically supervised residential rehabilitation at our private Bradford facility.",
         allLabel: "All addiction information",
         allHref: "/addiction/",
       },
@@ -93,54 +119,75 @@ const NAV: NavEntry[] = [
             {
               icon: Wine,
               label: "Alcohol addiction",
-              desc: "Most common substance dependency — our most-treated condition",
+              desc: "Our most-treated condition — safe, managed withdrawal and residential rehabilitation",
               href: "/addiction/alcohol/",
             },
             {
               icon: Pill,
               label: "Drug addiction",
-              desc: "Cocaine, heroin, cannabis, ketamine & many more",
+              desc: "Cocaine, heroin, cannabis, ketamine and many more",
               href: "/addiction/drug/",
               subLinks: [
-                { label: "Cannabis", href: "/addiction/drug/cannabis/" },
-                { label: "Cocaine", href: "/addiction/drug/cocaine/" },
+                { label: "Cannabis",      href: "/addiction/drug/cannabis/" },
+                { label: "Cocaine",       href: "/addiction/drug/cocaine/" },
                 { label: "Crack cocaine", href: "/addiction/drug/crack-cocaine/" },
-                { label: "Crystal meth", href: "/addiction/drug/crystal-meth/" },
-                { label: "Ecstasy", href: "/addiction/drug/ecstasy/" },
-                { label: "GBL addiction", href: "/addiction/drug/gbl/" },
-                { label: "GHB addiction", href: "/addiction/drug/ghb/" },
-                { label: "Hallucinogens", href: "/addiction/drug/hallucinogen/" },
-                { label: "Heroin", href: "/addiction/drug/heroin/" },
-                { label: "Inhalants", href: "/addiction/drug/inhalants/" },
-                { label: "Ketamine", href: "/addiction/drug/ketamine/" },
-                { label: "LSD", href: "/addiction/drug/lsd/" },
-                { label: "Monkey dust", href: "/addiction/drug/monkey-dust/" },
-                { label: "Steroid addiction", href: "/addiction/drug/steroid/" },
+                { label: "Crystal meth",  href: "/addiction/drug/crystal-meth/" },
+                { label: "Ecstasy",       href: "/addiction/drug/ecstasy/" },
+                { label: "GBL",           href: "/addiction/drug/gbl/" },
+                { label: "GHB",           href: "/addiction/drug/ghb/" },
+                { label: "Hallucinogens", href: "/addiction/drug/hallucinogens/" },
+                { label: "Heroin",        href: "/addiction/drug/heroin/" },
+                { label: "Inhalants",     href: "/addiction/drug/inhalants/" },
+                { label: "Ketamine",      href: "/addiction/drug/ketamine/" },
+                { label: "LSD",           href: "/addiction/drug/lsd/" },
+                { label: "Monkey dust",   href: "/addiction/drug/monkey-dust/" },
+                { label: "Steroid",       href: "/addiction/drug/steroids/" },
               ],
-            },
-            {
-              icon: Stethoscope,
-              label: "Prescription drugs",
-              desc: "Opioids, benzodiazepines, tramadol & painkillers",
-              href: "/addiction/prescription-drug/",
             },
             {
               icon: Leaf,
               label: "Legal high addiction",
               desc: "Novel psychoactive and synthetic substances",
               href: "/addiction/legal-high/",
+              subLinks: [
+                { label: "Benzo Fury",  href: "/addiction/legal-high/benzo-fury/" },
+                { label: "Mephedrone",  href: "/addiction/legal-high/mephedrone/" },
+                { label: "Spice",       href: "/addiction/drug/spice/" },
+              ],
+            },
+            {
+              icon: Stethoscope,
+              label: "Prescription drug addiction",
+              desc: "Opioids, benzodiazepines, antidepressants and painkillers",
+              href: "/addiction/prescription-drug/",
+              subLinks: [
+                { label: "Amphetamine",    href: "/addiction/prescription-drug/amphetamine/" },
+                { label: "Antidepressants",href: "/addiction/drug/antidepressants/" },
+                { label: "Benzodiazepine", href: "/addiction/prescription-drug/benzodiazepine/" },
+                { label: "Opioid",         href: "/addiction/prescription-drug/opioid/" },
+              ],
             },
             {
               icon: Zap,
               label: "Stimulant addiction",
-              desc: "Speed, amphetamines & stimulant dependency",
-              href: "/addiction/stimulant/",
+              desc: "Speed, Adderall, Ritalin and other amphetamines",
+              href: "/addiction/drug/stimulants/",
+              subLinks: [
+                { label: "Adderall", href: "/addiction/stimulants/adderall/" },
+                { label: "Focalin",  href: "/addiction/stimulants/focalin/" },
+                { label: "Ritalin",  href: "/addiction/stimulants/ritalin/" },
+              ],
             },
             {
               icon: Moon,
               label: "Sleeping pill addiction",
-              desc: "Zopiclone, temazepam, z-drugs & sedatives",
-              href: "/addiction/sleeping-pill/",
+              desc: "Zopiclone, zolpidem, z-drugs and sedatives",
+              href: "/addiction/prescription-drug/sleeping-pill/",
+              subLinks: [
+                { label: "Sonata",    href: "/addiction/prescription-drug/sleeping-pill/sonata/" },
+                { label: "Zolpidem",  href: "/addiction/prescription-drug/sleeping-pill/zolpidem/" },
+                { label: "Zopiclone", href: "/addiction/prescription-drug/sleeping-pill/zopiclone/" },
+              ],
             },
           ],
         },
@@ -148,16 +195,21 @@ const NAV: NavEntry[] = [
           title: "Behavioural addiction",
           items: [
             {
-              icon: Dices,
-              label: "Gambling addiction",
-              desc: "Online & offline gambling dependency",
-              href: "/addiction/behavioural/gambling/",
-            },
-            {
               icon: Brain,
-              label: "Other behavioural",
-              desc: "Gaming, sex, food, internet & more",
+              label: "Behavioural addiction",
+              desc: "Gambling, gaming, sex, food, shopping and more",
               href: "/addiction/behavioural/",
+              subLinks: [
+                { label: "Eating disorders", href: "/addiction/behavioural/eating-disorders/" },
+                { label: "Food addiction",   href: "/addiction/behavioural/food/" },
+                { label: "Gambling",         href: "/addiction/behavioural/gambling/" },
+                { label: "Gaming",           href: "/addiction/behavioural/gaming/" },
+                { label: "Internet",         href: "/addiction/behavioural/internet/" },
+                { label: "Porn addiction",   href: "/addiction/behavioural/porn/" },
+                { label: "Sex & love",       href: "/addiction/behavioural/sex-and-love/" },
+                { label: "Shopping",         href: "/addiction/behavioural/shopping/" },
+                { label: "Social media",     href: "/addiction/behavioural/social-media/" },
+              ],
             },
           ],
         },
@@ -166,7 +218,7 @@ const NAV: NavEntry[] = [
     },
   },
 
-  /* ── Detox ─────────────────────────────────────── */
+  /* ── Detox ──────────────────────────────────── */
   {
     kind: "mega",
     label: "Detox",
@@ -190,39 +242,19 @@ const NAV: NavEntry[] = [
             {
               icon: Pill,
               label: "Drug detox",
-              desc: "Supervised detox from all substances",
+              desc: "Supervised detox from all substances with round-the-clock clinical care",
               href: "/detox/drug/",
               subLinks: [
-                { label: "Cannabis detox", href: "/detox/drug/cannabis/" },
-                { label: "Cocaine detox", href: "/detox/drug/cocaine/" },
+                { label: "Cannabis detox",      href: "/detox/drug/cannabis/" },
+                { label: "Cocaine detox",       href: "/detox/drug/cocaine/" },
                 { label: "Crack cocaine detox", href: "/detox/drug/crack-cocaine/" },
-                { label: "Heroin detox", href: "/detox/drug/heroin/" },
-                { label: "Ketamine detox", href: "/detox/drug/ketamine/" },
+                { label: "Crystal meth detox",  href: "/detox/drug/crystal-meth/" },
+                { label: "Ecstasy detox",       href: "/detox/drug/ecstasy/" },
+                { label: "Heroin detox",        href: "/detox/drug/heroin/" },
+                { label: "Ketamine detox",      href: "/detox/drug/ketamine/" },
+                { label: "LSD detox",           href: "/detox/drug/lsd/" },
+                { label: "Spice detox",         href: "/detox/drug/spice/" },
               ],
-            },
-            {
-              icon: Stethoscope,
-              label: "Medical detox",
-              desc: "24/7 clinical care by our doctors throughout detox",
-              href: "/detox/",
-            },
-            {
-              icon: Home,
-              label: "Residential detox",
-              desc: "Detox within the comfort of our private facility",
-              href: "/detox/",
-            },
-            {
-              icon: Droplets,
-              label: "Detox process",
-              desc: "What to expect at every stage, explained simply",
-              href: "/admissions/",
-            },
-            {
-              icon: ShieldCheck,
-              label: "Is detox safe?",
-              desc: "CQC-registered and fully supervised — yes",
-              href: "/cqc-report/",
             },
           ],
         },
@@ -231,7 +263,7 @@ const NAV: NavEntry[] = [
     },
   },
 
-  /* ── Rehab Treatment ───────────────────────────── */
+  /* ── Rehab Treatment ─────────────────────────── */
   {
     kind: "mega",
     label: "Rehab Treatment",
@@ -239,7 +271,7 @@ const NAV: NavEntry[] = [
     panel: {
       layout: "rail",
       intro: {
-        desc: "Comprehensive residential rehabilitation programmes — evidence-based therapies, holistic support, and structured aftercare tailored to you.",
+        desc: "Comprehensive residential rehabilitation programmes — evidence-based therapies, holistic support, and structured aftercare.",
         allLabel: "All treatment options",
         allHref: "/rehab-treatment/",
       },
@@ -257,16 +289,50 @@ const NAV: NavEntry[] = [
               label: "Drug rehab",
               desc: "Cannabis, cocaine, heroin, ketamine & more",
               href: "/rehab-treatment/drug/",
+              subLinks: [
+                { label: "Cannabis rehab",       href: "/rehab-treatment/drug/cannabis/" },
+                { label: "Cocaine rehab",        href: "/rehab-treatment/drug/cocaine/" },
+                { label: "Crack cocaine rehab",  href: "/rehab-treatment/drug/crack-cocaine/" },
+                { label: "Crystal meth rehab",   href: "/rehab-treatment/drug/crystal-meth/" },
+                { label: "Ecstasy rehab",        href: "/rehab-treatment/drug/ecstasy/" },
+                { label: "Heroin rehab",         href: "/rehab-treatment/drug/heroin/" },
+                { label: "Ketamine rehab",       href: "/rehab-treatment/drug/ketamine/" },
+                { label: "LSD rehab",            href: "/rehab-treatment/drug/lsd/" },
+                { label: "Spice rehab",          href: "/rehab-treatment/drug/spice/" },
+              ],
             },
             {
               icon: Sparkles,
-              label: "Therapy programmes",
-              desc: "Evidence-based and holistic therapy tailored to you",
+              label: "Rehab programmes",
+              desc: "Evidence-based and holistic therapies tailored to your recovery",
               href: "/rehab-programme/",
               subLinks: [
-                { label: "Group therapy", href: "/rehab-programme/group-therapy/" },
-                { label: "Holistic therapy", href: "/rehab-programme/holistic-therapy/" },
-                { label: "Family support", href: "/rehab-programme/family-support/" },
+                { label: "Art therapy",           href: "/rehab-programme/art-therapy/" },
+                { label: "Auricular acupuncture", href: "/rehab-programme/auricular-acupuncture/" },
+                { label: "CBT",                   href: "/rehab-programme/cbt/" },
+                { label: "DBT",                   href: "/rehab-programme/dbt/" },
+                { label: "Drumming therapy",      href: "/rehab-programme/drumming/" },
+                { label: "EMDR",                  href: "/rehab-programme/emdr/" },
+                { label: "Family support",        href: "/rehab-programme/family-support/" },
+                { label: "Family therapy",        href: "/rehab-programme/family-therapy/" },
+                { label: "Fibro scan",            href: "/rehab-programme/fibroscan/" },
+                { label: "Gong therapy",          href: "/rehab-programme/gong-therapy/" },
+                { label: "Group therapy",         href: "/rehab-programme/group-therapy/" },
+                { label: "Holistic therapy",      href: "/rehab-programme/holistic-therapy/" },
+                { label: "Humanistic therapy",    href: "/rehab-programme/humanistic-therapy/" },
+                { label: "Individual therapy",    href: "/rehab-programme/individual-therapy/" },
+                { label: "Meditation",            href: "/rehab-programme/meditation/" },
+                { label: "Mindfulness",           href: "/rehab-programme/mindfulness-therapy/" },
+                { label: "Music therapy",         href: "/rehab-programme/music-therapy/" },
+                { label: "Nutrition",             href: "/rehab-programme/nutrition/" },
+                { label: "Physical health",       href: "/rehab-programme/physical-health/" },
+                { label: "Psychodynamic therapy", href: "/rehab-programme/psychodynamic-therapy/" },
+                { label: "Psychotherapy",         href: "/rehab-programme/psychotherapy/" },
+                { label: "Rehab fitness",         href: "/rehab-programme/rehab-fitness/" },
+                { label: "Sound therapy",         href: "/rehab-programme/sound/" },
+                { label: "Strengths model",       href: "/rehab-programme/strengths-model/" },
+                { label: "Trauma therapy",        href: "/rehab-programme/trauma-therapy/" },
+                { label: "Yoga therapy",          href: "/rehab-programme/yoga-therapy/" },
               ],
             },
             {
@@ -278,7 +344,7 @@ const NAV: NavEntry[] = [
             {
               icon: DollarSign,
               label: "Cost of rehab",
-              desc: "Transparent pricing with no hidden fees",
+              desc: "Transparent pricing, NHS funding, and private options",
               href: "/rehab-treatment/cost-alcohol-drug-rehab/",
             },
             {
@@ -294,7 +360,7 @@ const NAV: NavEntry[] = [
     },
   },
 
-  /* ── Dual Diagnosis ────────────────────────────── */
+  /* ── Dual Diagnosis ──────────────────────────── */
   {
     kind: "mega",
     label: "Dual Diagnosis",
@@ -308,16 +374,25 @@ const NAV: NavEntry[] = [
       },
       groups: [
         {
-          title: "Mental health conditions",
+          title: "Mental health & addiction",
           items: [
-            { icon: Zap,         label: "ADHD",                desc: "Attention & hyperactivity",        href: "/dual-diagnosis/adhd/" },
-            { icon: Activity,    label: "Anxiety",              desc: "Generalised & panic disorders",   href: "/dual-diagnosis/anxiety/" },
-            { icon: Moon,        label: "Depression",           desc: "Clinical & treatment-resistant",  href: "/dual-diagnosis/depression/" },
-            { icon: ShieldCheck, label: "PTSD",                 desc: "Trauma & post-traumatic stress",  href: "/dual-diagnosis/ptsd/" },
-            { icon: Sparkles,    label: "Bipolar disorder",     desc: "Mood stabilisation & recovery",   href: "/dual-diagnosis/bipolar/" },
-            { icon: Brain,       label: "OCD",                  desc: "Obsessive compulsive disorder",   href: "/dual-diagnosis/ocd/" },
-            { icon: Users,       label: "Personality disorder", desc: "BPD & EUPD",                      href: "/dual-diagnosis/personality-disorder/" },
-            { icon: BookOpen,    label: "Other conditions",     desc: "Self-harm, schizophrenia & more", href: "/dual-diagnosis/" },
+            { icon: Zap,            label: "ADHD",                 desc: "Attention & hyperactivity",        href: "/dual-diagnosis/adhd/" },
+            { icon: Activity,       label: "Anger management",     desc: "Anger issues & addiction",         href: "/dual-diagnosis/anger-management/" },
+            { icon: Activity,       label: "Anxiety",              desc: "Generalised & panic disorders",    href: "/dual-diagnosis/anxiety/" },
+            { icon: Brain,          label: "Autism",               desc: "Autism spectrum & addiction",      href: "/dual-diagnosis/autism/" },
+            { icon: Brain,          label: "BDD",                  desc: "Body dysmorphic disorder",         href: "/dual-diagnosis/bdd/" },
+            { icon: Sparkles,       label: "Bipolar disorder",     desc: "Mood stabilisation & recovery",    href: "/dual-diagnosis/bipolar/" },
+            { icon: Users,          label: "Codependency",         desc: "Co-dependent relationships",       href: "/dual-diagnosis/co-dependency/" },
+            { icon: Moon,           label: "Depression",           desc: "Clinical & treatment-resistant",   href: "/dual-diagnosis/depression/" },
+            { icon: HeartHandshake, label: "Grief",                desc: "Bereavement & addiction",          href: "/dual-diagnosis/grief/" },
+            { icon: Moon,           label: "Insomnia",             desc: "Sleep disorders & addiction",      href: "/dual-diagnosis/insomnia/" },
+            { icon: Brain,          label: "OCD",                  desc: "Obsessive compulsive disorder",    href: "/dual-diagnosis/ocd/" },
+            { icon: Users,          label: "Personality disorder", desc: "BPD & EUPD",                       href: "/dual-diagnosis/personality-disorder/" },
+            { icon: ShieldCheck,    label: "PTSD",                 desc: "Trauma & post-traumatic stress",   href: "/dual-diagnosis/ptsd/" },
+            { icon: Brain,          label: "Schizophrenia",        desc: "Psychosis & addiction",            href: "/dual-diagnosis/schizophrenia/" },
+            { icon: Activity,       label: "Self harm",            desc: "Self-harm & addiction",            href: "/dual-diagnosis/self-harm/" },
+            { icon: Activity,       label: "Stress",               desc: "Chronic stress & dependency",      href: "/dual-diagnosis/stress/" },
+            { icon: Brain,          label: "Suicide",              desc: "Suicidal ideation & addiction",    href: "/dual-diagnosis/suicide/" },
           ],
         },
       ],
@@ -325,7 +400,7 @@ const NAV: NavEntry[] = [
     },
   },
 
-  /* ── About Us ──────────────────────────────────── */
+  /* ── About Us ────────────────────────────────── */
   {
     kind: "mega",
     label: "About Us",
@@ -335,12 +410,16 @@ const NAV: NavEntry[] = [
       groups: [
         {
           items: [
-            { icon: Building2,     label: "Our facility",   desc: "Private grounds, en-suite rooms",    href: "/about/facilities/" },
-            { icon: FileText,      label: "Virtual tour",   desc: "Explore our facility online",         href: "/about/virtual-facility-tour/" },
-            { icon: Users,         label: "Our team",       desc: "Experienced doctors & therapists",   href: "/about/our-team/" },
-            { icon: ShieldCheck,   label: "CQC registered", desc: "Regulated, inspected, trusted",      href: "/cqc-report/" },
-            { icon: Star,          label: "Reviews",        desc: "What our clients say about us",      href: "/reviews/" },
-            { icon: MessageCircle, label: "Contact us",     desc: "Get in touch, any time",             href: "/about/contact/" },
+            { icon: Building2,     label: "Our facility",   desc: "Private grounds, en-suite rooms",   href: "/about/facilities/" },
+            { icon: FileText,      label: "Virtual tour",   desc: "Explore our facility online",        href: "/about/virtual-facility-tour/" },
+            { icon: Users,         label: "Our team",       desc: "Experienced doctors & therapists",  href: "/about/our-team/" },
+            { icon: ShieldCheck,   label: "CQC registered", desc: "Regulated, inspected, trusted",     href: "/cqc-report/" },
+            { icon: Star,          label: "Reviews",        desc: "What our clients say about us",     href: "/reviews/" },
+            { icon: MapPin,        label: "Rehab near me",  desc: "Find our Bradford location",        href: "/location/" },
+            { icon: Users,         label: "UKAT alumni",    desc: "Join our alumni network",           href: "/about/alumni/" },
+            { icon: MessageCircle, label: "Contact us",     desc: "Get in touch, any time",            href: "/about/contact/" },
+            { icon: BookOpen,      label: "FAQ",            desc: "Common questions answered",         href: "/about/questions-and-answers/" },
+            { icon: FileText,      label: "Brochure",       desc: "Download our treatment brochure",   href: "https://cdn.rehabfiles.com/sites/ukat/wp-content/uploads/brochure/oasis-bradford-v1.pdf" },
           ],
         },
       ],
@@ -348,11 +427,11 @@ const NAV: NavEntry[] = [
   },
 ];
 
-/* ──────────────────────────────────────── FeaturedCard */
+/* ─────────────────────────────── FeaturedCard */
 
 function FeaturedCard({ featured, onClose }: { featured: MegaFeatured; onClose: () => void }) {
   return (
-    <div className="flex flex-col justify-between rounded-2xl bg-deep p-5 text-deep-foreground lg:p-6">
+    <div className="flex h-full flex-col justify-between rounded-2xl bg-deep p-5 text-deep-foreground lg:p-6">
       <div>
         <span className="inline-flex items-center gap-1.5 rounded-full border border-deep-foreground/20 bg-deep-foreground/10 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-widest text-deep-foreground/60">
           <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
@@ -377,7 +456,7 @@ function FeaturedCard({ featured, onClose }: { featured: MegaFeatured; onClose: 
   );
 }
 
-/* ──────────────────────────────── MegaItemRow (grid layout) */
+/* ─────────────────────────────── MegaItemRow (grid panels) */
 
 function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void }) {
   return (
@@ -401,7 +480,7 @@ function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void })
   );
 }
 
-/* ──────────────────────────── PanelRailLayout (editorial) */
+/* ─────────────────────────────── PanelRailLayout */
 
 function PanelRailLayout({
   panel,
@@ -412,95 +491,58 @@ function PanelRailLayout({
   panelLabel: string;
   onClose: () => void;
 }) {
+  const allItems = panel.groups.flatMap((g) => g.items);
+  const [activeItem, setActiveItem] = useState<MegaItem>(allItems[0]);
+
+  const subCount = activeItem.subLinks?.length ?? 0;
+  const subCols =
+    subCount > 15 ? "grid-cols-4" : subCount > 8 ? "grid-cols-3" : "grid-cols-2";
+
   return (
-    <div className="grid lg:grid-cols-[220px_1fr_240px]">
+    <div className="flex min-h-[260px]">
 
-      {/* ── Left: dark intro panel ── */}
-      <div className="mr-8 flex flex-col justify-between rounded-2xl bg-primary px-5 py-6 text-primary-foreground">
-        <div>
-          <p className="mb-2 text-[0.625rem] font-bold uppercase tracking-[0.14em] text-primary-foreground/50">
-            Oasis Recovery Bradford
-          </p>
-          <h3 className="font-display text-xl font-bold leading-tight">
-            {panelLabel}
-          </h3>
-          <p className="mt-3 text-[0.8125rem] leading-relaxed text-primary-foreground/70">
-            {panel.intro?.desc ??
-              "Expert residential treatment at our private Bradford facility."}
-          </p>
-        </div>
-        <a
-          href={panel.intro?.allHref ?? "/"}
-          onClick={onClose}
-          className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-primary-foreground/90 underline-offset-4 transition-colors hover:text-primary-foreground hover:underline"
-        >
-          {panel.intro?.allLabel ?? `All ${panelLabel.toLowerCase()} pages`}
-          <ArrowRight className="size-3.5" aria-hidden />
-        </a>
-      </div>
-
-      {/* ── Centre: item columns ── */}
-      <div
-        className={cn(
-          "grid gap-x-10 gap-y-6",
-          panel.groups.length > 1 ? "grid-cols-2" : "grid-cols-1",
-        )}
-      >
+      {/* ── Left rail ── */}
+      <div className="w-[210px] shrink-0 border-r border-border pr-2 mr-8">
         {panel.groups.map((group, gi) => (
-          <div key={gi}>
+          <div key={gi} className={gi > 0 ? "mt-5 pt-5 border-t border-border" : ""}>
             {group.title && (
-              <p className="mb-3 text-[0.625rem] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
+              <p className="px-2 mb-2 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
                 {group.title}
               </p>
             )}
-            <ul className="space-y-3">
+            <ul className="space-y-0.5">
               {group.items.map((item) => {
-                const visibleSubs = item.subLinks?.slice(0, 6) ?? [];
-                const extraCount = (item.subLinks?.length ?? 0) - visibleSubs.length;
+                const isActive = activeItem.label === item.label;
                 return (
-                  <li key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={onClose}
-                      className="group/item block"
+                  <li key={item.label} className="relative">
+                    <button
+                      type="button"
+                      onMouseEnter={() => setActiveItem(item)}
+                      onClick={() => { window.location.href = item.href; onClose(); }}
+                      className={cn(
+                        "relative flex w-full items-center rounded-md px-3 py-[7px] text-left text-[0.8125rem] transition-colors",
+                        isActive
+                          ? "bg-primary/10 font-semibold text-primary"
+                          : "font-medium text-muted-foreground hover:bg-secondary/70 hover:text-foreground",
+                      )}
                     >
-                      <span className="flex items-center gap-1.5 text-[0.8125rem] font-semibold text-foreground transition-colors group-hover/item:text-primary">
+                      {isActive && (
+                        <span
+                          aria-hidden
+                          className="absolute left-0 top-1 bottom-1 w-0.5 rounded-full bg-primary"
+                        />
+                      )}
+                      <span className="flex-1 truncate">{item.label}</span>
+                      {(item.subLinks?.length ?? 0) > 0 && (
                         <ChevronRight
-                          className="size-3 shrink-0 text-primary/30 transition-transform group-hover/item:translate-x-0.5"
+                          className={cn(
+                            "size-3.5 shrink-0 transition-colors",
+                            isActive ? "text-primary" : "text-muted-foreground/30",
+                          )}
                           aria-hidden
                         />
-                        {item.label}
-                      </span>
-                      {!item.subLinks?.length && (
-                        <span className="mt-0.5 block pl-[1.125rem] text-xs leading-snug text-muted-foreground">
-                          {item.desc}
-                        </span>
                       )}
-                    </a>
-
-                    {visibleSubs.length > 0 && (
-                      <div className="mt-1 flex flex-wrap items-baseline gap-x-2 gap-y-0.5 pl-[1.125rem]">
-                        {visibleSubs.map((sub) => (
-                          <a
-                            key={sub.label}
-                            href={sub.href}
-                            onClick={onClose}
-                            className="text-[0.6875rem] text-muted-foreground transition-colors hover:text-primary"
-                          >
-                            {sub.label}
-                          </a>
-                        ))}
-                        {extraCount > 0 && (
-                          <a
-                            href={item.href}
-                            onClick={onClose}
-                            className="text-[0.6875rem] font-semibold text-primary hover:underline"
-                          >
-                            +{extraCount} more
-                          </a>
-                        )}
-                      </div>
-                    )}
+                    </button>
                   </li>
                 );
               })}
@@ -509,9 +551,53 @@ function PanelRailLayout({
         ))}
       </div>
 
+      {/* ── Centre: active item content ── */}
+      <div className="flex-1 min-w-0">
+        <a href={activeItem.href} onClick={onClose} className="group/hdr mb-5 block">
+          <p className="mb-1 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-primary/70">
+            {panelLabel}
+          </p>
+          <h3 className="text-[1.05rem] font-bold text-foreground transition-colors group-hover/hdr:text-primary">
+            {activeItem.label}
+          </h3>
+          <p className="mt-0.5 text-sm leading-relaxed text-muted-foreground max-w-sm">
+            {activeItem.desc}
+          </p>
+        </a>
+
+        {activeItem.subLinks?.length ? (
+          <div>
+            <p className="mb-2.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
+              Treatment pages
+            </p>
+            <div className={cn("grid gap-x-6 gap-y-0.5", subCols)}>
+              {activeItem.subLinks.map((sub) => (
+                <a
+                  key={sub.label}
+                  href={sub.href}
+                  onClick={onClose}
+                  className="flex items-center gap-1.5 py-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-primary"
+                >
+                  <span className="size-1 shrink-0 rounded-full bg-primary/40" aria-hidden />
+                  {sub.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a
+            href={activeItem.href}
+            onClick={onClose}
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
+          >
+            View page <ArrowRight className="size-3.5" aria-hidden />
+          </a>
+        )}
+      </div>
+
       {/* ── Right: featured card ── */}
       {panel.featured && (
-        <div className="border-l border-border pl-8">
+        <div className="w-[230px] shrink-0 border-l border-border pl-8">
           <FeaturedCard featured={panel.featured} onClose={onClose} />
         </div>
       )}
@@ -519,7 +605,7 @@ function PanelRailLayout({
   );
 }
 
-/* ──────────────────────────── PanelGridLayout (icon grid) */
+/* ─────────────────────────────── PanelGridLayout */
 
 function PanelGridLayout({
   panel,
@@ -563,20 +649,25 @@ function PanelGridLayout({
       )}
 
       <div className={cn("grid gap-6", panel.groups.length > 1 && "lg:grid-cols-2")}>
-        {panel.groups.map((group, gi) => (
-          <div key={gi}>
-            {group.title && (
-              <p className="eyebrow mb-2 text-primary">{group.title}</p>
-            )}
-            <ul className={cn("grid gap-0.5", group.items.length >= 4 && "sm:grid-cols-2")}>
-              {group.items.map((item) => (
-                <li key={item.label}>
-                  <MegaItemRow item={item} onClose={onClose} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
+        {panel.groups.map((group, gi) => {
+          const itemCount = group.items.length;
+          const colClass =
+            itemCount > 12 ? "sm:grid-cols-3" : itemCount >= 4 ? "sm:grid-cols-2" : "";
+          return (
+            <div key={gi}>
+              {group.title && (
+                <p className="eyebrow mb-2 text-primary">{group.title}</p>
+              )}
+              <ul className={cn("grid gap-0.5", colClass)}>
+                {group.items.map((item) => (
+                  <li key={item.label}>
+                    <MegaItemRow item={item} onClose={onClose} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
       </div>
 
       {panel.featured && (
@@ -586,7 +677,7 @@ function PanelGridLayout({
   );
 }
 
-/* ─────────────────────────────────────── main component */
+/* ─────────────────────────────── SiteHeader */
 
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -623,7 +714,7 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
 
-      {/* ── Top bar ─────────────────────────────────────────── */}
+      {/* ── Top bar ── */}
       <div className="section-x mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:py-4">
 
         <a href="/" className="flex min-w-0 items-center gap-2.5">
@@ -703,7 +794,7 @@ export function SiteHeader() {
         </div>
       </div>
 
-      {/* ── Desktop mega panel ──────────────────────────────── */}
+      {/* ── Desktop mega panel ── */}
       {activeMega && panel && (
         <div
           role="dialog"
@@ -712,7 +803,7 @@ export function SiteHeader() {
           onMouseLeave={scheduleMegaClose}
           className="animate-in fade-in slide-in-from-top-2 absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-[var(--shadow-lift)] duration-150"
         >
-          <div className="section-x mx-auto max-w-7xl py-6">
+          <div className="section-x mx-auto max-w-7xl py-7">
             {panel.layout === "rail" ? (
               <PanelRailLayout
                 panel={panel}
@@ -730,7 +821,7 @@ export function SiteHeader() {
         </div>
       )}
 
-      {/* ── Mobile nav ──────────────────────────────────────── */}
+      {/* ── Mobile nav ── */}
       {mobileOpen && (
         <div className="border-t border-border bg-background lg:hidden">
           <nav className="section-x mx-auto max-w-7xl py-2" aria-label="Mobile">
