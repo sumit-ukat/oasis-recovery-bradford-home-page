@@ -50,9 +50,9 @@ function Index() {
         <Team />
         <FamilyAftercare />
         <Testimonials />
-        <Faq />
         <Resources />
         <NinetyDayPromise />
+        <Faq />
         <Contact />
       </main>
       <SiteFooter />

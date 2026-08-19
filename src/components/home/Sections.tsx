@@ -570,7 +570,8 @@ export function Testimonials() {
 
 export function Faq() {
   return (
-    <section className="section-x mx-auto max-w-3xl py-20 sm:py-28">
+    <section className="bg-background py-20 sm:py-28">
+      <div className="section-x mx-auto max-w-3xl">
       <SectionHead eyebrow="FAQs" title="Common questions" align="center" />
       <Accordion type="single" collapsible className="mt-12 divide-y divide-border/60">
         {[
@@ -597,6 +598,7 @@ export function Faq() {
         >
           View all FAQs <ArrowRight className="size-4" aria-hidden />
         </a>
+      </div>
       </div>
     </section>
   );
@@ -753,7 +755,8 @@ export function NinetyDayPromise() {
 
 export function Contact() {
   return (
-    <section id="contact" className="section-x mx-auto max-w-7xl py-20 sm:py-28">
+    <section id="contact" className="bg-sand py-20 sm:py-28">
+      <div className="section-x mx-auto max-w-7xl">
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] lg:gap-16">
         <div>
           <SectionHead
@@ -824,6 +827,7 @@ export function Contact() {
           </Button>
           <p className="mt-3 text-xs text-muted-foreground">{LOREM}</p>
         </form>
+      </div>
       </div>
     </section>
   );
