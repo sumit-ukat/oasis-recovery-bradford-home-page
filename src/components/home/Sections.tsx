@@ -867,7 +867,7 @@ const FOOTER_COLS = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-border bg-sand pb-24 lg:pb-0">
+    <footer className="bg-deep pb-24 text-deep-foreground lg:pb-0">
       <div className="section-x mx-auto max-w-7xl py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
@@ -875,13 +875,13 @@ export function SiteFooter() {
               <img
                 src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
                 alt="Oasis Recovery Bradford"
-                className="h-9 w-auto object-contain mix-blend-multiply"
+                className="h-9 w-auto object-contain brightness-0 invert"
               />
             </a>
-            <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
+            <p className="mt-4 text-sm leading-relaxed text-deep-foreground/55">{LOREM}</p>
             <a
               href="/cqc-report/"
-              className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+              className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
             >
               <ShieldCheck className="size-3.5" aria-hidden />
               CQC registered provider
@@ -889,13 +889,15 @@ export function SiteFooter() {
           </div>
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
-              <h3 className="eyebrow mb-4">{col.title}</h3>
-              <ul className="space-y-2.5 text-sm text-muted-foreground">
+              <h3 className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
+                {col.title}
+              </h3>
+              <ul className="space-y-2.5 text-sm text-deep-foreground/55">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      className="transition-colors hover:text-foreground hover:underline"
+                      className="transition-colors hover:text-deep-foreground hover:underline"
                     >
                       {link.label}
                     </a>
@@ -906,13 +908,13 @@ export function SiteFooter() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/60 pt-6">
-          <p className="text-xs text-muted-foreground">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-deep-foreground/15 pt-6">
+          <p className="text-xs text-deep-foreground/40">
             © Oasis Recovery Bradford. Lorem ipsum dolor sit amet.
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-deep-foreground/40">
             Part of the{" "}
-            <a href="https://www.ukat.co.uk/" className="underline hover:text-foreground">
+            <a href="https://www.ukat.co.uk/" className="underline hover:text-deep-foreground">
               UKAT group
             </a>
           </p>
