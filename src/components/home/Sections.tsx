@@ -1,8 +1,10 @@
 import {
   ArrowRight,
+  Check,
   Clock,
   HeartHandshake,
   MapPin,
+  Medal,
   Phone,
   ShieldCheck,
   Users,
@@ -497,6 +499,97 @@ export function Resources() {
           >
             Help guides <ArrowRight className="size-4" aria-hidden />
           </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* --------------------------------------------------- 90-day promise */
+
+const PROMISE_INCLUSIONS = [
+  "Medically managed detox included",
+  "Evidence-based group and individual therapy",
+  "Dedicated key worker assigned to you",
+  "Structured aftercare plan on leaving",
+];
+
+export function NinetyDayPromise() {
+  return (
+    <section id="promise" className="section-x mx-auto max-w-7xl py-14 sm:py-20">
+      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-stretch lg:gap-12">
+
+        {/* Left: headline + body + CTAs */}
+        <div className="flex flex-col justify-center">
+          <p className="eyebrow">The UKAT 90-day promise</p>
+          <h2 className="mt-3 text-[1.75rem] leading-[1.15] sm:text-4xl">
+            90 days of treatment.{" "}
+            <span className="text-primary">A lifetime of recovery.</span>
+          </h2>
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground">
+            Lasting change takes time. That's why we recommend our 90-day residential
+            programme — a structured combination of medically managed detox,
+            evidence-based therapies, and one-to-one support designed to lay the
+            foundation for lifelong sobriety.
+          </p>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted-foreground">
+            And because we believe in what we do, we stand behind it with a written
+            guarantee.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <button
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90 sm:w-auto"
+            >
+              <Phone className="size-4" aria-hidden />
+              Start your recovery today
+            </button>
+            <a
+              href="/rehab-treatment/"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-5 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-secondary/60 sm:w-auto"
+            >
+              View our programmes
+              <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </div>
+        </div>
+
+        {/* Right: blue guarantee card */}
+        <div className="relative overflow-hidden rounded-2xl bg-primary px-7 py-8 text-primary-foreground sm:px-9 sm:py-10">
+          {/* Decorative "90" watermark */}
+          <span
+            aria-hidden
+            className="pointer-events-none absolute -right-4 -top-4 select-none text-[9rem] font-black leading-none tracking-tight opacity-[0.12] sm:text-[11rem]"
+          >
+            90
+          </span>
+
+          <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1 text-xs font-medium">
+            <Medal className="size-3.5" aria-hidden />
+            Written guarantee
+          </span>
+
+          <p className="mt-4 text-[1.0625rem] font-semibold leading-snug sm:text-lg">
+            Complete 90 days. If you relapse within 30 days of leaving, we'll
+            welcome you back for a complimentary 28-day return stay.
+          </p>
+
+          <div className="my-5 h-px bg-primary-foreground/20" />
+
+          <ul className="space-y-3">
+            {PROMISE_INCLUSIONS.map((item) => (
+              <li key={item} className="flex items-start gap-3 text-sm">
+                <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary-foreground/15">
+                  <Check className="size-3" aria-hidden />
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-6 rounded-xl border border-primary-foreground/20 bg-primary-foreground/10 p-4 text-xs leading-relaxed opacity-90">
+            Applicable to clients who complete the full 90-day inpatient programme
+            at Oasis Recovery Bradford. Subject to clinical assessment on return.
+          </div>
         </div>
       </div>
     </section>

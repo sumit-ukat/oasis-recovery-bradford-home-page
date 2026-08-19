@@ -10,6 +10,7 @@ import {
   Testimonials,
   Faq,
   Resources,
+  NinetyDayPromise,
   Contact,
   SiteFooter,
   MobileCallBar,
@@ -51,6 +52,7 @@ function Index() {
         <Testimonials />
         <Faq />
         <Resources />
+        <NinetyDayPromise />
         <Contact />
       </main>
       <SiteFooter />
