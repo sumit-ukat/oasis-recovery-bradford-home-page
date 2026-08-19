@@ -465,14 +465,14 @@ export function Testimonials() {
 
             <blockquote className="mt-6 flex-1">
               <p className="text-[1.0625rem] leading-relaxed text-deep-foreground/85">
-                &ldquo;{OWN_REVIEWS[active].quote}&rdquo;
+                &ldquo;{OWN_REVIEWS[active]!.quote}&rdquo;
               </p>
             </blockquote>
 
             <div className="mt-6 flex items-center justify-between gap-4">
               <div>
-                <p className="text-sm font-semibold">{OWN_REVIEWS[active].author}</p>
-                <p className="text-xs text-deep-foreground/45">{OWN_REVIEWS[active].date}</p>
+                <p className="text-sm font-semibold">{OWN_REVIEWS[active]!.author}</p>
+                <p className="text-xs text-deep-foreground/45">{OWN_REVIEWS[active]!.date}</p>
               </div>
               <div className="flex items-center gap-2">
                 <button
