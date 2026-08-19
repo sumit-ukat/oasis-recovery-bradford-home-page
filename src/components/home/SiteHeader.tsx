@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ChevronRight,
   ArrowRight,
+  Check,
   Wine,
   Pill,
   Brain,
@@ -432,31 +433,42 @@ const NAV: NavEntry[] = [
   },
 ];
 
-/* ─────────────────────────────── FeaturedCard */
+/* ─────────────────────────────── TrustPanel */
 
-function FeaturedCard({ featured, onClose }: { featured: MegaFeatured; onClose: () => void }) {
+const TRUST_POINTS = [
+  { label: "CQC Registered",         desc: "Regulated and independently inspected" },
+  { label: "Part of UKAT",           desc: "UK's leading addiction treatment network" },
+  { label: "Private & Confidential", desc: "Everything stays between you and our team" },
+  { label: "Bradford, West Yorkshire", desc: "Residential facility with en-suite rooms" },
+];
+
+function TrustPanel({ onClose }: { onClose: () => void }) {
   return (
-    <div className="flex h-full flex-col justify-between rounded-2xl bg-deep p-5 text-deep-foreground lg:p-6">
-      <div>
-        <span className="inline-flex items-center gap-1.5 rounded-full border border-deep-foreground/20 bg-deep-foreground/10 px-2.5 py-1 text-[0.6875rem] font-semibold uppercase tracking-widest text-deep-foreground/60">
-          <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-          {featured.badge}
-        </span>
-        <h3 className="mt-4 text-[1.1rem] leading-snug">{featured.heading}</h3>
-        <p className="mt-2 text-sm leading-relaxed text-deep-foreground/65">{featured.body}</p>
-      </div>
-      <div className="mt-6 space-y-2">
-        <Button asChild variant="cta" size="lg" className="w-full">
-          <a href={featured.primaryHref} onClick={onClose}>
-            <Phone aria-hidden /> {featured.primaryCta}
-          </a>
-        </Button>
-        <Button asChild variant="onDeep" size="lg" className="w-full">
-          <a href={featured.secondaryHref} onClick={onClose}>
-            {featured.secondaryCta} <ArrowRight className="size-4" aria-hidden />
-          </a>
-        </Button>
-      </div>
+    <div className="flex h-full flex-col rounded-2xl border border-border bg-secondary/40 p-5">
+      <p className="eyebrow text-primary">Why Oasis Bradford</p>
+      <ul className="mt-4 flex-1 space-y-4">
+        {TRUST_POINTS.map((pt) => (
+          <li key={pt.label} className="flex items-start gap-3">
+            <span className="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
+              <Check className="size-3" aria-hidden />
+            </span>
+            <div>
+              <p className="text-[0.8125rem] font-semibold leading-snug text-foreground">
+                {pt.label}
+              </p>
+              <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{pt.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <a
+        href="#contact"
+        onClick={onClose}
+        className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary/90"
+      >
+        <Phone className="size-4" aria-hidden />
+        Get in touch
+      </a>
     </div>
   );
 }
@@ -504,7 +516,7 @@ function PanelRailLayout({
     subCount > 15 ? "grid-cols-4" : subCount > 8 ? "grid-cols-3" : "grid-cols-2";
 
   return (
-    <div className="flex min-h-[260px]">
+    <div className="flex min-h-[380px]">
 
       {/* ── Left rail ── */}
       <div className="w-[210px] shrink-0 border-r border-border pr-2 mr-8">
@@ -600,12 +612,10 @@ function PanelRailLayout({
         )}
       </div>
 
-      {/* ── Right: featured card ── */}
-      {panel.featured && (
-        <div className="w-[230px] shrink-0 border-l border-border pl-8">
-          <FeaturedCard featured={panel.featured} onClose={onClose} />
-        </div>
-      )}
+      {/* ── Right: trust panel ── */}
+      <div className="w-[220px] shrink-0 border-l border-border pl-8">
+        <TrustPanel onClose={onClose} />
+      </div>
     </div>
   );
 }
@@ -622,18 +632,12 @@ function PanelGridLayout({
   onClose: () => void;
 }) {
   const hasIntro = Boolean(panel.intro);
-  const hasFeatured = Boolean(panel.featured);
-  const outerCols =
-    hasIntro && hasFeatured
-      ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.9fr)_minmax(0,0.85fr)]"
-      : hasFeatured
-        ? "lg:grid-cols-[minmax(0,2fr)_minmax(0,0.85fr)]"
-        : hasIntro
-          ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,2fr)]"
-          : "";
+  const outerCols = hasIntro
+    ? "lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.9fr)_minmax(0,0.82fr)]"
+    : "lg:grid-cols-[minmax(0,2fr)_minmax(0,0.82fr)]";
 
   return (
-    <div className={cn("grid gap-8", outerCols)}>
+    <div className={cn("grid min-h-[380px] gap-8", outerCols)}>
       {panel.intro && (
         <div className="flex flex-col justify-between rounded-2xl bg-secondary/50 p-5">
           <div>
@@ -675,9 +679,7 @@ function PanelGridLayout({
         })}
       </div>
 
-      {panel.featured && (
-        <FeaturedCard featured={panel.featured} onClose={onClose} />
-      )}
+      <TrustPanel onClose={onClose} />
     </div>
   );
 }
