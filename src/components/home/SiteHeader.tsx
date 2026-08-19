@@ -115,7 +115,6 @@ const NAV: NavEntry[] = [
       },
       groups: [
         {
-          title: "Substance addiction",
           items: [
             {
               icon: Wine,
@@ -193,7 +192,6 @@ const NAV: NavEntry[] = [
           ],
         },
         {
-          title: "Behavioural addiction",
           items: [
             {
               icon: Brain,
