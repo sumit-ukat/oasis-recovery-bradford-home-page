@@ -516,8 +516,8 @@ const PROMISE_INCLUSIONS = [
 
 export function NinetyDayPromise() {
   return (
-    <section id="promise" className="section-x mx-auto max-w-7xl py-14 sm:py-20">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-stretch lg:gap-12">
+    <section id="promise" className="bg-sand py-14 sm:py-20">
+      <div className="section-x mx-auto max-w-7xl grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-stretch lg:gap-12">
 
         {/* Left: headline + body + CTAs */}
         <div className="flex flex-col justify-center">
