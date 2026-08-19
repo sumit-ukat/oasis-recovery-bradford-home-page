@@ -160,45 +160,38 @@ const PROGRAMMES = [
 export function Treatment() {
   return (
     <section id="treatment" className="section-x mx-auto max-w-7xl py-20 sm:py-28">
-      <div className="grid gap-16 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-20">
-
-        {/* Left — sticky heading */}
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <SectionHead
-            eyebrow="Treatment"
-            title="A programme built around the whole person"
-            intro={LOREM}
-          />
-          <Button asChild size="lg" variant="outline" className="mt-8 w-full sm:w-auto">
-            <a href="/rehab-treatment/">
-              All treatment options <ArrowRight className="size-4" aria-hidden />
-            </a>
-          </Button>
-        </div>
-
-        {/* Right — editorial list */}
-        <ul className="divide-y divide-border/60">
-          {PROGRAMMES.map(({ icon: Icon, title, href }) => (
-            <li key={title}>
-              <a
-                href={href}
-                className="group flex items-start gap-4 py-5 transition-colors first:pt-0 last:pb-0"
-              >
-                <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-secondary text-primary transition-all duration-200 group-hover:bg-primary group-hover:text-primary-foreground">
-                  <Icon className="size-4" aria-hidden />
-                </span>
-                <div className="min-w-0 flex-1">
-                  <h3 className="text-[1.0625rem] font-medium leading-snug transition-colors group-hover:text-primary">
-                    {title}
-                  </h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
-                </div>
-                <ArrowRight className="mt-1 size-4 shrink-0 text-muted-foreground/25 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-primary" aria-hidden />
-              </a>
-            </li>
-          ))}
-        </ul>
+      <div className="flex flex-wrap items-end justify-between gap-4">
+        <SectionHead
+          eyebrow="Treatment"
+          title="A programme built around the whole person"
+          intro={LOREM}
+        />
+        <Button asChild size="lg" variant="outline" className="w-full sm:w-auto">
+          <a href="/rehab-treatment/">
+            All treatment options <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </Button>
       </div>
+
+      <ul className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
+        {PROGRAMMES.map(({ icon: Icon, title, href }) => (
+          <li key={title}>
+            <a
+              href={href}
+              className="group flex h-full flex-col rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-1 hover:border-border hover:shadow-[var(--shadow-lift)]"
+            >
+              <span className="grid h-10 w-10 place-items-center rounded-xl bg-secondary text-primary transition-all duration-200 group-hover:bg-primary group-hover:text-primary-foreground">
+                <Icon className="size-5" aria-hidden />
+              </span>
+              <h3 className="mt-5 text-[1.0625rem] font-medium leading-snug">{title}</h3>
+              <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{LOREM}</p>
+              <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-all duration-200 group-hover:gap-2">
+                Learn more <ArrowRight className="size-4" aria-hidden />
+              </span>
+            </a>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
