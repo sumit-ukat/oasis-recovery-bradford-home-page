@@ -1,12 +1,16 @@
+import { useState, useEffect } from "react";
 import {
   ArrowRight,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   HeartHandshake,
   MapPin,
   Medal,
   Phone,
   ShieldCheck,
+  Star,
   Users,
   Leaf,
   CalendarCheck,
@@ -368,11 +372,55 @@ export function FamilyAftercare() {
 
 /* ---------------------------------------------------------- Testimonials */
 
+function DoctifyWidget() {
+  useEffect(() => {
+    if (document.querySelector('script[data-doctify]')) return;
+    const script = document.createElement("script");
+    script.src =
+      "https://www.doctify.com/get-script?widget_container_id=0x2c0ypj&type=carousel-widget&tenant=athena-uk&language=en&profileType=practice&layoutType=layoutA&slugs=oasis-bradford&background=white&itemBackground=ffffff";
+    script.async = true;
+    script.setAttribute("data-doctify", "1");
+    document.body.appendChild(script);
+  }, []);
+
+  return <div id="0x2c0ypj" className="min-h-[260px]" />;
+}
+
+const OWN_REVIEWS = [
+  {
+    quote:
+      "The care I received at Oasis Bradford genuinely changed my life. The team made me feel safe from day one and supported me every step of the way.",
+    author: "Former resident",
+    date: "2026",
+  },
+  {
+    quote:
+      "I was nervous about coming in but the staff were warm and professional. I left with real tools for lasting sobriety.",
+    author: "Former resident",
+    date: "2025",
+  },
+  {
+    quote:
+      "Watching my son transform during his time at Oasis Bradford was incredible. The family support they offered us was just as important.",
+    author: "Family member",
+    date: "2025",
+  },
+];
+
 export function Testimonials() {
+  const [active, setActive] = useState(0);
+
+  function prev() {
+    setActive((a) => (a === 0 ? OWN_REVIEWS.length - 1 : a - 1));
+  }
+  function next() {
+    setActive((a) => (a === OWN_REVIEWS.length - 1 ? 0 : a + 1));
+  }
+
   return (
     <section className="bg-deep py-14 text-deep-foreground sm:py-20">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
+        <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="eyebrow text-deep-foreground/60">Client stories</p>
             <h2 className="mt-3 max-w-xl text-[1.75rem] leading-[1.15] sm:text-4xl">
@@ -381,39 +429,91 @@ export function Testimonials() {
           </div>
           <a
             href="/reviews/"
-            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-deep-foreground/70 hover:text-deep-foreground hover:underline sm:inline-flex"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-deep-foreground/60 hover:text-deep-foreground hover:underline sm:inline-flex"
           >
-            View all reviews <ArrowRight className="size-4" aria-hidden />
+            All reviews <ArrowRight className="size-4" aria-hidden />
           </a>
         </div>
-        <ul className="mt-8 grid gap-4 md:grid-cols-3">
-          {[1, 2, 3].map((n) => (
-            <li
-              key={n}
-              className="rounded-2xl border border-deep-foreground/15 bg-deep-foreground/5 p-6"
-            >
-              <p className="text-[0.9375rem] leading-relaxed text-deep-foreground/85">
-                "{LOREM}"
-              </p>
-              <div className="mt-5 flex items-center gap-3">
-                <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-deep-foreground/15 text-xs font-semibold">
-                  ?
-                </span>
-                <span className="min-w-0 text-sm">
-                  <span className="block truncate font-semibold">Client placeholder</span>
-                  <span className="block truncate text-deep-foreground/60">Placeholder detail</span>
-                </span>
+
+        <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+
+          {/* ── Doctify widget ── */}
+          <div className="overflow-hidden rounded-2xl bg-white">
+            <div className="flex items-center gap-2 border-b border-neutral-100 px-5 py-3">
+              <span className="text-[0.7rem] font-bold uppercase tracking-widest text-neutral-400">
+                Verified by Doctify
+              </span>
+            </div>
+            <div className="p-2">
+              <DoctifyWidget />
+            </div>
+          </div>
+
+          {/* ── Own website reviews ── */}
+          <div className="flex flex-col rounded-2xl border border-deep-foreground/15 bg-deep-foreground/5 p-6 sm:p-8">
+            <div className="flex items-center justify-between">
+              <span className="text-[0.7rem] font-bold uppercase tracking-widest text-deep-foreground/40">
+                From our residents
+              </span>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
+                ))}
               </div>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-8 sm:hidden">
-          <a
-            href="/reviews/"
-            className="inline-flex items-center gap-1.5 text-sm font-medium text-deep-foreground/70 hover:text-deep-foreground hover:underline"
-          >
-            View all reviews <ArrowRight className="size-4" aria-hidden />
-          </a>
+            </div>
+
+            <blockquote className="mt-6 flex-1">
+              <p className="text-[1.0625rem] leading-relaxed text-deep-foreground/85">
+                &ldquo;{OWN_REVIEWS[active].quote}&rdquo;
+              </p>
+            </blockquote>
+
+            <div className="mt-6 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold">{OWN_REVIEWS[active].author}</p>
+                <p className="text-xs text-deep-foreground/45">{OWN_REVIEWS[active].date}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={prev}
+                  aria-label="Previous review"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-deep-foreground/20 text-deep-foreground/60 transition-colors hover:border-deep-foreground/40 hover:text-deep-foreground"
+                >
+                  <ChevronLeft className="size-4" />
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Next review"
+                  className="grid h-8 w-8 place-items-center rounded-full border border-deep-foreground/20 text-deep-foreground/60 transition-colors hover:border-deep-foreground/40 hover:text-deep-foreground"
+                >
+                  <ChevronRight className="size-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-1.5">
+              {OWN_REVIEWS.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActive(i)}
+                  aria-label={`Go to review ${i + 1}`}
+                  className={cn(
+                    "h-1 rounded-full transition-all",
+                    i === active
+                      ? "w-6 bg-primary"
+                      : "w-1 bg-deep-foreground/25 hover:bg-deep-foreground/40"
+                  )}
+                />
+              ))}
+            </div>
+
+            <a
+              href="/reviews/"
+              className="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+            >
+              Read all reviews <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </div>
         </div>
       </div>
     </section>
