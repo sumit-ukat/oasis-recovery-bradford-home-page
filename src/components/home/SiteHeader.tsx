@@ -867,9 +867,8 @@ export function SiteHeader() {
                                     setMobileOpen(false);
                                     setMobileExpanded(null);
                                   }}
-                                  className="flex items-center gap-3 rounded-lg px-2 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                                  className="block rounded-lg px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
                                 >
-                                  <sub.icon className="size-4 shrink-0 text-primary" aria-hidden />
                                   {sub.label}
                                 </a>
                               </li>
