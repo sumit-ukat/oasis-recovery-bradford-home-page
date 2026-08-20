@@ -23,10 +23,11 @@ import {
   Car,
   TrainFront,
   Banknote,
-  ClipboardList,
-  LogIn,
-  Activity,
   Clock,
+  Building2,
+  Compass,
+  Zap,
+  Syringe,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -119,6 +120,19 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
   });
 }
 
+/* Compact pill link — lets the detox and rehab hubs carry a lot of
+   internal links without the section turning into a wall of bullets. */
+function LinkChip({ href, children }: { href: string; children: React.ReactNode }) {
+  return (
+    <a
+      href={href}
+      className="inline-flex items-center rounded-full border border-border/70 bg-card px-3.5 py-1.5 text-[0.8125rem] font-medium text-foreground/80 transition-colors hover:border-primary/40 hover:bg-primary/5 hover:text-primary"
+    >
+      {children}
+    </a>
+  );
+}
+
 /* ═══════════════════════════════════════════════════════════
    1 — HERO
    "What is Oasis, where is it, and how can I get help?"
@@ -201,18 +215,22 @@ export function Hero() {
 
 const DIFFERENTIATORS = [
   {
+    icon: Users,
     title: "Personalised care",
     desc: "Treatment informed by each individual's circumstances, substance history and recovery needs — not a fixed programme applied to everyone.",
   },
   {
-    title: "Supportive residential environment",
-    desc: "A structured, private setting in Bradford, away from the everyday pressures and triggers that can make recovery harder.",
+    icon: Building2,
+    title: "Supportive residential setting",
+    desc: "A structured, private environment in Bradford, away from the everyday pressures and triggers that can make recovery harder.",
   },
   {
+    icon: Stethoscope,
     title: "Experienced professionals",
-    desc: "Clinical, therapeutic and recovery-support staff working together throughout your stay, from admission to discharge.",
+    desc: "Clinical, therapeutic and recovery-support staff working together throughout your stay, from admission onward.",
   },
   {
+    icon: Compass,
     title: "Long-term recovery focus",
     desc: "Care intended to prepare residents for life after treatment, not just to manage the days spent with us.",
   },
@@ -222,56 +240,64 @@ export function TreatmentCentre() {
   return (
     <section id="centre" className="bg-background py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-start lg:gap-20">
-
-          <div className="lg:sticky lg:top-28">
+        {/* Editorial intro — heading and body copy share the full width, so
+            there is real room for the story rather than a narrow column. */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end lg:gap-16">
+          <div>
             <p className="eyebrow text-primary/70">Oasis Recovery Bradford</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-              A supportive residential<br />treatment centre in Bradford
+              A supportive residential treatment centre in Bradford
             </h2>
-            <p className="mt-5 max-w-sm text-base leading-relaxed text-muted-foreground">
-              Oasis Recovery is a private residential addiction treatment centre in
-              Bradford, West Yorkshire, and part of the UKAT group — one of the UK's
-              established addiction treatment providers. We offer a calm, dignified
-              setting where people can step away from daily life and focus fully on
-              recovery, supported by a personalised programme of clinical and
-              therapeutic care.
-            </p>
-            <div className="mt-8 hidden lg:block">
-              <img
-                src={IMGS.therapy}
-                alt="Therapy room at Oasis Recovery Bradford"
-                className="aspect-[4/3] rounded-2xl w-full object-cover"
-              />
-            </div>
           </div>
 
-          <div className="mt-12 lg:mt-0">
-            <ul>
-              {DIFFERENTIATORS.map(({ title, desc }, i) => (
-                <li key={title} className="border-t border-border/50 first:border-t-0">
-                  <div className="flex items-start gap-5 py-6">
-                    <span className="w-7 shrink-0 pt-0.5 text-[0.6875rem] font-semibold tracking-[0.1em] text-muted-foreground/40">
-                      {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <div className="min-w-0">
-                      <h3 className="text-[1.0625rem] font-medium leading-snug sm:text-[1.125rem]">
-                        {title}
-                      </h3>
-                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-                    </div>
-                  </div>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-4 border-t border-border/50 pt-8">
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-                <a href="/about/">
-                  Discover Oasis Recovery <ArrowRight className="size-4" aria-hidden />
-                </a>
-              </Button>
-            </div>
+          <div className="mt-6 lg:mt-0">
+            <p className="text-[1.0625rem] leading-relaxed text-foreground/80 sm:text-lg">
+              Oasis Recovery is a private residential addiction treatment centre in
+              Bradford, West Yorkshire, and part of the UKAT group — one of the UK's
+              established addiction treatment providers.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              We offer a calm, dignified setting where people can step away from daily
+              life and focus fully on recovery, supported by a personalised programme
+              of clinical and therapeutic care. Residents live on site for the duration
+              of their treatment, with the clinical team, therapy timetable and everyday
+              support all under one roof.
+            </p>
           </div>
+        </div>
+
+        {/* Wide image band — the centre shown at full width rather than tucked
+            into a sidebar. */}
+        <img
+          src={IMGS.therapy}
+          alt="Therapy room at Oasis Recovery Bradford"
+          className="mt-12 aspect-[16/10] w-full rounded-3xl object-cover sm:aspect-[2/1] lg:mt-14 lg:aspect-[21/9]"
+        />
+
+        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-12">
+          {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
+            <div key={title}>
+              <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <Icon className="size-[1.15rem]" aria-hidden />
+              </span>
+              <h3 className="mt-4 text-[1.0625rem] font-medium leading-snug sm:text-[1.125rem]">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-5 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-16">
+          <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+            More on our history as part of UKAT, our clinical approach and the standards
+            we are regulated against.
+          </p>
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
+            <a href="/about/">
+              Discover Oasis Recovery <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </Button>
         </div>
       </div>
     </section>
@@ -283,14 +309,18 @@ export function TreatmentCentre() {
    "Can Oasis help with the addiction affecting me or my loved one?"
 ═══════════════════════════════════════════════════════════ */
 
+/* Information pages about the addiction itself — how it develops, the signs
+   and its effects. Treatment options live in the rehab hub further down, so
+   these deliberately point at /addiction/, never /rehab-treatment/. */
 const ADDICTIONS = [
-  { icon: Wine,        label: "Alcohol Addiction Treatment",   href: "/addiction/alcohol/",          desc: "Our most-treated condition — medically supervised withdrawal and residential rehabilitation." },
-  { icon: Pill,        label: "Cocaine Addiction Treatment",   href: "/addiction/drug/cocaine/",     desc: "Structured residential treatment for cocaine and crack cocaine dependency." },
-  { icon: Leaf,        label: "Cannabis Addiction Treatment",  href: "/addiction/drug/cannabis/",    desc: "Support for cannabis dependency and the mental health needs that often go with it." },
-  { icon: Pill,        label: "Heroin Addiction Treatment",    href: "/addiction/drug/heroin/",      desc: "Medically managed care for opioid and heroin dependency." },
-  { icon: Stethoscope, label: "Prescription Drug Addiction",   href: "/addiction/prescription-drug/",desc: "Treatment for dependency on opioids, benzodiazepines and other prescribed medication." },
-  { icon: Brain,       label: "Behavioural Addictions",        href: "/addiction/behavioural/",      desc: "Support for gambling, gaming, sex and shopping addiction." },
-  { icon: ShieldCheck, label: "Dual Diagnosis",                href: "/dual-diagnosis/",             desc: "Treatment for addiction alongside a co-occurring mental health condition." },
+  { icon: Wine,        label: "Alcohol addiction",             href: "/addiction/alcohol/",           desc: "How problem drinking turns into dependency, the signs to look for and the effects of long-term alcohol use." },
+  { icon: Pill,        label: "Drug addiction",                href: "/addiction/drug/",              desc: "Dependency across stimulants, opioids, cannabis and other substances, and how each one takes hold." },
+  { icon: Zap,         label: "Cocaine addiction",             href: "/addiction/drug/cocaine/",      desc: "Why cocaine and crack cocaine are so habit-forming, and the physical and psychological toll they take." },
+  { icon: Syringe,     label: "Heroin addiction",              href: "/addiction/drug/heroin/",       desc: "Understanding opioid dependency, rising tolerance and the risks that come with continued use." },
+  { icon: Leaf,        label: "Cannabis addiction",            href: "/addiction/drug/cannabis/",     desc: "Why cannabis dependency is often underestimated, and how heavy use affects mental health." },
+  { icon: Stethoscope, label: "Prescription drug addiction",   href: "/addiction/prescription-drug/", desc: "Dependency on opioids, benzodiazepines, sleeping pills and other medication that began as a prescription." },
+  { icon: Brain,       label: "Behavioural addictions",        href: "/addiction/behavioural/",       desc: "Gambling, gaming, sex and love, shopping and other compulsive behaviours that follow the same patterns." },
+  { icon: ShieldCheck, label: "Dual diagnosis",                href: "/dual-diagnosis/",              desc: "When addiction sits alongside a mental health condition such as anxiety, depression, PTSD or ADHD." },
 ];
 
 export function AddictionsHub() {
@@ -299,15 +329,20 @@ export function AddictionsHub() {
   return (
     <section id="addictions" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
+        <div className="max-w-2xl">
           <p className="eyebrow">What we treat</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Addictions we treat at Oasis
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             We treat alcohol and drug addiction, behavioural addictions and dual
-            diagnosis at our Bradford facility, with a residential programme built
-            around each individual's circumstances.
+            diagnosis at our Bradford facility. Each page below explains how that
+            addiction develops, the signs to look for and the effects it can have —
+            the treatment itself is covered in{" "}
+            <a href="#rehab" className="font-medium text-primary hover:underline">
+              residential rehab
+            </a>
+            .
           </p>
         </div>
 
@@ -328,7 +363,7 @@ export function AddictionsHub() {
               <h3 className="mt-4 text-[1.0625rem] font-medium leading-snug">{label}</h3>
               <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">{desc}</p>
               <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
-                Explore {label.replace(" Treatment", "").toLowerCase()}{" "}
+                Read about {label.toLowerCase()}{" "}
                 <ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
               </span>
             </a>
@@ -353,20 +388,51 @@ export function AddictionsHub() {
    "How can someone safely stop using alcohol or drugs?"
 ═══════════════════════════════════════════════════════════ */
 
-const DETOX_LINKS = [
-  { label: "Alcohol Detox",   href: "/detox/alcohol/" },
-  { label: "Drug Detox",      href: "/detox/drug/" },
-  { label: "Heroin Detox",    href: "/detox/drug/heroin/" },
-  { label: "Cocaine Detox",   href: "/detox/drug/cocaine/" },
-  { label: "Cannabis Detox",  href: "/detox/drug/cannabis/" },
-  { label: "Ketamine Detox",  href: "/detox/drug/ketamine/" },
+/* Two detox pathways, each with its own set of pages — gives the section room
+   to carry the full detox link set instead of a six-item sample. */
+const DETOX_GROUPS = [
+  {
+    icon: Wine,
+    title: "Alcohol detox",
+    href: "/detox/alcohol/",
+    cta: "Explore alcohol detox",
+    desc: "Alcohol withdrawal can be medically serious, and is the reason unsupervised home detox is discouraged. It is managed here under clinical supervision from day one.",
+    linksLabel: "Alcohol detox guides",
+    links: [
+      { label: "What to expect", href: "/detox/alcohol/what-to-expect/" },
+      { label: "Withdrawal timeline", href: "/detox/alcohol/withdrawal-timeline/" },
+      { label: "Detox medications", href: "/detox/alcohol/medications/" },
+      { label: "Risks of home detox", href: "/blog/home-detox-risks/" },
+      { label: "Managing cravings", href: "/blog/managing-cravings/" },
+      { label: "Detox vs rehab", href: "/blog/detox-vs-rehab/" },
+    ],
+  },
+  {
+    icon: Pill,
+    title: "Drug detox",
+    href: "/detox/drug/",
+    cta: "Explore drug detox",
+    desc: "Withdrawal differs substantially between substances — in how long it lasts, how it feels and what medical support it calls for. Every resident is assessed individually first.",
+    linksLabel: "Detox by substance",
+    links: [
+      { label: "Heroin", href: "/detox/drug/heroin/" },
+      { label: "Cocaine", href: "/detox/drug/cocaine/" },
+      { label: "Crack cocaine", href: "/detox/drug/crack-cocaine/" },
+      { label: "Cannabis", href: "/detox/drug/cannabis/" },
+      { label: "Ketamine", href: "/detox/drug/ketamine/" },
+      { label: "Crystal meth", href: "/detox/drug/crystal-meth/" },
+      { label: "Ecstasy", href: "/detox/drug/ecstasy/" },
+      { label: "Spice", href: "/detox/drug/spice/" },
+      { label: "LSD", href: "/detox/drug/lsd/" },
+    ],
+  },
 ];
 
 export function DetoxHub() {
   return (
     <section id="detox" className="bg-background py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16">
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16">
           <div>
             <p className="eyebrow">Withdrawal management</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
@@ -374,42 +440,77 @@ export function DetoxHub() {
             </h2>
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               Detox is the process of safely managing withdrawal from alcohol or drugs
-              under clinical supervision. What a person needs from detox varies —
-              which is why every resident receives a clinical assessment before any
-              withdrawal plan begins. Appropriate medical support can make withdrawal
-              considerably safer and more manageable than attempting it alone.
+              under clinical supervision. What a person needs from detox varies — which
+              is why every resident receives a clinical assessment before any withdrawal
+              plan begins.
             </p>
             <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               For some substances, unsupervised withdrawal carries real medical risk.
-              Our clinical team assesses each resident individually and puts the right
-              level of support in place before detox begins.
+              Appropriate medical support makes it considerably safer and more
+              manageable than attempting it alone.
             </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-x-6 gap-y-1 sm:grid-cols-3">
-              {DETOX_LINKS.map((link) => (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className="flex items-center gap-1.5 py-1.5 text-[0.9375rem] font-medium text-foreground transition-colors hover:text-primary"
-                >
-                  <span className="size-1 shrink-0 rounded-full bg-primary/50" aria-hidden />
-                  {link.label}
-                </a>
-              ))}
-            </div>
-
-            <Button asChild variant="outline" size="lg" className="mt-8 w-full sm:w-auto">
-              <a href="/detox/">
-                Explore medical detox <ArrowRight className="size-4" aria-hidden />
-              </a>
-            </Button>
           </div>
 
           <img
             src={IMGS.reception}
             alt="Clinical reception area at Oasis Recovery Bradford"
-            className="aspect-[4/3] rounded-2xl w-full object-cover lg:aspect-[3/4]"
+            className="aspect-[4/3] w-full rounded-2xl object-cover"
           />
+        </div>
+
+        <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-2 lg:gap-6">
+          {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
+            <div
+              key={title}
+              className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
+            >
+              <div className="flex items-start gap-4">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
+                  <Icon className="size-[1.15rem]" aria-hidden />
+                </span>
+                <div className="min-w-0">
+                  <h3 className="text-[1.1875rem] font-medium leading-snug">
+                    <a href={href} className="transition-colors hover:text-primary">
+                      {title}
+                    </a>
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+                </div>
+              </div>
+
+              <p className="eyebrow mt-7 text-[0.625rem]">{linksLabel}</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {links.map((l) => (
+                  <LinkChip key={l.label} href={l.href}>
+                    {l.label}
+                  </LinkChip>
+                ))}
+              </div>
+
+              <a
+                href={href}
+                className="group mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              >
+                {cta}
+                <ArrowRight
+                  className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                  aria-hidden
+                />
+              </a>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
+            <a href="/detox/">
+              Explore medical detox <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </Button>
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
+            Not sure which applies, or whether detox is needed at all? Our admissions
+            team can talk it through before any commitment.
+          </p>
         </div>
       </div>
     </section>
@@ -421,29 +522,64 @@ export function DetoxHub() {
    "How does rehabilitation help someone build long-term recovery?"
 ═══════════════════════════════════════════════════════════ */
 
-const REHAB_LINKS = [
-  { label: "Alcohol Rehab",               href: "/rehab-treatment/alcohol/" },
-  { label: "Drug Rehab",                  href: "/rehab-treatment/drug/" },
-  { label: "Cocaine Rehab",               href: "/rehab-treatment/drug/cocaine/" },
-  { label: "Cannabis Rehab",              href: "/rehab-treatment/drug/cannabis/" },
-  { label: "Heroin Rehab",                href: "/rehab-treatment/drug/heroin/" },
-  { label: "Residential Rehab Programmes",href: "/rehab-programme/" },
+const REHAB_PATHS = [
+  {
+    label: "Alcohol rehab",
+    href: "/rehab-treatment/alcohol/",
+    desc: "Residential inpatient treatment for alcohol dependency, following detox where one is needed.",
+  },
+  {
+    label: "Drug rehab",
+    href: "/rehab-treatment/drug/",
+    desc: "Structured rehabilitation across stimulants, opioids, cannabis and other substances.",
+  },
+  {
+    label: "Cocaine rehab",
+    href: "/rehab-treatment/drug/cocaine/",
+    desc: "Treatment for cocaine and crack cocaine dependency and the patterns that sustain it.",
+  },
+  {
+    label: "Heroin rehab",
+    href: "/rehab-treatment/drug/heroin/",
+    desc: "Rehabilitation for opioid dependency, with clinical oversight throughout the stay.",
+  },
+  {
+    label: "Cannabis rehab",
+    href: "/rehab-treatment/drug/cannabis/",
+    desc: "Treatment for cannabis dependency alongside any co-occurring mental health needs.",
+  },
+  {
+    label: "Secondary care programme",
+    href: "/rehab-treatment/secondary-care-programme/",
+    desc: "A bridge between residential rehab and independent living, for those who want longer support.",
+  },
 ];
 
+/* Real therapy pages — the programme is assembled from these per resident. */
 const THERAPIES = [
-  "One-to-one therapy",
-  "Group therapy",
-  "CBT",
-  "Relapse prevention",
-  "Family therapy",
-  "Holistic wellbeing activities",
+  { label: "CBT",                href: "/rehab-programme/cbt/" },
+  { label: "DBT",                href: "/rehab-programme/dbt/" },
+  { label: "EMDR",               href: "/rehab-programme/emdr/" },
+  { label: "Individual therapy", href: "/rehab-programme/individual-therapy/" },
+  { label: "Group therapy",      href: "/rehab-programme/group-therapy/" },
+  { label: "Family therapy",     href: "/rehab-programme/family-therapy/" },
+  { label: "Trauma therapy",     href: "/rehab-programme/trauma-therapy/" },
+  { label: "Psychotherapy",      href: "/rehab-programme/psychotherapy/" },
+  { label: "Holistic therapy",   href: "/rehab-programme/holistic-therapy/" },
+  { label: "Mindfulness",        href: "/rehab-programme/mindfulness-therapy/" },
+  { label: "Art therapy",        href: "/rehab-programme/art-therapy/" },
+  { label: "Music therapy",      href: "/rehab-programme/music-therapy/" },
+  { label: "Yoga therapy",       href: "/rehab-programme/yoga-therapy/" },
+  { label: "Meditation",         href: "/rehab-programme/meditation/" },
+  { label: "Nutrition",          href: "/rehab-programme/nutrition/" },
+  { label: "Rehab fitness",      href: "/rehab-programme/rehab-fitness/" },
 ];
 
 export function RehabHub() {
   return (
     <section id="rehab" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
+        <div className="max-w-2xl">
           <p className="eyebrow">Structured recovery treatment</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Residential rehab for lasting recovery
@@ -451,54 +587,81 @@ export function RehabHub() {
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             Where detox stabilises the body, rehabilitation is the structured,
             longer-term treatment that helps residents understand their addiction and
-            build the tools for lasting recovery. Our residential programme combines
+            build the tools to stay in recovery. Our residential programme combines
             one-to-one and group therapy with practical relapse-prevention work and
             wellbeing support, tailored to each resident.
           </p>
         </div>
 
-        <div className="mt-12 grid gap-10 lg:grid-cols-2 lg:gap-16">
+        <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-14">
+          {/* Image anchor + primary route into the treatment pages */}
+          <div className="flex flex-col gap-5">
+            <img
+              src={IMGS.lounge}
+              alt="Communal lounge used for group therapy at Oasis Recovery Bradford"
+              className="aspect-[4/3] w-full rounded-2xl object-cover lg:min-h-0 lg:flex-1"
+            />
+            <Button asChild variant="outline" size="lg" className="w-full bg-card">
+              <a href="/rehab-treatment/">
+                Explore residential rehab <ArrowRight className="size-4" aria-hidden />
+              </a>
+            </Button>
+          </div>
+
+          {/* Treatment pages as full-width rows — each one clearly a link */}
           <div>
-            <p className="eyebrow mb-3 text-primary/70">Rehab programmes</p>
-            <ul className="grid grid-cols-1 gap-y-1 sm:grid-cols-2">
-              {REHAB_LINKS.map((link) => (
-                <li key={link.label}>
-                  <a
-                    href={link.href}
-                    className="flex items-center gap-1.5 py-1.5 text-[0.9375rem] font-medium text-foreground transition-colors hover:text-primary"
-                  >
-                    <span className="size-1 shrink-0 rounded-full bg-primary/50" aria-hidden />
-                    {link.label}
+            <p className="eyebrow text-primary/70">Rehab treatment programmes</p>
+            <ul className="mt-3">
+              {REHAB_PATHS.map(({ label, href, desc }) => (
+                <li key={label} className="border-b border-border/50 last:border-b-0">
+                  <a href={href} className="group flex items-center gap-5 py-4 sm:py-[1.15rem]">
+                    <div className="min-w-0 flex-1">
+                      <h3 className="text-[1.0625rem] font-medium leading-snug transition-colors group-hover:text-primary">
+                        {label}
+                      </h3>
+                      <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+                    </div>
+                    <ArrowRight
+                      className="size-4 shrink-0 text-muted-foreground/40 transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-primary"
+                      aria-hidden
+                    />
                   </a>
                 </li>
               ))}
             </ul>
           </div>
-
-          <div>
-            <p className="eyebrow mb-3 text-primary/70">Therapeutic elements</p>
-            <ul className="grid grid-cols-2 gap-x-6 gap-y-2.5">
-              {THERAPIES.map((t) => (
-                <li key={t} className="flex items-center gap-2 text-sm text-muted-foreground">
-                  <Check className="size-3.5 shrink-0 text-primary/60" aria-hidden />
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <a
-              href="/rehab-programme/"
-              className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
-            >
-              All therapy programmes <ArrowRight className="size-3.5" aria-hidden />
-            </a>
-          </div>
         </div>
 
-        <Button asChild variant="outline" size="lg" className="mt-10 w-full sm:w-auto">
-          <a href="/rehab-treatment/">
-            Explore residential rehab <ArrowRight className="size-4" aria-hidden />
-          </a>
-        </Button>
+        {/* Therapies — a second, distinct link layer into the programme pages */}
+        <div className="mt-10 rounded-2xl border border-border/60 bg-card p-6 sm:p-8 lg:mt-14">
+          <div className="sm:flex sm:items-start sm:justify-between sm:gap-8">
+            <div>
+              <h3 className="text-[1.1875rem] font-medium">Therapies within the programme</h3>
+              <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
+                Each resident's timetable is built from evidence-based and holistic
+                therapies, chosen around their assessment rather than run as a fixed
+                curriculum.
+              </p>
+            </div>
+            <a
+              href="/rehab-programme/"
+              className="group mt-4 inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline sm:mt-1"
+            >
+              All rehab programmes
+              <ArrowRight
+                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
+                aria-hidden
+              />
+            </a>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
+            {THERAPIES.map((t) => (
+              <LinkChip key={t.label} href={t.href}>
+                {t.label}
+              </LinkChip>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -512,28 +675,28 @@ export function RehabHub() {
 
 const JOURNEY = [
   {
-    icon: Phone,
+    num: "01",
     title: "Confidential conversation",
     desc: "Speak privately with our admissions team — no obligation, and everything shared is treated in complete confidence.",
   },
   {
-    icon: ClipboardList,
+    num: "02",
     title: "Assessment",
     desc: "A clinical assessment to understand the individual's circumstances and treatment requirements.",
   },
   {
-    icon: LogIn,
+    num: "03",
     title: "Admission",
     desc: "Arrival is arranged, initial checks are completed, and treatment begins.",
   },
   {
-    icon: Activity,
+    num: "04",
     title: "Treatment",
     desc: "The agreed residential programme is followed. Detox may form part of treatment where clinically appropriate.",
     link: { label: "Medical detox", href: "#detox" },
   },
   {
-    icon: HeartHandshake,
+    num: "05",
     title: "Continuing recovery",
     desc: "Preparation for recovery beyond residential treatment, with a plan in place before leaving.",
   },
@@ -554,32 +717,51 @@ export function RecoveryJourney() {
           </p>
         </div>
 
-        <ol className="relative mt-14 space-y-0 sm:mx-auto sm:max-w-2xl">
-          <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
-          {JOURNEY.map(({ icon: Icon, title, desc, link }, i) => (
-            <li key={title} className="relative flex gap-6 pb-9 last:pb-0">
-              <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-background ring-1 ring-border">
-                <Icon className="size-[1.0625rem] text-primary/70" aria-hidden />
-              </div>
-              <div className="min-w-0 pt-2.5">
-                <p className="text-[0.625rem] font-bold tracking-[0.12em] text-muted-foreground/40">
-                  STEP {i + 1}
-                </p>
-                <h3 className="mt-1 text-[1.0625rem] font-medium">{title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {desc}{" "}
-                  {link && (
-                    <a href={link.href} className="font-medium text-primary hover:underline">
-                      {link.label} →
-                    </a>
-                  )}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <div className="mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
+          {/* Timeline */}
+          <ol className="relative space-y-0">
+            <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
+            {JOURNEY.map(({ num, title, desc, link }) => (
+              <li key={num} className="relative flex gap-6 pb-9 last:pb-0">
+                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-background ring-1 ring-border">
+                  <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
+                    {num}
+                  </span>
+                </div>
+                <div className="min-w-0 pt-2.5">
+                  <h3 className="text-[1.0625rem] font-medium">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {desc}{" "}
+                    {link && (
+                      <a href={link.href} className="font-medium text-primary hover:underline">
+                        {link.label} →
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
 
-        <div className="mt-4 sm:mx-auto sm:max-w-2xl">
+          {/* Image + CTA (desktop only) */}
+          <div className="hidden lg:flex lg:flex-col lg:gap-8">
+            <div className="min-h-[160px] flex-1 overflow-hidden rounded-2xl">
+              <img
+                src={IMGS.reception}
+                alt="Reception at Oasis Recovery Bradford"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <Button asChild variant="cta" size="lg" className="w-full">
+              <a href="#contact">
+                <Phone className="size-4" aria-hidden /> Speak to our admissions team
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile CTA */}
+        <div className="mt-10 lg:hidden">
           <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
             <a href="#contact">
               <Phone className="size-4" aria-hidden /> Speak to our admissions team
