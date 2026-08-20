@@ -348,20 +348,21 @@ export function Team() {
           </h2>
         </div>
 
-        {/* Featured clinician — asymmetric */}
-        <div className="mt-12 grid gap-8 lg:grid-cols-[minmax(0,0.5fr)_minmax(0,1.5fr)] lg:items-start lg:gap-12">
-          <ImagePlaceholder
-            letter="G"
-            note="Lead clinician portrait — warm, professional"
-            className="aspect-[3/4] rounded-2xl lg:aspect-[2/3]"
-          />
-          <div className="lg:pt-6">
-            <h3 className="text-2xl font-medium tracking-[-0.02em] sm:text-3xl">Name Placeholder</h3>
-            <p className="eyebrow mt-2">Clinical Director</p>
-            <div className="mt-1 h-px w-8 bg-primary/50" />
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{LOREM}</p>
+        {/* Featured clinician — compact, text-led */}
+        <div className="mt-12">
+          <div className="flex items-start gap-5 sm:gap-6">
+            <ImagePlaceholder
+              letter="G"
+              note="Lead clinician portrait"
+              className="aspect-square w-16 shrink-0 rounded-xl sm:w-20"
+            />
+            <div className="min-w-0 pt-1">
+              <h3 className="text-xl font-medium tracking-[-0.02em] sm:text-2xl">Name Placeholder</h3>
+              <p className="eyebrow mt-1.5">Clinical Director</p>
+            </div>
           </div>
+          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{LOREM}</p>
         </div>
 
         {/* Supporting clinicians */}
