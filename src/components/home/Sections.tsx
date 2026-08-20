@@ -357,27 +357,8 @@ export function Team() {
           </h2>
         </div>
 
-        {/* Featured clinician — portrait + name left, bio right */}
-        <div className="mt-12 grid gap-8 sm:grid-cols-[auto_1fr] sm:gap-12 sm:items-start">
-          <div className="flex items-start gap-5 sm:flex-col sm:gap-4 sm:w-44">
-            <ImagePlaceholder
-              letter="G"
-              note="Lead clinician portrait"
-              className="aspect-square w-16 shrink-0 rounded-xl sm:w-full"
-            />
-            <div className="min-w-0 pt-1 sm:pt-0">
-              <h3 className="text-xl font-medium tracking-[-0.02em] sm:text-2xl">Name Placeholder</h3>
-              <p className="eyebrow mt-1.5">Clinical Director</p>
-            </div>
-          </div>
-          <div className="sm:pt-1">
-            <p className="text-base leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{LOREM}</p>
-          </div>
-        </div>
-
-        {/* Supporting clinicians */}
-        <div className="mt-10 border-t border-border/60 pt-10">
+        {/* Clinicians */}
+        <div className="mt-12">
           <ul className="grid gap-8 sm:grid-cols-2">
             {[
               { letter: "H", name: "Name Placeholder", role: "Lead Therapist" },
