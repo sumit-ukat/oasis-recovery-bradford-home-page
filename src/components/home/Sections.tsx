@@ -4,10 +4,14 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  Clock,
+  HeartHandshake,
+  Leaf,
   MapPin,
   Phone,
   ShieldCheck,
   Star,
+  Users,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -33,40 +37,44 @@ const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
 const LOREM_LONG = `${LOREM} Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.`;
 
-/* ═══════════════════════════════════════════════════════════
-   HERO — immersive editorial, mobile-first
-═══════════════════════════════════════════════════════════ */
-
 export function Hero() {
   return (
-    <section id="top" className="bg-sand">
-      <div className="section-x mx-auto max-w-7xl pt-14 sm:pt-20 lg:grid lg:min-h-[88vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 lg:pt-28">
+    <section id="top" className="relative overflow-hidden bg-sand">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-60 h-[640px] bg-[radial-gradient(50%_70%_at_50%_100%,var(--color-secondary),transparent)]"
+      />
 
-        {/* Text block */}
-        <div className="max-w-xl pb-10 lg:pb-24">
+      <div className="section-x relative mx-auto max-w-7xl pt-16 pb-10 sm:pt-20 sm:pb-14 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-16 lg:pt-28 lg:pb-24">
+        <div className="max-w-xl">
           <p className="eyebrow text-primary/70">
-            Private addiction treatment · Bradford, West Yorkshire
+            Private residential rehab · Bradford, West Yorkshire
           </p>
 
-          <h1 className="mt-5 text-[2.75rem] leading-[1.02] tracking-[-0.03em] sm:text-[3.5rem] lg:text-[4.5rem] xl:text-[5rem]">
-            Private care.<br />
-            Real change.<br />
-            <span className="text-primary">A life reclaimed.</span>
+          <h1 className="mt-5 text-[2.875rem] leading-[1.04] sm:text-[4rem] lg:text-[5rem]">
+            Private addiction
+            <br />
+            treatment,{" "}
+            <span className="text-primary">
+              with you
+              <br />
+              every step.
+            </span>
           </h1>
 
-          <p className="mt-6 max-w-[28rem] text-base leading-relaxed text-muted-foreground sm:text-[1.0625rem]">
+          <p className="mt-6 max-w-[26rem] text-base leading-relaxed text-muted-foreground sm:text-[1.0625rem]">
             {LOREM}
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Button asChild variant="cta" size="lg" className="w-full px-8 sm:w-auto">
+            <Button asChild variant="cta" size="lg" className="w-full px-7 sm:w-auto">
               <a href="#contact">
-                <Phone aria-hidden /> Speak to admissions
+                <Phone aria-hidden /> Speak to us confidentially
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
               <a href="#admissions">
-                How admissions works <ArrowRight className="size-4" aria-hidden />
+                How admission works <ArrowRight aria-hidden />
               </a>
             </Button>
           </div>
@@ -76,28 +84,29 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Hero image — full-bleed on mobile, column on desktop */}
-        <div className="-mx-5 mt-10 sm:-mx-8 lg:mx-0 lg:h-full lg:self-stretch">
+        <div className="mt-10 lg:mt-0">
           <ImagePlaceholder
             letter="A"
-            note="Hero — facility exterior, garden path, or calm residential moment"
-            className="aspect-[3/4] w-full sm:aspect-[16/9] lg:h-full lg:aspect-auto lg:rounded-3xl"
+            note="Hero — facility exterior or calm residential space"
+            className="aspect-[4/3] rounded-3xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[4/5]"
           />
         </div>
       </div>
 
-      {/* Trust strip */}
-      <div className="border-t border-border/50 bg-background/60 backdrop-blur-sm">
-        <ul className="section-x mx-auto grid max-w-7xl grid-cols-2 gap-y-5 gap-x-4 py-6 sm:grid-cols-4 sm:py-7">
+      <div className="border-t border-border/50 bg-background/50 backdrop-blur-sm">
+        <ul className="section-x mx-auto grid max-w-7xl grid-cols-2 gap-y-6 py-7 sm:grid-cols-4">
           {[
-            { label: "24/7 Admissions", sub: "Always available" },
-            { label: "100% Confidential", sub: "Complete privacy" },
-            { label: "CQC Registered", sub: "Regulated & inspected" },
-            { label: "Private Setting", sub: "Bradford, West Yorkshire" },
-          ].map(({ label, sub }) => (
-            <li key={label} className="min-w-0">
-              <span className="block text-[0.9375rem] font-semibold tracking-[-0.01em]">{label}</span>
-              <span className="mt-0.5 block text-xs text-muted-foreground">{sub}</span>
+            { icon: Clock, label: "00+ years", sub: "Clinical experience" },
+            { icon: Users, label: "000+ clients", sub: "Guided to recovery" },
+            { icon: Leaf, label: "00 acres", sub: "Private grounds" },
+            { icon: HeartHandshake, label: "00% aftercare", sub: "Continued support" },
+          ].map(({ icon: Icon, label, sub }) => (
+            <li key={label} className="flex min-w-0 items-start gap-3">
+              <Icon className="mt-0.5 size-[1.0625rem] shrink-0 text-primary" aria-hidden />
+              <span className="min-w-0">
+                <span className="block text-[0.9375rem] font-semibold tracking-[-0.01em]">{label}</span>
+                <span className="block text-xs text-muted-foreground">{sub}</span>
+              </span>
             </li>
           ))}
         </ul>
