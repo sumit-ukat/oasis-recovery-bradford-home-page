@@ -42,32 +42,23 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden bg-sand">
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 -top-60 h-[640px] bg-[radial-gradient(50%_70%_at_50%_100%,var(--color-secondary),transparent)]"
+        className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(60%_100%_at_50%_100%,var(--color-secondary),transparent)]"
       />
-
-      <div className="section-x relative mx-auto max-w-7xl pt-16 pb-10 sm:pt-20 sm:pb-14 lg:grid lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:items-center lg:gap-16 lg:pt-28 lg:pb-24">
+      <div className="section-x relative mx-auto max-w-7xl py-10 sm:py-14 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-14 lg:py-20">
         <div className="max-w-xl">
-          <p className="eyebrow text-primary/70">
-            Private residential rehab · Bradford, West Yorkshire
+          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
+            <ShieldCheck className="size-3.5 text-primary" aria-hidden />
+            CQC registered · Confidential
           </p>
-
-          <h1 className="mt-5 text-[2.875rem] leading-[1.04] sm:text-[4rem] lg:text-[5rem]">
-            Private addiction
-            <br />
-            treatment,{" "}
-            <span className="text-primary">
-              with you
-              <br />
-              every step.
-            </span>
+          <h1 className="mt-4 text-[2.125rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
+            Private addiction treatment, with you every step
           </h1>
-
-          <p className="mt-6 max-w-[26rem] text-base leading-relaxed text-muted-foreground sm:text-[1.0625rem]">
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground sm:text-lg">
             {LOREM}
           </p>
 
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-            <Button asChild variant="cta" size="lg" className="w-full px-7 sm:w-auto">
+          <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap sm:items-center">
+            <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
               <a href="#contact">
                 <Phone aria-hidden /> Speak to us confidentially
               </a>
@@ -79,33 +70,33 @@ export function Hero() {
             </Button>
           </div>
 
-          <p className="mt-5 text-xs text-muted-foreground">
-            CQC registered · All enquiries are completely confidential
+          <p className="mt-4 text-xs text-muted-foreground">
+            Lorem ipsum · 24/7 · Lorem ipsum dolor sit amet
           </p>
         </div>
 
-        <div className="mt-10 lg:mt-0">
+        <div className="mt-8 lg:mt-0">
           <ImagePlaceholder
             letter="A"
-            note="Hero — facility exterior or calm residential space"
-            className="aspect-[4/3] rounded-3xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[4/5]"
+            note="Hero"
+            className="aspect-[4/3] rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
           />
         </div>
       </div>
 
-      <div className="border-t border-border/50 bg-background/50 backdrop-blur-sm">
-        <ul className="section-x mx-auto grid max-w-7xl grid-cols-2 gap-y-6 py-7 sm:grid-cols-4">
+      <div className="border-t border-border/70 bg-background/60">
+        <ul className="section-x mx-auto grid max-w-7xl grid-cols-2 gap-y-5 py-6 sm:grid-cols-4">
           {[
-            { icon: Clock, label: "00+ years", sub: "Clinical experience" },
-            { icon: Users, label: "000+ clients", sub: "Guided to recovery" },
-            { icon: Leaf, label: "00 acres", sub: "Private grounds" },
-            { icon: HeartHandshake, label: "00% aftercare", sub: "Continued support" },
-          ].map(({ icon: Icon, label, sub }) => (
-            <li key={label} className="flex min-w-0 items-start gap-3">
-              <Icon className="mt-0.5 size-[1.0625rem] shrink-0 text-primary" aria-hidden />
+            { icon: Clock, label: "00+ years" },
+            { icon: Users, label: "000+ clients" },
+            { icon: Leaf, label: "00 acres" },
+            { icon: HeartHandshake, label: "00% aftercare" },
+          ].map(({ icon: Icon, label }) => (
+            <li key={label} className="flex min-w-0 items-center gap-2.5">
+              <Icon className="size-4 shrink-0 text-primary" aria-hidden />
               <span className="min-w-0">
-                <span className="block text-[0.9375rem] font-semibold tracking-[-0.01em]">{label}</span>
-                <span className="block text-xs text-muted-foreground">{sub}</span>
+                <span className="block truncate text-sm font-semibold">{label}</span>
+                <span className="block truncate text-xs text-muted-foreground">Lorem ipsum</span>
               </span>
             </li>
           ))}
