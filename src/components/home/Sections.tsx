@@ -871,11 +871,11 @@ export function SiteFooter() {
       <div className="section-x mx-auto max-w-7xl py-14">
         <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
-            <a href="/">
+            <a href="/" className="inline-flex items-center rounded-xl bg-white px-3 py-1.5">
               <img
                 src="https://www.oasisrecovery.org.uk/wp-content/uploads/2024/08/ORB-logo.jpg"
                 alt="Oasis Recovery Bradford"
-                className="h-9 w-auto object-contain brightness-0 invert"
+                className="h-8 w-auto object-contain mix-blend-multiply"
               />
             </a>
             <p className="mt-4 text-sm leading-relaxed text-deep-foreground/55">{LOREM}</p>

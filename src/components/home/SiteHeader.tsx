@@ -717,7 +717,7 @@ export function SiteHeader() {
   const panel = activeEntry?.panel ?? null;
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur-md">
 
       {/* ── Top bar ── */}
       <div className="section-x mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:py-4">
