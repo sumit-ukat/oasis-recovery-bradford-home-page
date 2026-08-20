@@ -467,6 +467,15 @@ function TrustPanel({ onClose }: { onClose: () => void }) {
         <Phone className="size-4" aria-hidden />
         Get in touch
       </a>
+      <a
+        href="https://cdn.rehabfiles.com/sites/ukat/wp-content/uploads/brochure/oasis-bradford-v1.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-semibold text-foreground transition-colors hover:bg-secondary"
+      >
+        <FileText className="size-4" aria-hidden />
+        Download brochure
+      </a>
     </div>
   );
 }
@@ -606,7 +615,7 @@ function PanelRailLayout({
       </div>
 
       {/* ── Right: trust panel ── */}
-      <div className="w-[260px] shrink-0 border-l border-border pl-8">
+      <div className="w-[300px] shrink-0 border-l border-border pl-8">
         <TrustPanel onClose={onClose} />
       </div>
     </div>
