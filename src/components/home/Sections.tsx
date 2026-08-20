@@ -461,9 +461,7 @@ export function FamilyAftercare() {
   );
 }
 
-/* ═══════════════════════════════════════════════════════════
-   TESTIMONIALS — typography-first, large quote, dark navy
-═══════════════════════════════════════════════════════════ */
+/* ─────────────────────────────── Testimonials */
 
 function DoctifyWidget() {
   useEffect(() => {
@@ -475,13 +473,14 @@ function DoctifyWidget() {
     script.setAttribute("data-doctify", "1");
     document.body.appendChild(script);
   }, []);
+
   return <div id="0x2c0ypj" className="min-h-[260px]" />;
 }
 
 const OWN_REVIEWS = [
   {
     quote:
-      "For the first time in years, I felt like someone truly understood me. The team at Oasis Bradford gave me my life back.",
+      "The care I received at Oasis Bradford genuinely changed my life. The team made me feel safe from day one and supported me every step of the way.",
     author: "Former resident",
     date: "2026",
   },
@@ -510,109 +509,98 @@ export function Testimonials() {
   }
 
   return (
-    <section className="bg-deep py-24 text-deep-foreground sm:py-32 lg:py-40">
+    <section className="bg-deep py-20 text-deep-foreground sm:py-28">
       <div className="section-x mx-auto max-w-7xl">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow text-deep-foreground/60">Client stories</p>
+            <h2 className="mt-4 max-w-xl text-[2rem] leading-[1.1] sm:text-[2.625rem] lg:text-[3rem]">
+              What people say about Oasis
+            </h2>
+          </div>
+          <a
+            href="/reviews/"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-deep-foreground/60 transition-colors hover:text-deep-foreground hover:underline sm:inline-flex"
+          >
+            All reviews <ArrowRight className="size-4" aria-hidden />
+          </a>
+        </div>
 
-        {/* Eyebrow */}
-        <p className="eyebrow text-deep-foreground/50">What our clients say</p>
+        <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
 
-        {/* Large quote — the headline of this section */}
-        <div className="mt-8 max-w-3xl">
-          <blockquote>
-            <p className="font-display text-[1.625rem] font-medium leading-[1.25] tracking-[-0.02em] sm:text-[2.125rem] lg:text-[2.625rem]">
-              &ldquo;{OWN_REVIEWS[active]!.quote}&rdquo;
-            </p>
-            <footer className="mt-7 flex items-center gap-4">
-              <span className="h-px w-8 shrink-0 bg-primary/60" aria-hidden />
-              <div>
-                <cite className="not-italic text-sm font-semibold">{OWN_REVIEWS[active]!.author}</cite>
-                <span className="ml-2 text-xs text-deep-foreground/40">{OWN_REVIEWS[active]!.date}</span>
+          {/* Doctify */}
+          <div className="overflow-hidden rounded-2xl bg-white">
+            <div className="flex items-center gap-2 border-b border-neutral-100 px-5 py-3.5">
+              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-neutral-400">
+                Verified by Doctify
+              </span>
+            </div>
+            <div className="p-2">
+              <DoctifyWidget />
+            </div>
+          </div>
+
+          {/* Own reviews */}
+          <div className="flex flex-col rounded-2xl border border-deep-foreground/15 bg-deep-foreground/5 p-7 sm:p-9">
+            <div className="flex items-center justify-between">
+              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-deep-foreground/40">
+                From our residents
+              </span>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
+                ))}
               </div>
-            </footer>
-          </blockquote>
+            </div>
 
-          {/* Dots + prev/next */}
-          <div className="mt-8 flex items-center gap-4">
-            <div className="flex gap-1.5">
+            <blockquote className="mt-7 flex-1">
+              <p className="text-[1.125rem] leading-relaxed text-deep-foreground/85 sm:text-xl">
+                &ldquo;{OWN_REVIEWS[active]!.quote}&rdquo;
+              </p>
+            </blockquote>
+
+            <div className="mt-8 flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-semibold">{OWN_REVIEWS[active]!.author}</p>
+                <p className="text-xs text-deep-foreground/45">{OWN_REVIEWS[active]!.date}</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={prev}
+                  aria-label="Previous review"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-deep-foreground/20 text-deep-foreground/60 transition-colors hover:border-deep-foreground/40 hover:text-deep-foreground"
+                >
+                  <ChevronLeft className="size-4" />
+                </button>
+                <button
+                  onClick={next}
+                  aria-label="Next review"
+                  className="grid h-9 w-9 place-items-center rounded-full border border-deep-foreground/20 text-deep-foreground/60 transition-colors hover:border-deep-foreground/40 hover:text-deep-foreground"
+                >
+                  <ChevronRight className="size-4" />
+                </button>
+              </div>
+            </div>
+
+            <div className="mt-4 flex gap-1.5">
               {OWN_REVIEWS.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => setActive(i)}
-                  aria-label={`Review ${i + 1}`}
+                  aria-label={`Go to review ${i + 1}`}
                   className={cn(
-                    "h-[3px] rounded-full transition-all duration-200",
+                    "h-1 rounded-full transition-all duration-200",
                     i === active
                       ? "w-6 bg-primary"
-                      : "w-[3px] bg-deep-foreground/20 hover:bg-deep-foreground/40"
+                      : "w-1 bg-deep-foreground/25 hover:bg-deep-foreground/40"
                   )}
                 />
               ))}
             </div>
-            <div className="flex gap-1">
-              <button
-                onClick={prev}
-                aria-label="Previous review"
-                className="grid h-8 w-8 place-items-center rounded-full border border-deep-foreground/15 text-deep-foreground/50 transition-colors hover:border-deep-foreground/30 hover:text-deep-foreground"
-              >
-                <ChevronLeft className="size-3.5" />
-              </button>
-              <button
-                onClick={next}
-                aria-label="Next review"
-                className="grid h-8 w-8 place-items-center rounded-full border border-deep-foreground/15 text-deep-foreground/50 transition-colors hover:border-deep-foreground/30 hover:text-deep-foreground"
-              >
-                <ChevronRight className="size-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
 
-        {/* Divider */}
-        <div className="my-12 h-px bg-deep-foreground/12 lg:my-16" />
-
-        {/* Doctify + review platform credibility */}
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
-          <div>
-            <p className="eyebrow mb-4 text-deep-foreground/40">Verified by Doctify</p>
-            <div className="overflow-hidden rounded-2xl bg-white">
-              <div className="flex items-center gap-2 border-b border-neutral-100 px-5 py-3">
-                <span className="text-[0.6rem] font-bold uppercase tracking-widest text-neutral-400">
-                  Doctify verified reviews
-                </span>
-              </div>
-              <div className="p-2">
-                <DoctifyWidget />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex flex-col justify-center">
-            <p className="eyebrow mb-6 text-deep-foreground/40">Review platforms</p>
-            <div className="space-y-5">
-              {[
-                { platform: "Google Reviews", score: "4.9 / 5" },
-                { platform: "Doctify", score: "Excellent" },
-                { platform: "Trustpilot", score: "4.8 / 5" },
-              ].map(({ platform, score }) => (
-                <div
-                  key={platform}
-                  className="flex items-center justify-between border-b border-deep-foreground/10 pb-5 last:border-0 last:pb-0"
-                >
-                  <span className="text-sm font-medium text-deep-foreground/65">{platform}</span>
-                  <div className="flex items-center gap-3">
-                    <div className="flex gap-0.5">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="size-3 fill-amber-400 text-amber-400" aria-hidden />
-                      ))}
-                    </div>
-                    <span className="text-xs text-deep-foreground/40">{score}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
             <a
               href="/reviews/"
-              className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+              className="mt-7 inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
             >
               Read all reviews <ArrowRight className="size-4" aria-hidden />
             </a>
