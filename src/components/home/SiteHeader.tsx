@@ -478,18 +478,13 @@ function MegaItemRow({ item, onClose }: { item: MegaItem; onClose: () => void })
     <a
       href={item.href}
       onClick={onClose}
-      className="group/link flex items-start gap-3 rounded-xl p-2.5 transition-colors hover:bg-secondary"
+      className="group/link block rounded-xl px-2.5 py-2 transition-colors hover:bg-secondary"
     >
-      <span className="mt-0.5 grid h-9 w-9 shrink-0 place-items-center rounded-lg bg-primary/10 text-primary transition-colors group-hover/link:bg-primary group-hover/link:text-primary-foreground">
-        <item.icon className="size-[1.1rem]" aria-hidden />
+      <span className="block text-[0.8125rem] font-semibold leading-snug text-foreground transition-colors group-hover/link:text-primary">
+        {item.label}
       </span>
-      <span className="min-w-0 pt-0.5">
-        <span className="block text-[0.8125rem] font-semibold leading-snug text-foreground">
-          {item.label}
-        </span>
-        <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
-          {item.desc}
-        </span>
+      <span className="mt-0.5 block text-xs leading-snug text-muted-foreground">
+        {item.desc}
       </span>
     </a>
   );
