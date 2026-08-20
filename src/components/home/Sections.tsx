@@ -357,21 +357,23 @@ export function Team() {
           </h2>
         </div>
 
-        {/* Featured clinician — compact, text-led */}
-        <div className="mt-12">
-          <div className="flex items-start gap-5 sm:gap-6">
+        {/* Featured clinician — portrait + name left, bio right */}
+        <div className="mt-12 grid gap-8 sm:grid-cols-[auto_1fr] sm:gap-12 sm:items-start">
+          <div className="flex items-start gap-5 sm:flex-col sm:gap-4 sm:w-44">
             <ImagePlaceholder
               letter="G"
               note="Lead clinician portrait"
-              className="aspect-square w-16 shrink-0 rounded-xl sm:w-20"
+              className="aspect-square w-16 shrink-0 rounded-xl sm:w-full"
             />
-            <div className="min-w-0 pt-1">
+            <div className="min-w-0 pt-1 sm:pt-0">
               <h3 className="text-xl font-medium tracking-[-0.02em] sm:text-2xl">Name Placeholder</h3>
               <p className="eyebrow mt-1.5">Clinical Director</p>
             </div>
           </div>
-          <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">{LOREM}</p>
+          <div className="sm:pt-1">
+            <p className="text-base leading-relaxed text-muted-foreground">{LOREM_LONG}</p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">{LOREM}</p>
+          </div>
         </div>
 
         {/* Supporting clinicians */}
