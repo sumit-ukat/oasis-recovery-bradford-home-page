@@ -905,7 +905,7 @@ export function SiteFooter() {
         </div>
 
         {/* Nav columns */}
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
               <h3 className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
