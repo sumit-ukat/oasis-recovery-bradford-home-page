@@ -36,7 +36,8 @@ import { cn } from "@/lib/utils";
 type Icon = React.ComponentType<{ className?: string; "aria-hidden"?: boolean }>;
 
 type SubLink = { label: string; href: string };
-type MegaItem = { icon: Icon; label: string; desc: string; href: string; subLinks?: SubLink[] };
+type GuideLink = { label: string; href: string };
+type MegaItem = { icon: Icon; label: string; desc: string; href: string; subLinks?: SubLink[]; guides?: GuideLink[] };
 type MegaGroup = { title?: string; items: MegaItem[] };
 type MegaIntro = { desc: string; allLabel: string; allHref: string };
 type MegaFeatured = {
@@ -121,6 +122,14 @@ const NAV: NavEntry[] = [
               label: "Alcohol addiction",
               desc: "Our most-treated condition — safe, managed withdrawal and residential rehabilitation",
               href: "/addiction/alcohol/",
+              guides: [
+                { label: "Signs of alcohol addiction",            href: "/addiction/alcohol/signs-of-alcoholism/" },
+                { label: "Alcohol withdrawal symptoms",           href: "/addiction/alcohol/withdrawal-symptoms/" },
+                { label: "How to help someone with alcoholism",   href: "/blog/how-to-help-an-alcoholic/" },
+                { label: "Understanding alcohol units",           href: "/blog/alcohol-units/" },
+                { label: "Am I an alcoholic?",                    href: "/addiction/alcohol/am-i-an-alcoholic/" },
+                { label: "Effects of long-term alcohol use",      href: "/addiction/alcohol/effects/" },
+              ],
             },
             {
               icon: Pill,
@@ -237,6 +246,14 @@ const NAV: NavEntry[] = [
               label: "Alcohol detox",
               desc: "Safe, medically managed alcohol withdrawal at our facility",
               href: "/detox/alcohol/",
+              guides: [
+                { label: "What to expect from alcohol detox",     href: "/detox/alcohol/what-to-expect/" },
+                { label: "Alcohol withdrawal timeline",           href: "/detox/alcohol/withdrawal-timeline/" },
+                { label: "Why home detox can be dangerous",       href: "/blog/home-detox-risks/" },
+                { label: "Detox vs rehab: what's the difference?",href: "/blog/detox-vs-rehab/" },
+                { label: "Medications used in alcohol detox",     href: "/detox/alcohol/medications/" },
+                { label: "Managing cravings during detox",        href: "/blog/managing-cravings/" },
+              ],
             },
             {
               icon: Pill,
@@ -282,6 +299,14 @@ const NAV: NavEntry[] = [
               label: "Alcohol rehab",
               desc: "Residential inpatient alcohol rehabilitation",
               href: "/rehab-treatment/alcohol/",
+              guides: [
+                { label: "What happens in alcohol rehab?",        href: "/rehab-treatment/alcohol/what-to-expect/" },
+                { label: "How long does alcohol rehab take?",     href: "/rehab-treatment/alcohol/duration/" },
+                { label: "Private vs NHS alcohol rehab",          href: "/blog/private-vs-nhs-rehab/" },
+                { label: "How to fund private alcohol treatment", href: "/blog/funding-rehab/" },
+                { label: "Alcohol rehab near Bradford",           href: "/location/" },
+                { label: "Life after rehab: preventing relapse",  href: "/blog/preventing-relapse/" },
+              ],
             },
             {
               icon: Pill,
@@ -612,6 +637,28 @@ function PanelRailLayout({
             View page <ArrowRight className="size-3.5" aria-hidden />
           </a>
         )}
+
+        {activeItem.guides?.length ? (
+          <div className="mt-6 border-t border-border/60 pt-5">
+            <p className="mb-2.5 text-[0.6rem] font-bold uppercase tracking-[0.14em] text-muted-foreground/50">
+              Guides &amp; articles
+            </p>
+            <ul className="grid grid-cols-2 gap-x-6 gap-y-0.5">
+              {activeItem.guides.map((g) => (
+                <li key={g.label}>
+                  <a
+                    href={g.href}
+                    onClick={onClose}
+                    className="flex items-center gap-1.5 py-1.5 text-[0.8125rem] text-muted-foreground transition-colors hover:text-primary"
+                  >
+                    <BookOpen className="size-3 shrink-0 text-primary/40" aria-hidden />
+                    {g.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
       </div>
 
       {/* ── Right: trust panel ── */}
