@@ -43,7 +43,7 @@ export function Hero() {
       <div className="section-x mx-auto max-w-7xl pt-14 sm:pt-20 lg:grid lg:min-h-[88vh] lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-center lg:gap-14 lg:pt-28">
 
         {/* Text block */}
-        <div className="max-w-xl pb-0 lg:pb-24">
+        <div className="max-w-xl pb-10 lg:pb-24">
           <p className="eyebrow text-primary/70">
             Private addiction treatment · Bradford, West Yorkshire
           </p>
@@ -76,12 +76,12 @@ export function Hero() {
           </p>
         </div>
 
-        {/* Hero image — below text on mobile, right column on desktop */}
-        <div className="mt-10 lg:mt-0 lg:h-full lg:self-stretch">
+        {/* Hero image — full-bleed on mobile, column on desktop */}
+        <div className="-mx-5 mt-10 sm:-mx-8 lg:mx-0 lg:h-full lg:self-stretch">
           <ImagePlaceholder
             letter="A"
             note="Hero — facility exterior, garden path, or calm residential moment"
-            className="aspect-[4/3] w-full rounded-t-3xl sm:aspect-[16/9] lg:absolute lg:inset-y-0 lg:right-0 lg:w-[48%] lg:rounded-none lg:rounded-l-3xl lg:aspect-auto"
+            className="aspect-[3/4] w-full sm:aspect-[16/9] lg:h-full lg:aspect-auto lg:rounded-3xl"
           />
         </div>
       </div>
