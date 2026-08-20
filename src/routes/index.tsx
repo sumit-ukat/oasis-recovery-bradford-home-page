@@ -6,6 +6,7 @@ import {
   AddictionsHub,
   DetoxHub,
   RehabHub,
+  TherapiesHub,
   RecoveryJourney,
   FacilitiesDailyLife,
   Team,
@@ -79,6 +80,7 @@ function Index() {
         <AddictionsHub />
         <DetoxHub />
         <RehabHub />
+        <TherapiesHub />
         <RecoveryJourney />
         <FacilitiesDailyLife />
         <Team />

@@ -329,21 +329,32 @@ export function AddictionsHub() {
   return (
     <section id="addictions" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-2xl">
-          <p className="eyebrow">What we treat</p>
-          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-            Addictions we treat at Oasis
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            We treat alcohol and drug addiction, behavioural addictions and dual
-            diagnosis at our Bradford facility. Each page below explains how that
-            addiction develops, the signs to look for and the effects it can have —
-            the treatment itself is covered in{" "}
-            <a href="#rehab" className="font-medium text-primary hover:underline">
-              residential rehab
-            </a>
-            .
-          </p>
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
+          <div>
+            <p className="eyebrow">What we treat</p>
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+              Addictions we treat at Oasis
+            </h2>
+          </div>
+          <div className="mt-5 lg:mt-0">
+            <p className="text-base leading-relaxed text-muted-foreground">
+              We treat alcohol and drug addiction, behavioural addictions and dual
+              diagnosis at our Bradford facility. Each page below explains how that
+              addiction develops, the signs to look for and the effects it can have.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              The treatment itself — detox and residential rehabilitation — is covered
+              in the{" "}
+              <a href="#detox" className="font-medium text-primary hover:underline">
+                detox
+              </a>{" "}
+              and{" "}
+              <a href="#rehab" className="font-medium text-primary hover:underline">
+                rehab
+              </a>{" "}
+              sections below.
+            </p>
+          </div>
         </div>
 
         {/* Mobile: swipeable rail, ~86% width with next card peeking in */}
@@ -432,13 +443,15 @@ export function DetoxHub() {
   return (
     <section id="detox" className="bg-background py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:items-center lg:gap-16">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
           <div>
             <p className="eyebrow">Withdrawal management</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Medically supported detox
             </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+          </div>
+          <div className="mt-5 lg:mt-0">
+            <p className="text-base leading-relaxed text-muted-foreground">
               Detox is the process of safely managing withdrawal from alcohol or drugs
               under clinical supervision. What a person needs from detox varies — which
               is why every resident receives a clinical assessment before any withdrawal
@@ -450,15 +463,15 @@ export function DetoxHub() {
               manageable than attempting it alone.
             </p>
           </div>
-
-          <img
-            src={IMGS.reception}
-            alt="Clinical reception area at Oasis Recovery Bradford"
-            className="aspect-[4/3] w-full rounded-2xl object-cover"
-          />
         </div>
 
-        <div className="mt-12 grid gap-5 lg:mt-16 lg:grid-cols-2 lg:gap-6">
+        <img
+          src={IMGS.reception}
+          alt="Clinical reception area at Oasis Recovery Bradford"
+          className="mt-10 aspect-[21/9] w-full rounded-2xl object-cover lg:mt-12"
+        />
+
+        <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-6">
           {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
             <div
               key={title}
@@ -579,18 +592,25 @@ export function RehabHub() {
   return (
     <section id="rehab" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-2xl">
-          <p className="eyebrow">Structured recovery treatment</p>
-          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-            Residential rehab for lasting recovery
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Where detox stabilises the body, rehabilitation is the structured,
-            longer-term treatment that helps residents understand their addiction and
-            build the tools to stay in recovery. Our residential programme combines
-            one-to-one and group therapy with practical relapse-prevention work and
-            wellbeing support, tailored to each resident.
-          </p>
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
+          <div>
+            <p className="eyebrow">Structured recovery treatment</p>
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+              Residential rehab for lasting recovery
+            </h2>
+          </div>
+          <div className="mt-5 lg:mt-0">
+            <p className="text-base leading-relaxed text-muted-foreground">
+              Where detox stabilises the body, rehabilitation is the structured,
+              longer-term treatment that helps residents understand their addiction and
+              build the tools to stay in recovery.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              Our residential programme combines one-to-one and group therapy with
+              practical relapse-prevention work and wellbeing support, tailored to
+              each resident's circumstances and treatment needs.
+            </p>
+          </div>
         </div>
 
         <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-14">
@@ -632,35 +652,101 @@ export function RehabHub() {
           </div>
         </div>
 
-        {/* Therapies — a second, distinct link layer into the programme pages */}
-        <div className="mt-10 rounded-2xl border border-border/60 bg-card p-6 sm:p-8 lg:mt-14">
-          <div className="sm:flex sm:items-start sm:justify-between sm:gap-8">
-            <div>
-              <h3 className="text-[1.1875rem] font-medium">Therapies within the programme</h3>
-              <p className="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground">
-                Each resident's timetable is built from evidence-based and holistic
-                therapies, chosen around their assessment rather than run as a fixed
-                curriculum.
-              </p>
-            </div>
-            <a
-              href="/rehab-programme/"
-              className="group mt-4 inline-flex shrink-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline sm:mt-1"
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   6 — THERAPIES
+   "What therapies will I actually have access to?"
+═══════════════════════════════════════════════════════════ */
+
+const THERAPY_GROUPS = [
+  {
+    title: "Talking & psychological therapies",
+    desc: "Evidence-based approaches that help residents understand their addiction, address underlying causes and develop coping strategies.",
+    therapies: [
+      { label: "CBT",                href: "/rehab-programme/cbt/" },
+      { label: "DBT",                href: "/rehab-programme/dbt/" },
+      { label: "EMDR",               href: "/rehab-programme/emdr/" },
+      { label: "Individual therapy", href: "/rehab-programme/individual-therapy/" },
+      { label: "Group therapy",      href: "/rehab-programme/group-therapy/" },
+      { label: "Family therapy",     href: "/rehab-programme/family-therapy/" },
+      { label: "Trauma therapy",     href: "/rehab-programme/trauma-therapy/" },
+      { label: "Psychotherapy",      href: "/rehab-programme/psychotherapy/" },
+    ],
+  },
+  {
+    title: "Holistic & wellbeing therapies",
+    desc: "Complementary approaches that support physical recovery, reduce stress and build resilience alongside the core therapeutic programme.",
+    therapies: [
+      { label: "Holistic therapy",   href: "/rehab-programme/holistic-therapy/" },
+      { label: "Mindfulness",        href: "/rehab-programme/mindfulness-therapy/" },
+      { label: "Art therapy",        href: "/rehab-programme/art-therapy/" },
+      { label: "Music therapy",      href: "/rehab-programme/music-therapy/" },
+      { label: "Yoga therapy",       href: "/rehab-programme/yoga-therapy/" },
+      { label: "Meditation",         href: "/rehab-programme/meditation/" },
+      { label: "Nutrition",          href: "/rehab-programme/nutrition/" },
+      { label: "Rehab fitness",      href: "/rehab-programme/rehab-fitness/" },
+    ],
+  },
+];
+
+export function TherapiesHub() {
+  return (
+    <section id="therapies" className="bg-background py-20 sm:py-28 lg:py-36">
+      <div className="section-x mx-auto max-w-7xl">
+        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
+          <div>
+            <p className="eyebrow">Treatment programmes</p>
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+              Therapies in your treatment plan
+            </h2>
+          </div>
+          <div className="mt-5 lg:mt-0">
+            <p className="text-base leading-relaxed text-muted-foreground">
+              No resident follows a fixed schedule. Each timetable is built from a
+              combination of evidence-based and holistic therapies, chosen around
+              their clinical assessment, substance history and personal recovery needs.
+            </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              The core programme runs alongside individual key-worker sessions and
+              group work, with holistic activities woven through the week to support
+              overall wellbeing.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-2">
+          {THERAPY_GROUPS.map(({ title, desc, therapies }) => (
+            <div
+              key={title}
+              className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
             >
-              All rehab programmes
-              <ArrowRight
-                className="size-4 transition-transform duration-200 group-hover:translate-x-0.5"
-                aria-hidden
-              />
+              <h3 className="text-[1.125rem] font-medium leading-snug">{title}</h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+              <div className="mt-6 flex flex-wrap gap-2">
+                {therapies.map((t) => (
+                  <LinkChip key={t.label} href={t.href}>
+                    {t.label}
+                  </LinkChip>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
+            <a href="/rehab-programme/">
+              All therapy programmes <ArrowRight className="size-4" aria-hidden />
             </a>
-          </div>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {THERAPIES.map((t) => (
-              <LinkChip key={t.label} href={t.href}>
-                {t.label}
-              </LinkChip>
-            ))}
-          </div>
+          </Button>
+          <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+            Which therapies apply to you is decided during your clinical assessment —
+            our admissions team can give you a clearer picture before you arrive.
+          </p>
         </div>
       </div>
     </section>
@@ -668,7 +754,7 @@ export function RehabHub() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   6 — YOUR RECOVERY JOURNEY
+   7 — YOUR RECOVERY JOURNEY
    "What happens after I contact Oasis?" — chronological, not another
    treatment explanation.
 ═══════════════════════════════════════════════════════════ */
