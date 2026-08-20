@@ -355,7 +355,7 @@ export function AddictionsHub() {
             <a
               key={label}
               href={href}
-              className="group flex w-[86%] shrink-0 snap-start flex-col rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[340px] lg:w-auto"
+              className="group flex w-[86vw] shrink-0 snap-start flex-col rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[340px] lg:w-auto"
             >
               <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-5" aria-hidden />
@@ -1452,7 +1452,7 @@ export function Resources() {
             <a
               key={title}
               href="/blog/"
-              className="group flex w-[86%] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[300px] lg:w-auto"
+              className="group flex w-[86vw] shrink-0 snap-start flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[300px] lg:w-auto"
             >
               <div className="overflow-hidden">
                 <img
