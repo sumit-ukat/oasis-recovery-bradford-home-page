@@ -837,12 +837,23 @@ export function Contact() {
 
 const FOOTER_COLS = [
   {
+    title: "Addiction",
+    links: [
+      { label: "Alcohol addiction", href: "/addiction/alcohol/" },
+      { label: "Drug addiction", href: "/addiction/drug/" },
+      { label: "Behavioural addiction", href: "/addiction/behavioural/" },
+      { label: "Prescription drugs", href: "/addiction/prescription-drug/" },
+      { label: "Dual diagnosis", href: "/dual-diagnosis/" },
+    ],
+  },
+  {
     title: "Treatment",
     links: [
       { label: "Detox", href: "/detox/" },
       { label: "Residential rehab", href: "/rehab-treatment/" },
       { label: "Therapy programmes", href: "/rehab-programme/" },
       { label: "Aftercare", href: "/rehab-treatment/aftercare/" },
+      { label: "Cost of rehab", href: "/rehab-treatment/cost-alcohol-drug-rehab/" },
     ],
   },
   {
@@ -851,7 +862,8 @@ const FOOTER_COLS = [
       { label: "Our facility", href: "/about/facilities/" },
       { label: "Our team", href: "/about/our-team/" },
       { label: "Admissions", href: "/admissions/" },
-      { label: "Fees & funding", href: "/rehab-treatment/cost-alcohol-drug-rehab/" },
+      { label: "CQC report", href: "/cqc-report/" },
+      { label: "Reviews", href: "/reviews/" },
     ],
   },
   {
@@ -859,8 +871,9 @@ const FOOTER_COLS = [
     links: [
       { label: "Family support", href: "/rehab-programme/family-support/" },
       { label: "Help guides", href: "/help-guides/" },
+      { label: "Alumni programme", href: "/about/alumni/" },
       { label: "Contact us", href: "/about/contact/" },
-      { label: "Reviews", href: "/reviews/" },
+      { label: "FAQ", href: "/about/questions-and-answers/" },
     ],
   },
 ];
@@ -869,7 +882,9 @@ export function SiteFooter() {
   return (
     <footer className="bg-deep pb-24 text-deep-foreground lg:pb-0">
       <div className="section-x mx-auto max-w-7xl py-14">
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+
+        {/* Brand row */}
+        <div className="mb-10 flex flex-wrap items-start justify-between gap-6 border-b border-deep-foreground/15 pb-10">
           <div>
             <a href="/" className="inline-flex items-center rounded-xl bg-white px-3 py-1.5">
               <img
@@ -878,15 +893,19 @@ export function SiteFooter() {
                 className="h-8 w-auto object-contain mix-blend-multiply"
               />
             </a>
-            <p className="mt-4 text-sm leading-relaxed text-deep-foreground/55">{LOREM}</p>
-            <a
-              href="/cqc-report/"
-              className="mt-4 inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
-            >
-              <ShieldCheck className="size-3.5" aria-hidden />
-              CQC registered provider
-            </a>
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-deep-foreground/55">{LOREM}</p>
           </div>
+          <a
+            href="/cqc-report/"
+            className="inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
+          >
+            <ShieldCheck className="size-3.5" aria-hidden />
+            CQC registered provider
+          </a>
+        </div>
+
+        {/* Nav columns */}
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {FOOTER_COLS.map((col) => (
             <div key={col.title}>
               <h3 className="mb-4 text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
