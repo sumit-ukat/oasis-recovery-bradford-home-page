@@ -2,15 +2,20 @@ import { createFileRoute } from "@tanstack/react-router";
 import { SiteHeader } from "@/components/home/SiteHeader";
 import {
   Hero,
-  Treatment,
-  Facility,
-  Admissions,
+  TreatmentCentre,
+  AddictionsHub,
+  DetoxHub,
+  RehabHub,
+  RecoveryJourney,
+  FacilitiesDailyLife,
   Team,
-  FamilyAftercare,
-  Testimonials,
-  Faq,
+  FamilySupport,
+  RecoveryBeyondRehab,
+  Outcomes,
+  Costs,
+  Location,
   Resources,
-  NinetyDayPromise,
+  Faq,
   Contact,
   SiteFooter,
   MobileCallBar,
@@ -19,17 +24,17 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Oasis Recovery | Private Addiction Treatment & Rehab" },
+      { title: "Oasis Recovery | Private Addiction Rehab in Bradford, West Yorkshire" },
       {
         name: "description",
         content:
-          "Oasis Recovery offers confidential private addiction treatment: medical detox, residential rehab, therapy, family support and structured aftercare.",
+          "Oasis Recovery is a CQC-regulated private residential addiction treatment centre in Bradford, West Yorkshire. Confidential medical detox, residential rehab, family support and aftercare — part of the UKAT group.",
       },
-      { property: "og:title", content: "Oasis Recovery | Private Addiction Treatment & Rehab" },
+      { property: "og:title", content: "Oasis Recovery | Private Addiction Rehab in Bradford" },
       {
         property: "og:description",
         content:
-          "Confidential detox, residential rehab, therapy and aftercare in a calm private setting. Speak to our admissions team 24/7.",
+          "Confidential medical detox, residential rehab, family support and aftercare at our CQC-regulated Bradford facility. Speak to our admissions team 24/7.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -38,20 +43,51 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
+const STRUCTURED_DATA = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: "Oasis Recovery Bradford",
+  description:
+    "CQC-regulated private residential addiction treatment centre in Bradford, West Yorkshire, offering medical detox, residential rehabilitation, family support and aftercare.",
+  url: "https://www.oasisrecovery.org.uk/",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Bradford",
+    addressRegion: "West Yorkshire",
+    addressCountry: "GB",
+  },
+  medicalSpecialty: "Addiction Medicine",
+  parentOrganization: {
+    "@type": "Organization",
+    name: "UKAT (UK Addiction Treatment Group)",
+    url: "https://www.ukat.co.uk/",
+  },
+};
+
 function Index() {
   return (
     <div className="min-h-screen bg-background">
+      <script
+        type="application/ld+json"
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(STRUCTURED_DATA) }}
+      />
       <SiteHeader />
       <main>
         <Hero />
-        <Treatment />
-        <Facility />
-        <Admissions />
+        <TreatmentCentre />
+        <AddictionsHub />
+        <DetoxHub />
+        <RehabHub />
+        <RecoveryJourney />
+        <FacilitiesDailyLife />
         <Team />
-        <FamilyAftercare />
-        <Testimonials />
+        <FamilySupport />
+        <RecoveryBeyondRehab />
+        <Outcomes />
+        <Costs />
+        <Location />
         <Resources />
-        <NinetyDayPromise />
         <Faq />
         <Contact />
       </main>
