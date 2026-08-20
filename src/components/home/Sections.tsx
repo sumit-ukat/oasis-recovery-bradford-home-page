@@ -30,8 +30,25 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ImagePlaceholder } from "@/components/ImagePlaceholder";
 import { cn } from "@/lib/utils";
+
+const CDN = "https://cdn.rehabfiles.com/sites";
+const F = (name: string) => `${CDN}/ukat/wp-content/uploads/2016/10/${name}`;
+const IMGS = {
+  hero:     `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
+  therapy:  F("oasis_bradfords-143.jpg"),
+  wide:     `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
+  bedroom:  F("oasis_bradfords-055.jpg"),
+  lounge:   F("oasis_bradfords-096.jpg"),
+  reception:F("oasis_bradfords-013.jpg"),
+  tom:      `${CDN}/oasisorg/wp-content/uploads/2017/07/Tom-H-Braadford.jpg`,
+  durrani:  `${CDN}/oasisrecoverycom/wp-content/uploads/2023/02/dr-durrani.jpg`,
+  family:   F("oasis_bradfords-185.jpg"),
+  aftercare:F("oasis_bradfords-196.jpg"),
+  article1: F("oasis_bradfords-253.jpg"),
+  article2: F("oasis_bradfords-266.jpg"),
+  article3: F("oasis_bradfords-289.jpg"),
+} as const;
 
 const LOREM =
   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.";
@@ -76,10 +93,10 @@ export function Hero() {
         </div>
 
         <div className="mt-8 lg:mt-0">
-          <ImagePlaceholder
-            letter="A"
-            note="Hero"
-            className="aspect-[4/3] rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
+          <img
+            src={IMGS.hero}
+            alt="Oasis Bradford facility"
+            className="aspect-[4/3] rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl w-full object-cover"
           />
         </div>
       </div>
@@ -137,10 +154,10 @@ export function Treatment() {
               {LOREM}
             </p>
             <div className="mt-8 hidden lg:block">
-              <ImagePlaceholder
-                letter="B"
-                note="Therapy room or clinical consultation space"
-                className="aspect-[4/3] rounded-2xl"
+              <img
+                src={IMGS.therapy}
+                alt="Therapy room"
+                className="aspect-[4/3] rounded-2xl w-full object-cover"
               />
             </div>
           </div>
@@ -197,24 +214,24 @@ export function Facility() {
 
       {/* Dominant full-width image */}
       <div className="section-x mx-auto mt-10 max-w-7xl">
-        <ImagePlaceholder
-          letter="C"
-          note="Facility — entrance, garden, or main lounge. Cinematic crop."
-          className="aspect-[3/2] w-full rounded-3xl sm:aspect-[16/8] lg:aspect-[21/9]"
+        <img
+          src={IMGS.wide}
+          alt="Oasis Bradford facility"
+          className="aspect-[3/2] w-full rounded-3xl sm:aspect-[16/8] lg:aspect-[21/9] object-cover"
         />
       </div>
 
       {/* Two supporting images + amenity details */}
       <div className="section-x mx-auto mt-4 max-w-7xl grid grid-cols-1 gap-4 sm:grid-cols-3 lg:gap-5">
-        <ImagePlaceholder
-          letter="D"
-          note="Private en-suite bedroom"
-          className="aspect-[4/3] rounded-2xl"
+        <img
+          src={IMGS.bedroom}
+          alt="Private en-suite bedroom"
+          className="aspect-[4/3] rounded-2xl w-full object-cover"
         />
-        <ImagePlaceholder
-          letter="E"
-          note="Therapy room or lounge"
-          className="aspect-[4/3] rounded-2xl"
+        <img
+          src={IMGS.lounge}
+          alt="Lounge area"
+          className="aspect-[4/3] rounded-2xl w-full object-cover"
         />
 
         {/* Amenity text panel */}
@@ -307,11 +324,13 @@ export function Admissions() {
 
           {/* Image + CTA (desktop only) */}
           <div className="hidden lg:flex lg:flex-col lg:gap-8">
-            <ImagePlaceholder
-              letter="F"
-              note="Welcoming reception or comfortable arrival space"
-              className="flex-1 rounded-2xl"
-            />
+            <div className="flex-1 min-h-[160px] overflow-hidden rounded-2xl">
+              <img
+                src={IMGS.reception}
+                alt="Reception area"
+                className="w-full h-full object-cover"
+              />
+            </div>
             <Button asChild variant="cta" size="lg" className="w-full">
               <a href="#contact">
                 <Phone className="size-4" aria-hidden /> Start your admissions today
@@ -352,14 +371,14 @@ export function Team() {
         <div className="mt-12">
           <ul className="grid gap-8 sm:grid-cols-2">
             {[
-              { letter: "H", name: "Name Placeholder", role: "Lead Therapist" },
-              { letter: "I", name: "Name Placeholder", role: "Clinical Nurse Specialist" },
+              { key: "H", img: IMGS.tom,     name: "Tom Hegarty",       role: "Lead Therapist" },
+              { key: "I", img: IMGS.durrani, name: "Dr Mateen Durrani", role: "Clinical Nurse Specialist" },
             ].map((m) => (
-              <li key={m.letter} className="flex items-start gap-5">
-                <ImagePlaceholder
-                  letter={m.letter}
-                  note="Team portrait"
-                  className="aspect-square w-20 shrink-0 rounded-xl sm:w-24"
+              <li key={m.key} className="flex items-start gap-5">
+                <img
+                  src={m.img}
+                  alt={m.name}
+                  className="aspect-square w-20 shrink-0 rounded-xl sm:w-24 object-cover"
                 />
                 <div className="min-w-0 pt-1">
                   <h3 className="text-[1.0625rem] font-medium">{m.name}</h3>
@@ -395,10 +414,10 @@ export function FamilyAftercare() {
 
         {/* Family — image left, text right */}
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
-          <ImagePlaceholder
-            letter="J"
-            note="Family session — warm, human moment. Not staged."
-            className="aspect-[4/3] rounded-2xl lg:aspect-[3/2]"
+          <img
+            src={IMGS.family}
+            alt="Family support session"
+            className="aspect-[4/3] rounded-2xl lg:aspect-[3/2] w-full object-cover"
           />
           <div>
             <p className="eyebrow">Family support</p>
@@ -431,10 +450,10 @@ export function FamilyAftercare() {
               </Button>
             </div>
           </div>
-          <ImagePlaceholder
-            letter="K"
-            note="Aftercare — one-to-one support or quiet reflection space"
-            className="aspect-[4/3] rounded-2xl lg:order-2 lg:aspect-[3/2]"
+          <img
+            src={IMGS.aftercare}
+            alt="Aftercare support"
+            className="aspect-[4/3] rounded-2xl lg:order-2 lg:aspect-[3/2] w-full object-cover"
           />
         </div>
       </div>
@@ -636,10 +655,10 @@ export function Resources() {
             className="group block overflow-hidden rounded-2xl bg-card ring-1 ring-border/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
           >
             <div className="overflow-hidden">
-              <ImagePlaceholder
-                letter="L"
-                note="Featured article — strong, editorial image"
-                className="aspect-[4/3] rounded-none transition-transform duration-500 group-hover:scale-[1.02] sm:aspect-[16/9] lg:aspect-[4/3]"
+              <img
+                src={IMGS.article1}
+                alt="Featured article"
+                className="aspect-[4/3] rounded-none transition-transform duration-500 group-hover:scale-[1.02] sm:aspect-[16/9] lg:aspect-[4/3] w-full object-cover"
               />
             </div>
             <div className="p-6 sm:p-8">
@@ -658,19 +677,19 @@ export function Resources() {
           {/* Two smaller */}
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1 lg:gap-5">
             {[
-              { letter: "M", cat: "Recovery", time: "5 min read", title: "Article heading one" },
-              { letter: "N", cat: "Treatment", time: "7 min read", title: "Article heading two" },
-            ].map(({ letter, cat, time, title }) => (
+              { key: "M", img: IMGS.article2, cat: "Recovery",  time: "5 min read", title: "Article heading one" },
+              { key: "N", img: IMGS.article3, cat: "Treatment", time: "7 min read", title: "Article heading two" },
+            ].map(({ key, img, cat, time, title }) => (
               <a
-                key={letter}
+                key={key}
                 href="/blog/"
                 className="group flex flex-col overflow-hidden rounded-2xl bg-card ring-1 ring-border/60 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)]"
               >
                 <div className="overflow-hidden">
-                  <ImagePlaceholder
-                    letter={letter}
-                    note="Article image"
-                    className="aspect-[16/9] rounded-none transition-transform duration-500 group-hover:scale-[1.02]"
+                  <img
+                    src={img}
+                    alt={title}
+                    className="aspect-[16/9] rounded-none transition-transform duration-500 group-hover:scale-[1.02] w-full object-cover"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-5">
