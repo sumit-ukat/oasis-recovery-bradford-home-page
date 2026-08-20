@@ -1524,35 +1524,55 @@ const FAQS = [
   },
 ];
 
+const FAQ_COL_A = FAQS.slice(0, Math.ceil(FAQS.length / 2));
+const FAQ_COL_B = FAQS.slice(Math.ceil(FAQS.length / 2));
+
+function FaqColumn({ items }: { items: typeof FAQS }) {
+  return (
+    <Accordion type="single" collapsible>
+      {items.map(({ q, a }) => (
+        <AccordionItem
+          key={q}
+          value={q}
+          className="border-b border-border/50 first:border-t first:border-border/50"
+        >
+          <AccordionTrigger className="py-5 text-left text-[1.0625rem] font-medium leading-snug hover:no-underline">
+            {q}
+          </AccordionTrigger>
+          <AccordionContent className="pb-6 pr-6 text-sm leading-relaxed text-muted-foreground">
+            {a}
+          </AccordionContent>
+        </AccordionItem>
+      ))}
+    </Accordion>
+  );
+}
+
 export function Faq() {
   return (
     <section id="faq" className="bg-background py-20 sm:py-28 lg:py-36">
-      <div className="section-x mx-auto max-w-3xl">
-        <div className="max-w-lg">
-          <p className="eyebrow">FAQs</p>
-          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
-            Questions you<br />may have
-          </h2>
+      <div className="section-x mx-auto max-w-7xl">
+        <div className="flex items-end justify-between gap-4">
+          <div>
+            <p className="eyebrow">FAQs</p>
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
+              Questions you may have
+            </h2>
+          </div>
+          <a
+            href="/about/questions-and-answers/"
+            className="hidden shrink-0 items-center gap-1.5 text-sm font-medium text-primary hover:underline sm:inline-flex"
+          >
+            View all FAQs <ArrowRight className="size-4" aria-hidden />
+          </a>
         </div>
 
-        <Accordion type="single" collapsible className="mt-12">
-          {FAQS.map(({ q, a }) => (
-            <AccordionItem
-              key={q}
-              value={q}
-              className="border-b border-border/50 first:border-t first:border-border/50"
-            >
-              <AccordionTrigger className="py-5 text-left text-[1.0625rem] font-medium leading-snug hover:no-underline sm:text-lg">
-                {q}
-              </AccordionTrigger>
-              <AccordionContent className="pb-6 pr-6 text-sm leading-relaxed text-muted-foreground sm:text-base">
-                {a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+        <div className="mt-12 grid gap-0 lg:grid-cols-2 lg:gap-x-16">
+          <FaqColumn items={FAQ_COL_A} />
+          <FaqColumn items={FAQ_COL_B} />
+        </div>
 
-        <div className="mt-8 pt-2">
+        <div className="mt-6 sm:hidden">
           <a
             href="/about/questions-and-answers/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
