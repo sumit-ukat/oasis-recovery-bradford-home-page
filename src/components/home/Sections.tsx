@@ -1886,8 +1886,7 @@ export function SiteFooter() {
               Find us
             </p>
             <p className="mt-3 text-sm leading-relaxed text-deep-foreground/55">
-              21A Bolling Road<br />
-              Bradford<br />
+              21A Bolling Road, Bradford<br />
               West Yorkshire, BD4 7BG
             </p>
             <a
