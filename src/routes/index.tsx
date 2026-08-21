@@ -53,10 +53,13 @@ const STRUCTURED_DATA = {
   url: "https://www.oasisrecovery.org.uk/",
   address: {
     "@type": "PostalAddress",
+    streetAddress: "21A Bolling Road",
     addressLocality: "Bradford",
     addressRegion: "West Yorkshire",
+    postalCode: "BD4 7BG",
     addressCountry: "GB",
   },
+  telephone: "+442038161576",
   medicalSpecialty: "Addiction Medicine",
   parentOrganization: {
     "@type": "Organization",

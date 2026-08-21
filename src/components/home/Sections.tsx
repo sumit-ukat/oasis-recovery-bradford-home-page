@@ -176,7 +176,7 @@ export function Hero() {
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <a href="tel:+441234567890">
+              <a href="tel:+442038161576">
                 <Phone aria-hidden className="size-4" /> Call us — lines open 24/7
               </a>
             </Button>
@@ -1533,7 +1533,7 @@ export function Location() {
           <div className="overflow-hidden rounded-2xl border border-border/60">
             <iframe
               title="Map showing Oasis Recovery Bradford, West Yorkshire"
-              src="https://www.google.com/maps?q=Bradford,+West+Yorkshire&output=embed"
+              src="https://www.google.com/maps?q=21A+Bolling+Road,+Bradford,+BD4+7BG&output=embed"
               className="h-[320px] w-full sm:h-[400px]"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
@@ -1758,7 +1758,7 @@ export function Contact() {
             </ul>
 
             <Button asChild variant="cta" size="lg" className="mt-9 w-full sm:w-auto">
-              <a href="tel:+441234567890">
+              <a href="tel:+442038161576">
                 <Phone aria-hidden /> Speak to our admissions team
               </a>
             </Button>
@@ -1866,7 +1866,7 @@ export function SiteFooter() {
     <footer className="bg-deep pb-24 text-deep-foreground lg:pb-0">
       <div className="section-x mx-auto max-w-7xl py-14">
 
-        <div className="mb-10 flex flex-wrap items-start justify-between gap-6 border-b border-deep-foreground/15 pb-10">
+        <div className="mb-10 flex flex-wrap items-start justify-between gap-8 border-b border-deep-foreground/15 pb-10">
           <div>
             <a href="/" className="inline-flex items-center rounded-xl bg-white px-3 py-1.5">
               <img
@@ -1880,6 +1880,24 @@ export function SiteFooter() {
               Bradford, West Yorkshire — part of the UKAT group.
             </p>
           </div>
+
+          <address className="not-italic">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
+              Find us
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-deep-foreground/55">
+              21A Bolling Road<br />
+              Bradford<br />
+              West Yorkshire, BD4 7BG
+            </p>
+            <a
+              href="tel:+442038161576"
+              className="mt-2 block text-sm text-deep-foreground/55 transition-colors hover:text-deep-foreground"
+            >
+              0203 816 1576
+            </a>
+          </address>
+
           <a
             href="/cqc-report/"
             className="inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
@@ -1936,7 +1954,7 @@ export function MobileCallBar() {
     <div className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-background/95 px-4 pt-2.5 pb-[calc(0.625rem+env(safe-area-inset-bottom))] backdrop-blur lg:hidden">
       <div className="grid grid-cols-2 gap-2">
         <Button asChild variant="cta" size="lg">
-          <a href="tel:+441234567890">
+          <a href="tel:+442038161576">
             <Phone aria-hidden /> Call us 24/7
           </a>
         </Button>
