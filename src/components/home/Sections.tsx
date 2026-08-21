@@ -840,46 +840,63 @@ export function RecoveryJourney() {
   return (
     <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="flex flex-wrap items-end justify-between gap-4">
-          <div className="max-w-xl">
-            <p className="eyebrow">How it works</p>
-            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-              Your recovery journey
-            </h2>
-            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              Getting started begins with one confidential phone call. Here is what
-              happens from that first conversation onward.
-            </p>
-          </div>
-          <Button asChild variant="cta" size="default" className="hidden shrink-0 sm:inline-flex">
-            <a href="#contact">
-              <Phone className="size-4" aria-hidden /> Speak to admissions
-            </a>
-          </Button>
+        <div className="max-w-xl">
+          <p className="eyebrow">How it works</p>
+          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+            Your recovery journey
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+            Getting started begins with one confidential phone call. Here is what
+            happens from that first conversation onward.
+          </p>
         </div>
 
-        <ol className="mt-10 grid gap-px overflow-hidden rounded-2xl bg-border/40 sm:grid-cols-2 lg:grid-cols-5">
-          {JOURNEY.map(({ num, title, desc, link }) => (
-            <li key={num} className="bg-card px-5 py-7">
-              <span aria-hidden className="block font-display text-4xl font-bold leading-none tracking-tighter text-primary/[0.12]">
-                {num}
-              </span>
-              <h3 className="mt-4 text-[0.9375rem] font-semibold leading-snug">{title}</h3>
-              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{desc}</p>
-              {link && (
-                <a
-                  href={link.href}
-                  className="mt-3 inline-flex items-center gap-0.5 text-sm font-medium text-primary hover:underline"
-                >
-                  {link.label} <ArrowRight className="size-3.5" aria-hidden />
-                </a>
-              )}
-            </li>
-          ))}
-        </ol>
+        <div className="mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
+          {/* Timeline */}
+          <ol className="relative space-y-0">
+            <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
+            {JOURNEY.map(({ num, title, desc, link }) => (
+              <li key={num} className="relative flex gap-6 pb-9 last:pb-0">
+                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
+                  <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
+                    {num}
+                  </span>
+                </div>
+                <div className="min-w-0 pt-2.5">
+                  <h3 className="text-[1.0625rem] font-medium">{title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                    {desc}{" "}
+                    {link && (
+                      <a href={link.href} className="font-medium text-primary hover:underline">
+                        {link.label} →
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ol>
 
-        <div className="mt-6 sm:hidden">
-          <Button asChild variant="cta" size="lg" className="w-full">
+          {/* Image + CTA (desktop only) */}
+          <div className="hidden lg:flex lg:flex-col lg:gap-8">
+            <div className="min-h-[160px] flex-1 overflow-hidden rounded-2xl">
+              <img
+                src={IMGS.reception}
+                alt="Reception at Oasis Recovery Bradford"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <Button asChild variant="cta" size="lg" className="w-full">
+              <a href="#contact">
+                <Phone className="size-4" aria-hidden /> Speak to our admissions team
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        {/* Mobile CTA */}
+        <div className="mt-10 lg:hidden">
+          <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
             <a href="#contact">
               <Phone className="size-4" aria-hidden /> Speak to our admissions team
             </a>
