@@ -82,11 +82,11 @@ function Index() {
         <RehabHub />
         <TherapiesHub />
         <RecoveryJourney />
+        <Outcomes />
         <FacilitiesDailyLife />
         <Team />
         <FamilySupport />
         <RecoveryBeyondRehab />
-        <Outcomes />
         <Costs />
         <Location />
         <Resources />

@@ -172,11 +172,13 @@ export function Hero() {
           <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap sm:items-center">
             <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
               <a href="#contact">
-                <Phone aria-hidden /> Speak to our admissions team
+                <Phone aria-hidden /> Speak to admissions
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <a href="#contact-form">Request a confidential callback</a>
+              <a href="tel:+441234567890">
+                <Phone aria-hidden className="size-4" /> Call us — lines open 24/7
+              </a>
             </Button>
           </div>
         </div>
@@ -190,13 +192,13 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Compact trust row — genuine, verifiable signals only */}
-      <div className="border-t border-border/70 bg-background/60">
-        <ul className="section-x mx-auto flex max-w-7xl flex-wrap items-center gap-x-8 gap-y-3 py-5 sm:justify-between sm:gap-y-0">
+      {/* Authority trust bar — dark navy for premium credibility */}
+      <div className="bg-deep">
+        <ul className="section-x mx-auto flex max-w-7xl flex-wrap items-center gap-x-8 gap-y-3 py-4 sm:justify-between sm:gap-y-0">
           {TRUST_ROW.map(({ icon: Icon, label }) => (
             <li key={label} className="flex min-w-0 items-center gap-2">
-              <Icon className="size-4 shrink-0 text-primary" aria-hidden />
-              <span className="text-[0.8125rem] font-medium leading-snug text-foreground/85 sm:text-sm">
+              <Icon className="size-4 shrink-0 text-primary/60" aria-hidden />
+              <span className="text-[0.8125rem] font-medium leading-snug text-deep-foreground/75 sm:text-sm">
                 {label}
               </span>
             </li>
@@ -238,7 +240,7 @@ const DIFFERENTIATORS = [
 
 export function TreatmentCentre() {
   return (
-    <section id="centre" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="centre" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         {/* Editorial intro — heading and body copy share the full width, so
             there is real room for the story rather than a narrow column. */}
@@ -327,7 +329,7 @@ export function AddictionsHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="addictions" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="addictions" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
           <div>
@@ -460,7 +462,7 @@ const DETOX_GROUPS = [
 
 export function DetoxHub() {
   return (
-    <section id="detox" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
           <div>
@@ -626,7 +628,7 @@ const THERAPIES = [
 
 export function RehabHub() {
   return (
-    <section id="rehab" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="rehab" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
           <div>
@@ -741,7 +743,7 @@ const THERAPY_GROUPS = [
 
 export function TherapiesHub() {
   return (
-    <section id="therapies" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="therapies" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-end lg:gap-14">
           <div>
@@ -836,65 +838,48 @@ const JOURNEY = [
 
 export function RecoveryJourney() {
   return (
-    <section id="journey" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
-          <p className="eyebrow">How it works</p>
-          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-            Your recovery journey
-          </h2>
-          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-            Getting started begins with one confidential phone call. Here is what
-            happens from that first conversation onward.
-          </p>
-        </div>
-
-        <div className="mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
-          {/* Timeline */}
-          <ol className="relative space-y-0">
-            <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
-            {JOURNEY.map(({ num, title, desc, link }) => (
-              <li key={num} className="relative flex gap-6 pb-9 last:pb-0">
-                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
-                  <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
-                    {num}
-                  </span>
-                </div>
-                <div className="min-w-0 pt-2.5">
-                  <h3 className="text-[1.0625rem] font-medium">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {desc}{" "}
-                    {link && (
-                      <a href={link.href} className="font-medium text-primary hover:underline">
-                        {link.label} →
-                      </a>
-                    )}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
-
-          {/* Image + CTA (desktop only) */}
-          <div className="hidden lg:flex lg:flex-col lg:gap-8">
-            <div className="min-h-[160px] flex-1 overflow-hidden rounded-2xl">
-              <img
-                src={IMGS.reception}
-                alt="Reception at Oasis Recovery Bradford"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <Button asChild variant="cta" size="lg" className="w-full">
-              <a href="#contact">
-                <Phone className="size-4" aria-hidden /> Speak to our admissions team
-              </a>
-            </Button>
+        <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="max-w-xl">
+            <p className="eyebrow">How it works</p>
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+              Your recovery journey
+            </h2>
+            <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+              Getting started begins with one confidential phone call. Here is what
+              happens from that first conversation onward.
+            </p>
           </div>
+          <Button asChild variant="cta" size="default" className="hidden shrink-0 sm:inline-flex">
+            <a href="#contact">
+              <Phone className="size-4" aria-hidden /> Speak to admissions
+            </a>
+          </Button>
         </div>
 
-        {/* Mobile CTA */}
-        <div className="mt-10 lg:hidden">
-          <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
+        <ol className="mt-10 grid gap-px overflow-hidden rounded-2xl bg-border/40 sm:grid-cols-2 lg:grid-cols-5">
+          {JOURNEY.map(({ num, title, desc, link }) => (
+            <li key={num} className="bg-card px-5 py-7">
+              <span aria-hidden className="block font-display text-4xl font-bold leading-none tracking-tighter text-primary/[0.12]">
+                {num}
+              </span>
+              <h3 className="mt-4 text-[0.9375rem] font-semibold leading-snug">{title}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+              {link && (
+                <a
+                  href={link.href}
+                  className="mt-3 inline-flex items-center gap-0.5 text-sm font-medium text-primary hover:underline"
+                >
+                  {link.label} <ArrowRight className="size-3.5" aria-hidden />
+                </a>
+              )}
+            </li>
+          ))}
+        </ol>
+
+        <div className="mt-6 sm:hidden">
+          <Button asChild variant="cta" size="lg" className="w-full">
             <a href="#contact">
               <Phone className="size-4" aria-hidden /> Speak to our admissions team
             </a>
@@ -1006,7 +991,7 @@ function FacilityGallery() {
 
 export function FacilitiesDailyLife() {
   return (
-    <section id="facility" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="facility" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Inside Oasis</p>
@@ -1086,7 +1071,7 @@ const TEAM = [
 
 export function Team() {
   return (
-    <section id="team" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="team" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Our team</p>
@@ -1138,7 +1123,7 @@ export function Team() {
 
 export function FamilySupport() {
   return (
-    <section id="family" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="family" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           <img
@@ -1314,7 +1299,7 @@ export function Outcomes() {
   }
 
   return (
-    <section id="outcomes" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="outcomes" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
@@ -1422,7 +1407,7 @@ export function Outcomes() {
 
 export function Costs() {
   return (
-    <section id="costs" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="costs" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-20">
           <div>
@@ -1492,7 +1477,7 @@ const ACCESS_POINTS = [
 
 export function Location() {
   return (
-    <section id="location" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="location" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-16">
           <div>
@@ -1559,7 +1544,7 @@ export function Resources() {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="resources" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="resources" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -1682,7 +1667,7 @@ function FaqColumn({ items }: { items: typeof FAQS }) {
 
 export function Faq() {
   return (
-    <section id="faq" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="faq" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -1723,7 +1708,7 @@ export function Faq() {
 
 export function Contact() {
   return (
-    <section id="contact" className="bg-sand py-20 sm:py-28 lg:py-36">
+    <section id="contact" className="bg-sand py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
 
@@ -1935,11 +1920,11 @@ export function MobileCallBar() {
       <div className="grid grid-cols-2 gap-2">
         <Button asChild variant="cta" size="lg">
           <a href="tel:+441234567890">
-            <Phone aria-hidden /> Call now
+            <Phone aria-hidden /> Call us 24/7
           </a>
         </Button>
         <Button asChild variant="outline" size="lg">
-          <a href="#contact-form">Request callback</a>
+          <a href="#contact-form">Request a callback</a>
         </Button>
       </div>
     </div>
