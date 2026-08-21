@@ -357,6 +357,25 @@ export function AddictionsHub() {
           </div>
         </div>
 
+        {/* Contextual content block — sits between the intro and the card
+            grid, giving room for key statements about treatment scope. */}
+        <div className="mt-10 rounded-2xl border border-border/50 bg-card p-6 sm:p-8">
+          <p className="text-[1.0625rem] leading-relaxed text-foreground/80">
+            Understanding the nature of the addiction — how it started, what
+            sustains it, and the effect it has had — forms part of the clinical
+            assessment that shapes each resident's treatment plan. The pages below
+            are an independent resource: they do not require you to have already
+            decided on treatment.
+          </p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+            Addiction is a clinical condition, not a lifestyle choice. It changes the
+            brain's reward and motivation systems in ways that make stopping
+            difficult without appropriate support. That is why residential treatment —
+            structured, supported and away from everyday triggers — produces better
+            long-term outcomes than attempting recovery alone.
+          </p>
+        </div>
+
         {/* Mobile: swipeable rail, ~86% width with next card peeking in */}
         <div
           ref={scrollerRef}
@@ -462,6 +481,12 @@ export function DetoxHub() {
               Appropriate medical support makes it considerably safer and more
               manageable than attempting it alone.
             </p>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              At Oasis, detox is managed on site by our clinical team. Residents are
+              monitored throughout, medication is prescribed where appropriate, and the
+              withdrawal plan is adjusted based on how each individual is responding —
+              not run as a fixed protocol.
+            </p>
           </div>
         </div>
 
@@ -534,6 +559,17 @@ export function DetoxHub() {
    5 — REHAB TREATMENT (topic hub #3)
    "How does rehabilitation help someone build long-term recovery?"
 ═══════════════════════════════════════════════════════════ */
+
+const DRUG_REHAB_CHIPS = [
+  { label: "Crack cocaine rehab",  href: "/rehab-treatment/drug/crack-cocaine/" },
+  { label: "Crystal meth rehab",   href: "/rehab-treatment/drug/crystal-meth/" },
+  { label: "Ecstasy rehab",        href: "/rehab-treatment/drug/ecstasy/" },
+  { label: "Ketamine rehab",       href: "/rehab-treatment/drug/ketamine/" },
+  { label: "LSD rehab",            href: "/rehab-treatment/drug/lsd/" },
+  { label: "Spice rehab",          href: "/rehab-treatment/drug/spice/" },
+  { label: "Aftercare",            href: "/rehab-treatment/aftercare/" },
+  { label: "Cost of rehab",        href: "/rehab-treatment/cost-alcohol-drug-rehab/" },
+];
 
 const REHAB_PATHS = [
   {
@@ -649,6 +685,16 @@ export function RehabHub() {
                 </li>
               ))}
             </ul>
+            <div className="mt-5 border-t border-border/50 pt-5">
+              <p className="eyebrow text-[0.625rem]">More rehab & support pages</p>
+              <div className="mt-3 flex flex-wrap gap-2">
+                {DRUG_REHAB_CHIPS.map((c) => (
+                  <LinkChip key={c.label} href={c.href}>
+                    {c.label}
+                  </LinkChip>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
 
@@ -790,7 +836,7 @@ const JOURNEY = [
 
 export function RecoveryJourney() {
   return (
-    <section id="journey" className="bg-background py-20 sm:py-28 lg:py-36">
+    <section id="journey" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">How it works</p>
@@ -809,7 +855,7 @@ export function RecoveryJourney() {
             <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
             {JOURNEY.map(({ num, title, desc, link }) => (
               <li key={num} className="relative flex gap-6 pb-9 last:pb-0">
-                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-background ring-1 ring-border">
+                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
                   <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
                     {num}
                   </span>
@@ -902,7 +948,7 @@ function FacilityGallery() {
               <img
                 src={img.src}
                 alt={img.alt}
-                className="aspect-[4/3] w-full object-cover"
+                className="aspect-[16/9] w-full object-cover"
                 loading="lazy"
               />
             </figure>
@@ -960,7 +1006,7 @@ function FacilityGallery() {
 
 export function FacilitiesDailyLife() {
   return (
-    <section id="facility" className="bg-secondary/50 py-20 sm:py-28 lg:py-36">
+    <section id="facility" className="bg-background py-20 sm:py-28 lg:py-36">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Inside Oasis</p>
