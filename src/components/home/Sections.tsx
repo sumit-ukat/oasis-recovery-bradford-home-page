@@ -1881,29 +1881,31 @@ export function SiteFooter() {
             </p>
           </div>
 
-          <address className="not-italic">
-            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
-              Find us
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-deep-foreground/55">
-              21A Bolling Road, Bradford<br />
-              West Yorkshire, BD4 7BG
-            </p>
-            <a
-              href="tel:+442038161576"
-              className="mt-2 block text-sm text-deep-foreground/55 transition-colors hover:text-deep-foreground"
-            >
-              0203 816 1576
-            </a>
-          </address>
+          <div className="flex flex-col gap-5">
+            <address className="not-italic">
+              <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-deep-foreground/40">
+                Find us
+              </p>
+              <p className="mt-3 text-sm leading-relaxed text-deep-foreground/55">
+                21A Bolling Road, Bradford<br />
+                West Yorkshire, BD4 7BG
+              </p>
+              <a
+                href="tel:+442038161576"
+                className="mt-2 block text-sm text-deep-foreground/55 transition-colors hover:text-deep-foreground"
+              >
+                0203 816 1576
+              </a>
+            </address>
 
-          <a
-            href="/cqc-report/"
-            className="inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
-          >
-            <ShieldCheck className="size-3.5" aria-hidden />
-            CQC registered provider
-          </a>
+            <a
+              href="/cqc-report/"
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-deep-foreground/55 transition-colors hover:text-deep-foreground hover:underline"
+            >
+              <ShieldCheck className="size-3.5" aria-hidden />
+              CQC registered provider
+            </a>
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
