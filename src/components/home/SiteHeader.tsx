@@ -770,6 +770,25 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-white/90 backdrop-blur-md">
 
+      {/* ── Utility strip ── */}
+      <div className="bg-deep">
+        <div className="section-x mx-auto flex max-w-7xl items-center justify-end gap-4 py-1.5">
+          <a
+            href="/help-guides/"
+            className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
+          >
+            Help Guides
+          </a>
+          <span className="h-3 w-px bg-deep-foreground/20" aria-hidden />
+          <a
+            href="/blog/"
+            className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
+          >
+            Blogs
+          </a>
+        </div>
+      </div>
+
       {/* ── Top bar ── */}
       <div className="section-x mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 py-3 lg:py-4">
 
