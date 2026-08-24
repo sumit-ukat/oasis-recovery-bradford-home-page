@@ -29,6 +29,8 @@ import {
   Compass,
   Zap,
   Syringe,
+  Download,
+  FileText,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -1790,7 +1792,82 @@ export function Faq() {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   16 — FINAL CONVERSION CTA + confidential callback form
+   16 — BROCHURE DOWNLOAD CTA
+═══════════════════════════════════════════════════════════ */
+
+const BROCHURE_BULLETS = [
+  "Our full treatment programmes explained",
+  "Day-by-day structure of a residential stay",
+  "Costs, funding options and what's included",
+  "Aftercare, alumni support and life after rehab",
+];
+
+export function BrochureCta() {
+  return (
+    <section className="bg-deep py-14 sm:py-20 lg:py-24" aria-labelledby="brochure-heading">
+      <div className="section-x mx-auto max-w-7xl">
+        <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
+
+          {/* Left — copy */}
+          <div>
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-primary/80">
+              Free resource
+            </p>
+            <h2
+              id="brochure-heading"
+              className="mt-3 text-3xl font-semibold leading-tight tracking-tight text-deep-foreground sm:text-4xl"
+            >
+              Get our free treatment brochure
+            </h2>
+            <p className="mt-4 max-w-md text-base leading-relaxed text-deep-foreground/65">
+              Everything you need to know about our programmes, facilities, and approach — in
+              one clear, plain-English guide you can read at your own pace.
+            </p>
+            <ul className="mt-7 space-y-3.5">
+              {BROCHURE_BULLETS.map((item) => (
+                <li key={item} className="flex items-start gap-3">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/20 text-primary">
+                    <Check className="size-3" aria-hidden />
+                  </span>
+                  <span className="text-sm leading-snug text-deep-foreground/75">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Right — actions */}
+          <div className="flex flex-col gap-4 lg:items-end">
+            <div className="w-full max-w-sm space-y-3">
+              <a
+                href="https://cdn.rehabfiles.com/sites/ukat/wp-content/uploads/brochure/oasis-bradford-v1.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl bg-accent px-6 py-4 text-base font-semibold text-accent-foreground shadow-lg transition-colors hover:bg-[var(--color-accent-hover)]"
+              >
+                <Download className="size-5 shrink-0" aria-hidden />
+                Download brochure — free PDF
+              </a>
+              <a
+                href="#contact"
+                className="flex w-full items-center justify-center gap-2.5 rounded-xl border border-deep-foreground/20 px-6 py-4 text-base font-semibold text-deep-foreground transition-colors hover:bg-deep-foreground/10"
+              >
+                <Phone className="size-5 shrink-0" aria-hidden />
+                Speak to admissions
+              </a>
+              <p className="text-center text-xs text-deep-foreground/40">
+                No obligation · Completely confidential · Available 24/7
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   17 — FINAL CONVERSION CTA + confidential callback form
 ═══════════════════════════════════════════════════════════ */
 
 export function Contact() {

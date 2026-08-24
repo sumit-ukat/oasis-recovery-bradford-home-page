@@ -17,6 +17,7 @@ import {
   Location,
   Resources,
   Faq,
+  BrochureCta,
   Contact,
   SiteFooter,
   MobileCallBar,
@@ -94,6 +95,7 @@ function Index() {
         <Location />
         <Resources />
         <Faq />
+        <BrochureCta />
         <Contact />
       </main>
       <SiteFooter />
