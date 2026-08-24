@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import intlTelInput from "intl-tel-input/intlTelInputWithUtils";
 import {
   ArrowRight,
   Check,
@@ -118,6 +119,34 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
     left: child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2,
     behavior: "smooth",
   });
+}
+
+/* International phone input — matches the intl-tel-input widget used
+   across all UKAT sites. Initialised once on mount, destroyed on unmount. */
+function PhoneField({ id, name, required }: { id: string; name: string; required?: boolean }) {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (!inputRef.current) return;
+    const iti = intlTelInput(inputRef.current, {
+      initialCountry: "gb",
+      separateDialCode: true,
+    });
+    return () => iti.destroy();
+  }, []);
+
+  return (
+    <input
+      ref={inputRef}
+      id={id}
+      name={name}
+      type="tel"
+      placeholder="07400 123456"
+      autoComplete="tel"
+      required={required}
+      className="h-11 w-full rounded-md border border-input bg-background px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+    />
+  );
 }
 
 /* Compact pill link — lets the detox and rehab hubs carry a lot of
@@ -1784,23 +1813,10 @@ export function Contact() {
                 <Input id="cf-name" name="name" autoComplete="name" required className="h-11" />
               </div>
 
-              {/* Phone with flag */}
+              {/* Phone with intl-tel-input country picker */}
               <div className="grid gap-1.5">
                 <Label htmlFor="cf-phone">Phone Number <span className="text-destructive" aria-hidden>*</span></Label>
-                <div className="flex h-11 overflow-hidden rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background">
-                  <div className="flex shrink-0 items-center gap-1.5 border-r border-input bg-muted px-3 text-sm text-muted-foreground">
-                    🇬🇧 <span>+44</span>
-                  </div>
-                  <input
-                    id="cf-phone"
-                    name="phone"
-                    type="tel"
-                    placeholder="07400 123456"
-                    autoComplete="tel"
-                    required
-                    className="min-w-0 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
-                  />
-                </div>
+                <PhoneField id="cf-phone" name="phone" required />
               </div>
 
               {/* Email */}
