@@ -175,7 +175,23 @@ const TRUST_ROW = [
   { icon: HeartHandshake, label: "Aftercare included" },
 ];
 
+const HERO_SLIDES = [
+  { src: IMGS.hero,      alt: "Oasis Recovery Bradford — exterior" },
+  { src: IMGS.lounge,    alt: "Communal lounge at Oasis Recovery Bradford" },
+  { src: IMGS.bedroom,   alt: "Private bedroom at Oasis Recovery Bradford" },
+  { src: IMGS.reception, alt: "Reception at Oasis Recovery Bradford" },
+];
+
 export function Hero() {
+  const [slide, setSlide] = useState(0);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => setSlide(s => (s + 1) % HERO_SLIDES.length), 4000);
+    return () => clearInterval(id);
+  }, [paused]);
+
   return (
     <section id="top" className="relative overflow-hidden bg-sand">
       <div
@@ -213,11 +229,36 @@ export function Hero() {
         </div>
 
         <div className="mt-8 lg:mt-0">
-          <img
-            src={IMGS.hero}
-            alt="Oasis Recovery Bradford residential treatment centre"
-            className="aspect-[4/3] rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl w-full object-cover"
-          />
+          <div
+            className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+          >
+            {HERO_SLIDES.map(({ src, alt }, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={alt}
+                className={cn(
+                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
+                  i === slide ? "opacity-100" : "opacity-0",
+                )}
+              />
+            ))}
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+              {HERO_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Go to image ${i + 1}`}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-200",
+                    i === slide ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/75",
+                  )}
+                />
+              ))}
+            </div>
+          </div>
         </div>
       </div>
 
