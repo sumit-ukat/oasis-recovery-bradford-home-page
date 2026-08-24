@@ -1724,6 +1724,8 @@ export function Faq() {
 ═══════════════════════════════════════════════════════════ */
 
 export function Contact() {
+  const [prevTreatment, setPrevTreatment] = useState<"yes" | "no" | null>(null);
+
   return (
     <section id="contact" className="bg-sand py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
@@ -1769,43 +1771,121 @@ export function Contact() {
             className="rounded-2xl border border-border bg-card p-6 sm:p-8"
             onSubmit={(e) => e.preventDefault()}
           >
-            <h3 className="text-xl font-medium tracking-[-0.02em]">Request a confidential callback</h3>
-            <p className="mt-1 text-sm text-muted-foreground">No obligation · Complete privacy</p>
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-primary">
+              100% Confidential
+            </p>
+            <h3 className="mt-1 text-xl font-semibold tracking-[-0.02em]">Request a Free Callback</h3>
+            <p className="mt-1 text-sm text-muted-foreground">We'll get back to you within minutes.</p>
 
             <div className="mt-6 grid gap-4 sm:grid-cols-2">
+              {/* Name */}
               <div className="grid gap-1.5">
-                <Label htmlFor="name">Full name</Label>
-                <Input id="name" name="name" autoComplete="name" className="h-11" />
+                <Label htmlFor="cf-name">Name <span className="text-destructive" aria-hidden>*</span></Label>
+                <Input id="cf-name" name="name" autoComplete="name" required className="h-11" />
               </div>
+
+              {/* Phone with flag */}
               <div className="grid gap-1.5">
-                <Label htmlFor="phone">Phone number</Label>
-                <Input id="phone" name="phone" type="tel" autoComplete="tel" className="h-11" />
+                <Label htmlFor="cf-phone">Phone Number <span className="text-destructive" aria-hidden>*</span></Label>
+                <div className="flex h-11 overflow-hidden rounded-md border border-input bg-background focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background">
+                  <div className="flex shrink-0 items-center gap-1.5 border-r border-input bg-muted px-3 text-sm text-muted-foreground">
+                    🇬🇧 <span>+44</span>
+                  </div>
+                  <input
+                    id="cf-phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="07400 123456"
+                    autoComplete="tel"
+                    required
+                    className="min-w-0 flex-1 bg-transparent px-3 text-sm outline-none placeholder:text-muted-foreground"
+                  />
+                </div>
               </div>
+
+              {/* Email */}
+              <div className="grid gap-1.5">
+                <Label htmlFor="cf-email">Email <span className="text-destructive" aria-hidden>*</span></Label>
+                <Input id="cf-email" name="email" type="email" placeholder="Email" autoComplete="email" required className="h-11" />
+              </div>
+
+              {/* Age */}
+              <div className="grid gap-1.5">
+                <Label htmlFor="cf-age">Age <span className="text-destructive" aria-hidden>*</span></Label>
+                <Input id="cf-age" name="age" type="number" min="18" max="100" required className="h-11" />
+              </div>
+
+              {/* Addiction type */}
               <div className="grid gap-1.5 sm:col-span-2">
-                <Label htmlFor="enquiry">Who is seeking help?</Label>
-                <Select>
-                  <SelectTrigger id="enquiry" className="h-11">
-                    <SelectValue placeholder="Select an option" />
+                <Label htmlFor="cf-addiction">What Type of Addiction you're enquiring about <span className="text-destructive" aria-hidden>*</span></Label>
+                <Select required>
+                  <SelectTrigger id="cf-addiction" className="h-11">
+                    <SelectValue placeholder="—Please choose an option—" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="self">For myself</SelectItem>
-                    <SelectItem value="family">For a family member</SelectItem>
-                    <SelectItem value="professional">Professional referral</SelectItem>
+                    <SelectItem value="alcohol">Alcohol</SelectItem>
+                    <SelectItem value="cocaine">Cocaine</SelectItem>
+                    <SelectItem value="crack-cocaine">Crack cocaine</SelectItem>
+                    <SelectItem value="heroin">Heroin</SelectItem>
+                    <SelectItem value="cannabis">Cannabis</SelectItem>
+                    <SelectItem value="prescription-drugs">Prescription drugs</SelectItem>
+                    <SelectItem value="ketamine">Ketamine</SelectItem>
+                    <SelectItem value="crystal-meth">Crystal meth</SelectItem>
+                    <SelectItem value="gambling">Gambling</SelectItem>
+                    <SelectItem value="other">Other</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
+
+              {/* Other addiction */}
               <div className="grid gap-1.5 sm:col-span-2">
-                <Label htmlFor="message">Anything you'd like us to know? (optional)</Label>
-                <Textarea id="message" name="message" rows={3} />
+                <Label htmlFor="cf-addiction-other">If your addiction is not listed above, please specify</Label>
+                <Textarea id="cf-addiction-other" name="addictionOther" rows={3} />
+              </div>
+
+              {/* Previous treatment */}
+              <div className="sm:col-span-2">
+                <p className="text-sm font-medium leading-none">Have you ever received treatment for addiction before?</p>
+                <div className="mt-3 flex gap-6">
+                  <label className="flex cursor-pointer items-center gap-2 text-sm">
+                    <input
+                      type="radio"
+                      name="prevTreatment"
+                      value="yes"
+                      checked={prevTreatment === "yes"}
+                      onChange={() => setPrevTreatment("yes")}
+                      className="accent-primary"
+                    />
+                    Yes
+                  </label>
+                  <label className="flex cursor-pointer items-center gap-2 text-sm">
+                    <input
+                      type="radio"
+                      name="prevTreatment"
+                      value="no"
+                      checked={prevTreatment === "no"}
+                      onChange={() => setPrevTreatment("no")}
+                      className="accent-primary"
+                    />
+                    No
+                  </label>
+                </div>
+              </div>
+
+              {/* Anything else */}
+              <div className="grid gap-1.5 sm:col-span-2">
+                <Label htmlFor="cf-message">Anything else we should know <span className="text-destructive" aria-hidden>*</span></Label>
+                <Textarea id="cf-message" name="message" rows={3} required />
               </div>
             </div>
 
             <Button type="submit" variant="cta" size="lg" className="mt-5 w-full">
-              Request a confidential callback
+              Request a Callback
             </Button>
-            <p className="mt-3 flex items-center gap-1.5 text-xs text-muted-foreground">
-              <ShieldCheck className="size-3.5 shrink-0 text-primary/60" aria-hidden />
-              All enquiries are treated with complete confidentiality.
+            <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
+              *By submitting your details, you consent to us contacting you regarding your enquiry.
+              Your information will be handled in accordance with our{" "}
+              <a href="/privacy-policy/" className="underline hover:text-foreground">Privacy Policy</a>.
             </p>
           </form>
         </div>
