@@ -1,7 +1,14 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import "intl-tel-input/styles";
+@import "intl-tel-input/styles-no-assets";
+
+:root {
+  --iti-path-flags-1x: url("/iti/flags.webp");
+  --iti-path-flags-2x: url("/iti/flags@2x.webp");
+  --iti-path-globe-1x: url("/iti/globe.webp");
+  --iti-path-globe-2x: url("/iti/globe@2x.webp");
+}
 
 @custom-variant dark (&:is(.dark *));
 
