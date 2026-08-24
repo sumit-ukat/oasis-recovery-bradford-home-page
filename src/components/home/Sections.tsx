@@ -123,6 +123,55 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
   });
 }
 
+function CarouselControls({
+  scrollerRef,
+  count,
+  className = "",
+}: {
+  scrollerRef: React.RefObject<HTMLDivElement | null>;
+  count: number;
+  className?: string;
+}) {
+  const index = useSnapIndex(scrollerRef);
+  return (
+    <div className={`flex items-center gap-3 lg:hidden ${className}`}>
+      <button
+        type="button"
+        onClick={() => scrollToChild(scrollerRef, index - 1)}
+        disabled={index === 0}
+        aria-label="Previous"
+        className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card shadow-sm transition hover:bg-secondary disabled:opacity-30"
+      >
+        <ChevronLeft className="size-4" aria-hidden />
+      </button>
+      <div className="flex flex-1 justify-center gap-1.5">
+        {Array.from({ length: count }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => scrollToChild(scrollerRef, i)}
+            aria-label={`Go to item ${i + 1}`}
+            className={`rounded-full transition-all duration-200 ${
+              i === index
+                ? "h-2 w-5 bg-primary"
+                : "size-2 bg-primary/25 hover:bg-primary/50"
+            }`}
+          />
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={() => scrollToChild(scrollerRef, index + 1)}
+        disabled={index >= count - 1}
+        aria-label="Next"
+        className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card shadow-sm transition hover:bg-secondary disabled:opacity-30"
+      >
+        <ChevronRight className="size-4" aria-hidden />
+      </button>
+    </div>
+  );
+}
+
 /* International phone input — matches the intl-tel-input widget used
    across all UKAT sites. Initialised once on mount, destroyed on unmount. */
 function PhoneField({ id, name, required }: { id: string; name: string; required?: boolean }) {
@@ -474,7 +523,9 @@ export function AddictionsHub() {
           ))}
         </div>
 
-        <div className="mt-8">
+        <CarouselControls scrollerRef={scrollerRef} count={ADDICTIONS.length} className="mt-6" />
+
+        <div className="mt-6">
           <a
             href="/addiction/"
             className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
@@ -1680,7 +1731,9 @@ export function Resources() {
           ))}
         </div>
 
-        <div className="mt-8 sm:hidden">
+        <CarouselControls scrollerRef={scrollerRef} count={RESOURCES.length} className="mt-6" />
+
+        <div className="mt-6 sm:hidden">
           <a href="/blog/" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
             Explore all recovery resources <ArrowRight className="size-4" aria-hidden />
           </a>
