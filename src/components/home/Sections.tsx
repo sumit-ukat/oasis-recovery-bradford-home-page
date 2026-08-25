@@ -1227,7 +1227,7 @@ const TEAM = [
   {
     img: IMGS.michelle,
     name: "Michelle Burgess",
-    role: "Centre Manager – Oasis Bradford",
+    role: "Centre Manager",
     bio: "With a background spanning the NHS, HMPPS and criminal justice services, Michelle holds a Post Graduate Degree from the University of Huddersfield and formal training in behavioural science, addiction studies and therapeutic practice. She is dedicated to improving care quality and accessibility for individuals and families affected by addiction.",
   },
   {
