@@ -266,15 +266,15 @@ export function Hero() {
             alcohol and drug addiction.
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-2.5">
-            <Button asChild variant="cta" size="lg" className="flex-1 sm:flex-none">
+          <div className="mt-6 flex gap-2 sm:gap-2.5">
+            <Button asChild variant="cta" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
               <a href="#contact">
-                <Phone aria-hidden /> Speak to admissions
+                <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to admissions
               </a>
             </Button>
-            <Button asChild variant="outline" size="lg" className="flex-1 sm:flex-none">
+            <Button asChild variant="outline" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
               <a href="/oasis-recovery-bradford-brochure.pdf" download>
-                <Download aria-hidden className="size-4" /> Download brochure
+                <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download brochure
               </a>
             </Button>
           </div>
