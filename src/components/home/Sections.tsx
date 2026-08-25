@@ -6,6 +6,7 @@ import {
   ChevronLeft,
   ChevronRight,
   HeartHandshake,
+  Home,
   Leaf,
   MapPin,
   Phone,
@@ -402,26 +403,34 @@ export function TreatmentCentre() {
               life and focus fully on recovery, supported by a personalised programme
               of clinical and therapeutic care. Residents live on site for the duration
               of their treatment, with the clinical team, therapy timetable and everyday
-              support all under one roof.
+              support all under one roof. There are no shared wards here — this is a
+              considered, unhurried environment built around the individual, not around
+              throughput.
+            </p>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+              Life at Oasis follows a structured daily programme, balancing individual
+              therapy, group work, clinical reviews and dedicated time to rest and
+              reflect. The rhythm of the day is intentional — designed to restore
+              routine, reduce anxiety and give each resident the best possible
+              foundation for what comes after treatment.
             </p>
 
-            <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-3.5">
+            <div className="mt-7 grid grid-cols-2 gap-3">
               {[
-                "24/7 admissions team",
-                "Private en-suite rooms",
-                "CQC regulated facility",
-                "Chef-prepared meals daily",
-                "Medical detox on site",
-                "Aftercare programme included",
-                "Family support sessions",
-                "Structured daily therapy",
-              ].map((item) => (
-                <li key={item} className="flex items-center gap-2 text-sm text-foreground/75">
-                  <Check className="size-3.5 shrink-0 text-primary" aria-hidden />
-                  {item}
-                </li>
+                { icon: Home,          label: "Private en-suite bedroom",   sub: "Your own space for the duration" },
+                { icon: Utensils,      label: "Chef-prepared meals",        sub: "Three times daily, on site" },
+                { icon: HeartHandshake,label: "Named key-worker",           sub: "One clinician, coordinating your care" },
+                { icon: Clock,         label: "Structured daily timetable", sub: "Therapy, rest and recovery in balance" },
+              ].map(({ icon: Icon, label, sub }) => (
+                <div key={label} className="rounded-xl border border-border/60 bg-card p-3.5">
+                  <span className="grid size-7 place-items-center rounded-lg bg-primary/10 text-primary">
+                    <Icon className="size-3.5" aria-hidden />
+                  </span>
+                  <p className="mt-2.5 text-[0.8125rem] font-semibold leading-snug">{label}</p>
+                  <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted-foreground">{sub}</p>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         </div>
 
