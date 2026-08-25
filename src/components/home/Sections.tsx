@@ -379,16 +379,20 @@ export function TreatmentCentre() {
   return (
     <section id="centre" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end lg:gap-16">
-          <div>
+        {/* Image left, content right */}
+        <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-14 xl:gap-20">
+          <img
+            src={IMGS.lounge}
+            alt="Communal lounge at Oasis Recovery Bradford"
+            className="w-full rounded-3xl object-cover aspect-[4/5] lg:aspect-[3/4]"
+          />
+
+          <div className="mt-10 lg:mt-0">
             <p className="eyebrow text-primary/70">Oasis Recovery Bradford</p>
-            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.75rem]">
               A supportive residential treatment centre in Bradford
             </h2>
-          </div>
-
-          <div className="mt-6 lg:mt-0">
-            <p className="text-[1.0625rem] leading-relaxed text-foreground/80 sm:text-lg">
+            <p className="mt-5 text-[1.0625rem] leading-relaxed text-foreground/80 sm:text-lg">
               Oasis Recovery is a private residential addiction treatment centre in
               Bradford, West Yorkshire, and part of the UKAT group — one of the UK's
               established addiction treatment providers.
@@ -402,12 +406,6 @@ export function TreatmentCentre() {
             </p>
           </div>
         </div>
-
-        <img
-          src={IMGS.lounge}
-          alt="Communal lounge at Oasis Recovery Bradford"
-          className="mt-12 aspect-[16/10] w-full rounded-3xl object-cover sm:aspect-[2/1] lg:mt-14 lg:aspect-[21/9]"
-        />
 
         <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-12">
           {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
