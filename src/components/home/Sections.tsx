@@ -1160,7 +1160,7 @@ function FacilityGallery() {
 
 export function FacilitiesDailyLife() {
   return (
-    <section id="facility" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="facility" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Inside Oasis</p>
@@ -1240,7 +1240,7 @@ const TEAM = [
 
 export function Team() {
   return (
-    <section id="team" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="team" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Our team</p>
@@ -1292,7 +1292,7 @@ export function Team() {
 
 export function FamilySupport() {
   return (
-    <section id="family" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="family" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           <img
@@ -1646,7 +1646,7 @@ const ACCESS_POINTS = [
 
 export function Location() {
   return (
-    <section id="location" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-16">
           <div>
@@ -1713,7 +1713,7 @@ export function Resources() {
   const scrollerRef = useRef<HTMLDivElement>(null);
 
   return (
-    <section id="resources" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="resources" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
           <div>
@@ -1838,7 +1838,7 @@ function FaqColumn({ items }: { items: typeof FAQS }) {
 
 export function Faq() {
   return (
-    <section id="faq" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="faq" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
           <div>
