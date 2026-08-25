@@ -738,6 +738,7 @@ function PanelGridLayout({
 export function SiteHeader() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
+  const [mobileSubExpanded, setMobileSubExpanded] = useState<string | null>(null);
   const [activeMega, setActiveMega] = useState<string | null>(null);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -909,11 +910,11 @@ export function SiteHeader() {
                       <button
                         type="button"
                         aria-expanded={mobileExpanded === item.label}
-                        onClick={() =>
-                          setMobileExpanded(
-                            mobileExpanded === item.label ? null : item.label,
-                          )
-                        }
+                        onClick={() => {
+                          const next = mobileExpanded === item.label ? null : item.label;
+                          setMobileExpanded(next);
+                          setMobileSubExpanded(null);
+                        }}
                         className="flex w-full items-center justify-between py-3.5 text-base font-medium"
                       >
                         {item.label}
@@ -931,16 +932,64 @@ export function SiteHeader() {
                             .flatMap((g) => g.items)
                             .map((sub) => (
                               <li key={sub.label}>
-                                <a
-                                  href={sub.href}
-                                  onClick={() => {
-                                    setMobileOpen(false);
-                                    setMobileExpanded(null);
-                                  }}
-                                  className="block rounded-lg px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
-                                >
-                                  {sub.label}
-                                </a>
+                                {sub.subLinks?.length ? (
+                                  <>
+                                    <button
+                                      type="button"
+                                      aria-expanded={mobileSubExpanded === sub.label}
+                                      onClick={() =>
+                                        setMobileSubExpanded(
+                                          mobileSubExpanded === sub.label ? null : sub.label,
+                                        )
+                                      }
+                                      className="flex w-full items-center justify-between rounded-lg px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                                    >
+                                      {sub.label}
+                                      <ChevronDown
+                                        className={cn(
+                                          "size-3.5 shrink-0 transition-transform duration-200",
+                                          mobileSubExpanded === sub.label && "rotate-180",
+                                        )}
+                                        aria-hidden
+                                      />
+                                    </button>
+                                    {mobileSubExpanded === sub.label && (
+                                      <ul className="mb-1 ml-3 space-y-0.5 border-l border-border pl-3">
+                                        <li>
+                                          <a
+                                            href={sub.href}
+                                            onClick={() => { setMobileOpen(false); setMobileExpanded(null); setMobileSubExpanded(null); }}
+                                            className="block rounded py-1.5 text-xs font-medium text-primary transition-colors hover:underline"
+                                          >
+                                            All {sub.label.toLowerCase()}
+                                          </a>
+                                        </li>
+                                        {sub.subLinks.map((t3) => (
+                                          <li key={t3.label}>
+                                            <a
+                                              href={t3.href}
+                                              onClick={() => { setMobileOpen(false); setMobileExpanded(null); setMobileSubExpanded(null); }}
+                                              className="block rounded py-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+                                            >
+                                              {t3.label}
+                                            </a>
+                                          </li>
+                                        ))}
+                                      </ul>
+                                    )}
+                                  </>
+                                ) : (
+                                  <a
+                                    href={sub.href}
+                                    onClick={() => {
+                                      setMobileOpen(false);
+                                      setMobileExpanded(null);
+                                    }}
+                                    className="block rounded-lg px-2 py-2 text-sm text-muted-foreground transition-colors hover:bg-secondary hover:text-foreground"
+                                  >
+                                    {sub.label}
+                                  </a>
+                                )}
                               </li>
                             ))}
                         </ul>
