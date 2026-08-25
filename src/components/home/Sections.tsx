@@ -404,6 +404,24 @@ export function TreatmentCentre() {
               of their treatment, with the clinical team, therapy timetable and everyday
               support all under one roof.
             </p>
+
+            <ul className="mt-7 grid grid-cols-2 gap-x-6 gap-y-3.5">
+              {[
+                "24/7 admissions team",
+                "Private en-suite rooms",
+                "CQC regulated facility",
+                "Chef-prepared meals daily",
+                "Medical detox on site",
+                "Aftercare programme included",
+                "Family support sessions",
+                "Structured daily therapy",
+              ].map((item) => (
+                <li key={item} className="flex items-center gap-2 text-sm text-foreground/75">
+                  <Check className="size-3.5 shrink-0 text-primary" aria-hidden />
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
