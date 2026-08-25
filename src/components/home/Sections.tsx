@@ -375,80 +375,20 @@ const DIFFERENTIATORS = [
   },
 ];
 
-const CENTRE_PHOTOS = [
-  { src: IMGS.therapy,   alt: "Therapy room at Oasis Recovery Bradford" },
-  { src: IMGS.lounge,    alt: "Lounge area at Oasis Recovery Bradford" },
-  { src: IMGS.bedroom,   alt: "Bedroom at Oasis Recovery Bradford" },
-  { src: IMGS.reception, alt: "Reception at Oasis Recovery Bradford" },
-];
-
 export function TreatmentCentre() {
-  const photoRef = useRef<HTMLUListElement>(null);
-  const photoIndex = useSnapIndex(photoRef);
-
   return (
     <section id="centre" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-14 xl:gap-20">
-
-          {/* ── Left: scrollable photo carousel ── */}
-          <div className="relative overflow-hidden rounded-3xl">
-            <ul
-              ref={photoRef}
-              className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto"
-            >
-              {CENTRE_PHOTOS.map(({ src, alt }) => (
-                <li key={src} className="w-full shrink-0 snap-start">
-                  <img
-                    src={src}
-                    alt={alt}
-                    className="aspect-[4/5] w-full object-cover lg:aspect-[3/4]"
-                    loading="lazy"
-                  />
-                </li>
-              ))}
-            </ul>
-
-            <button
-              type="button"
-              onClick={() => scrollToChild(photoRef, photoIndex - 1)}
-              disabled={photoIndex === 0}
-              aria-label="Previous photo"
-              className="absolute left-3 top-1/2 -translate-y-1/2 grid size-9 place-items-center rounded-full bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/60 disabled:opacity-0"
-            >
-              <ChevronLeft className="size-4" aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={() => scrollToChild(photoRef, photoIndex + 1)}
-              disabled={photoIndex >= CENTRE_PHOTOS.length - 1}
-              aria-label="Next photo"
-              className="absolute right-3 top-1/2 -translate-y-1/2 grid size-9 place-items-center rounded-full bg-black/40 text-white backdrop-blur-sm transition hover:bg-black/60 disabled:opacity-0"
-            >
-              <ChevronRight className="size-4" aria-hidden />
-            </button>
-
-            <div className="absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
-              {CENTRE_PHOTOS.map((_, i) => (
-                <button
-                  key={i}
-                  type="button"
-                  onClick={() => scrollToChild(photoRef, i)}
-                  aria-label={`Go to photo ${i + 1}`}
-                  className={`rounded-full transition-all duration-200 ${i === photoIndex ? "h-2 w-5 bg-white" : "size-2 bg-white/50 hover:bg-white/75"}`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* ── Right: content column ── */}
-          <div className="mt-10 lg:mt-0">
+        <div className="lg:grid lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:items-end lg:gap-16">
+          <div>
             <p className="eyebrow text-primary/70">Oasis Recovery Bradford</p>
-            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.75rem]">
+            <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               A supportive residential treatment centre in Bradford
             </h2>
+          </div>
 
-            <p className="mt-5 text-[1.0625rem] leading-relaxed text-foreground/80 sm:text-lg">
+          <div className="mt-6 lg:mt-0">
+            <p className="text-[1.0625rem] leading-relaxed text-foreground/80 sm:text-lg">
               Oasis Recovery is a private residential addiction treatment centre in
               Bradford, West Yorkshire, and part of the UKAT group — one of the UK's
               established addiction treatment providers.
@@ -460,32 +400,39 @@ export function TreatmentCentre() {
               of their treatment, with the clinical team, therapy timetable and everyday
               support all under one roof.
             </p>
-
-            <div className="mt-8 grid grid-cols-2 gap-x-8 gap-y-7">
-              {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
-                <div key={title}>
-                  <span className="grid size-9 place-items-center rounded-xl bg-primary/10 text-primary">
-                    <Icon className="size-4" aria-hidden />
-                  </span>
-                  <h3 className="mt-3 text-[0.9375rem] font-medium leading-snug">
-                    {title}
-                  </h3>
-                  <p className="mt-1.5 text-[0.8125rem] leading-relaxed text-muted-foreground">{desc}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 flex flex-col gap-4 border-t border-border/50 pt-7 sm:flex-row sm:items-center sm:justify-between">
-              <p className="max-w-xs text-sm leading-relaxed text-muted-foreground">
-                More on our history, clinical approach and the standards we are regulated against.
-              </p>
-              <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
-                <a href="/about/">
-                  Discover Oasis Recovery <ArrowRight className="size-4" aria-hidden />
-                </a>
-              </Button>
-            </div>
           </div>
+        </div>
+
+        <img
+          src={IMGS.lounge}
+          alt="Communal lounge at Oasis Recovery Bradford"
+          className="mt-12 aspect-[16/10] w-full rounded-3xl object-cover sm:aspect-[2/1] lg:mt-14 lg:aspect-[21/9]"
+        />
+
+        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-12">
+          {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
+            <div key={title}>
+              <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
+                <Icon className="size-[1.15rem]" aria-hidden />
+              </span>
+              <h3 className="mt-4 text-[1.0625rem] font-medium leading-snug sm:text-[1.125rem]">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12 flex flex-col gap-5 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-16">
+          <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
+            More on our history as part of UKAT, our clinical approach and the standards
+            we are regulated against.
+          </p>
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
+            <a href="/about/">
+              Discover Oasis Recovery <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </Button>
         </div>
       </div>
     </section>
