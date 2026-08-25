@@ -607,28 +607,34 @@ export function DetoxHub() {
   return (
     <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
-          <p className="eyebrow">Withdrawal management</p>
-          <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-            Medically supported detox
-          </h2>
-          <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            Detox is the process of safely managing withdrawal from alcohol or drugs under
-            clinical supervision. Every resident receives a clinical assessment before any
-            withdrawal plan begins — what someone needs from detox varies considerably.
-          </p>
-          <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground">
-            At Oasis, detox is managed on site by our clinical team. Residents are monitored
-            throughout, medication is prescribed where appropriate, and the plan is adjusted
-            based on how each individual is responding — not run as a fixed protocol.
-          </p>
-        </div>
+        <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10 xl:gap-14">
+          {/* Left: content */}
+          <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+            <p className="eyebrow">Withdrawal management</p>
+            <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+              Medically supported detox
+            </h2>
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              Detox is the process of safely managing withdrawal from alcohol or drugs under
+              clinical supervision. Every resident receives a clinical assessment before any
+              withdrawal plan begins — what someone needs from detox varies considerably.
+            </p>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+              At Oasis, detox is managed on site by our clinical team. Residents are monitored
+              throughout, medication is prescribed where appropriate, and the plan is adjusted
+              based on how each individual is responding — not run as a fixed protocol.
+            </p>
+          </div>
 
-        <img
-          src={IMGS.reception}
-          alt="Clinical reception area at Oasis Recovery Bradford"
-          className="mt-10 aspect-[21/9] w-full rounded-2xl object-cover lg:mt-12"
-        />
+          {/* Right: image */}
+          <div className="mt-8 overflow-hidden rounded-2xl lg:mt-0">
+            <img
+              src={IMGS.bedroom}
+              alt="Private bedroom at Oasis Recovery Bradford"
+              className="h-full w-full object-cover aspect-[4/5] lg:aspect-auto"
+            />
+          </div>
+        </div>
 
         <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-6">
           {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
