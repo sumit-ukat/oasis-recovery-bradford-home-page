@@ -812,7 +812,21 @@ export function RehabHub() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,1.22fr)_minmax(0,0.78fr)] lg:gap-14">
+        <div className="mt-12 grid gap-8 lg:mt-14 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:gap-14">
+          {/* Image anchor + primary route into the treatment pages */}
+          <div className="flex flex-col gap-5">
+            <img
+              src={IMGS.lounge}
+              alt="Communal lounge used for group therapy at Oasis Recovery Bradford"
+              className="aspect-[4/3] w-full rounded-2xl object-cover lg:min-h-0 lg:flex-1"
+            />
+            <Button asChild variant="outline" size="lg" className="w-full bg-card">
+              <a href="/rehab-treatment/">
+                Explore residential rehab <ArrowRight className="size-4" aria-hidden />
+              </a>
+            </Button>
+          </div>
+
           {/* Treatment pages as full-width rows — each one clearly a link */}
           <div>
             <p className="eyebrow text-primary/70">Rehab treatment programmes</p>
@@ -844,20 +858,6 @@ export function RehabHub() {
                 ))}
               </div>
             </div>
-          </div>
-
-          {/* Image anchor + primary route into the treatment pages */}
-          <div className="flex flex-col gap-5">
-            <img
-              src={IMGS.lounge}
-              alt="Communal lounge used for group therapy at Oasis Recovery Bradford"
-              className="aspect-[4/3] w-full rounded-2xl object-cover lg:min-h-0 lg:flex-1"
-            />
-            <Button asChild variant="outline" size="lg" className="w-full bg-card">
-              <a href="/rehab-treatment/">
-                Explore residential rehab <ArrowRight className="size-4" aria-hidden />
-              </a>
-            </Button>
           </div>
         </div>
 
