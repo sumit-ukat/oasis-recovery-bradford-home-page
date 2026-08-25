@@ -635,6 +635,25 @@ export function DetoxHub() {
               throughout, medication is prescribed where appropriate, and the plan is adjusted
               based on how each individual is responding — not run as a fixed protocol.
             </p>
+
+            <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5">
+              {[
+                { label: "Tailored detox length",        sub: "Typically 7–14 days, guided by substance history and clinical response" },
+                { label: "24-hour nursing cover",        sub: "Clinical staff present overnight, not just during daytime hours" },
+                { label: "No cold turkey",               sub: "Withdrawal symptoms are actively managed from the first day, not endured" },
+                { label: "No commitment to full rehab",  sub: "Starting detox here does not oblige you to continue into residential treatment" },
+              ].map(({ label, sub }) => (
+                <div key={label} className="flex gap-3">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/15">
+                    <Check className="size-3 text-primary" aria-hidden />
+                  </span>
+                  <div>
+                    <p className="text-[0.875rem] font-semibold leading-snug text-foreground">{label}</p>
+                    <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted-foreground">{sub}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Right: image */}
