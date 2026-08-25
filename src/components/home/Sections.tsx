@@ -320,12 +320,12 @@ export function Hero() {
         <div className="section-x mx-auto max-w-7xl">
           <ul
             aria-label="Trust indicators"
-            className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto sm:grid sm:grid-cols-5 sm:divide-x sm:divide-deep-foreground/10 sm:overflow-visible"
+            className="grid grid-cols-2 gap-px bg-deep-foreground/10 sm:grid-cols-5 sm:gap-0 sm:bg-transparent sm:divide-x sm:divide-deep-foreground/10"
           >
-            {TRUST_ROW.map(({ icon: Icon, label, sub }) => (
+            {TRUST_ROW.map(({ icon: Icon, label, sub }, i) => (
               <li
                 key={label}
-                className="flex w-[148px] shrink-0 snap-start flex-col items-center gap-2.5 py-5 text-center sm:w-auto sm:shrink sm:px-4"
+                className={`flex flex-col items-center gap-2 bg-deep py-4 text-center sm:gap-2.5 sm:px-4 sm:py-5${i === 4 ? " col-span-2 sm:col-span-1" : ""}`}
               >
                 <span className="grid size-8 place-items-center rounded-full bg-primary/15 ring-1 ring-primary/20">
                   <Icon className="size-3.5 text-primary" aria-hidden />
