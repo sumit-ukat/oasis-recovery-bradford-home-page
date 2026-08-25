@@ -415,19 +415,21 @@ export function TreatmentCentre() {
               foundation for what comes after treatment.
             </p>
 
-            <div className="mt-7 grid grid-cols-2 gap-3">
+            <div className="mt-7 grid grid-cols-2 gap-x-6 gap-y-5">
               {[
-                { icon: Home,          label: "Private en-suite bedroom",   sub: "Your own space for the duration" },
-                { icon: Utensils,      label: "Chef-prepared meals",        sub: "Three times daily, on site" },
-                { icon: HeartHandshake,label: "Named key-worker",           sub: "One clinician, coordinating your care" },
-                { icon: Clock,         label: "Structured daily timetable", sub: "Therapy, rest and recovery in balance" },
-              ].map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="rounded-xl border border-border/60 bg-card p-3.5">
-                  <span className="grid size-7 place-items-center rounded-lg bg-primary/10 text-primary">
-                    <Icon className="size-3.5" aria-hidden />
+                { label: "Private en-suite bedroom",   sub: "Your own space for the duration" },
+                { label: "Chef-prepared meals",        sub: "Three times daily, on site" },
+                { label: "Named key-worker",           sub: "One clinician coordinating your care" },
+                { label: "Structured daily timetable", sub: "Therapy, rest and recovery in balance" },
+              ].map(({ label, sub }) => (
+                <div key={label} className="flex gap-3">
+                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/15">
+                    <Check className="size-3 text-primary" aria-hidden />
                   </span>
-                  <p className="mt-2.5 text-[0.8125rem] font-semibold leading-snug">{label}</p>
-                  <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted-foreground">{sub}</p>
+                  <div>
+                    <p className="text-[0.875rem] font-semibold leading-snug text-foreground">{label}</p>
+                    <p className="mt-0.5 text-[0.6875rem] leading-snug text-muted-foreground">{sub}</p>
+                  </div>
                 </div>
               ))}
             </div>
