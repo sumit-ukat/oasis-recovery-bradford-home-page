@@ -219,11 +219,11 @@ function LinkChip({ href, children }: { href: string; children: React.ReactNode 
 ═══════════════════════════════════════════════════════════ */
 
 const TRUST_ROW = [
-  { icon: ShieldCheck, label: "CQC regulated" },
-  { icon: Check, label: "Confidential admissions" },
-  { icon: Clock, label: "Admissions team available 24/7" },
-  { icon: Users, label: "Part of the UKAT group" },
-  { icon: HeartHandshake, label: "Aftercare included" },
+  { icon: ShieldCheck,    label: "CQC Regulated",      sub: "Independently inspected" },
+  { icon: Check,          label: "Confidential",        sub: "No obligation to commit" },
+  { icon: Clock,          label: "24/7 Admissions",     sub: "We're here round the clock" },
+  { icon: Users,          label: "UKAT Group",          sub: "10 UK rehab centres" },
+  { icon: HeartHandshake, label: "Aftercare Included",  sub: "Lifelong alumni support" },
 ];
 
 const HERO_SLIDES = [
@@ -313,18 +313,34 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Authority trust bar — dark navy for premium credibility */}
-      <div className="bg-deep">
-        <ul className="section-x mx-auto flex max-w-7xl flex-wrap items-center gap-x-8 gap-y-3 py-4 sm:justify-between sm:gap-y-0">
-          {TRUST_ROW.map(({ icon: Icon, label }) => (
-            <li key={label} className="flex min-w-0 items-center gap-2">
-              <Icon className="size-4 shrink-0 text-primary/60" aria-hidden />
-              <span className="text-[0.8125rem] font-medium leading-snug text-deep-foreground/75 sm:text-sm">
-                {label}
-              </span>
-            </li>
-          ))}
-        </ul>
+      {/* Authority trust bar — gradient accent line + icon tile columns */}
+      <div className="relative border-t border-deep-foreground/10 bg-deep">
+        <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary via-accent/60 to-primary" aria-hidden />
+        <div className="section-x mx-auto max-w-7xl">
+          <ul
+            aria-label="Trust indicators"
+            className="no-scrollbar flex snap-x snap-mandatory overflow-x-auto sm:grid sm:grid-cols-5 sm:divide-x sm:divide-deep-foreground/10 sm:overflow-visible"
+          >
+            {TRUST_ROW.map(({ icon: Icon, label, sub }) => (
+              <li
+                key={label}
+                className="flex w-[148px] shrink-0 snap-start flex-col items-center gap-2.5 py-5 text-center sm:w-auto sm:shrink sm:px-4"
+              >
+                <span className="grid size-8 place-items-center rounded-full bg-primary/15 ring-1 ring-primary/20">
+                  <Icon className="size-3.5 text-primary" aria-hidden />
+                </span>
+                <span>
+                  <span className="block text-[0.8125rem] font-semibold leading-snug text-deep-foreground/90">
+                    {label}
+                  </span>
+                  <span className="mt-0.5 block text-[0.6875rem] leading-snug text-deep-foreground/45">
+                    {sub}
+                  </span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
