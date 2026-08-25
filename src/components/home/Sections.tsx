@@ -606,106 +606,65 @@ const DETOX_GROUPS = [
   },
 ];
 
-const DETOX_FEATURES = [
-  {
-    title: "Continuous vital-sign monitoring",
-    desc: "Blood pressure, heart rate and withdrawal scoring are checked at regular clinical intervals — not just at shift handovers. Any deterioration is caught and responded to immediately.",
-  },
-  {
-    title: "Prescribed to your withdrawal profile",
-    desc: "Librium for alcohol, Subutex or methadone for opioids, or a tailored combination — medication is determined by your individual assessment, never issued as a blanket protocol.",
-  },
-  {
-    title: "Comfort is a clinical objective",
-    desc: "Minimising the distress of withdrawal is built into the care plan from day one. Dignity and physical comfort are treated as clinical outcomes, not afterthoughts.",
-  },
-  {
-    title: "No discharge gap into rehab",
-    desc: "When detox completes, you remain on site and move directly into the residential programme with the same team — no re-referral, no waiting, no break in continuity of care.",
-  },
-];
-
 export function DetoxHub() {
   return (
-    <section id="detox" className="bg-deep py-14 sm:py-20 lg:py-24">
+    <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        {/* Thin gradient rule */}
-        <div className="mb-12 h-px bg-gradient-to-r from-primary/50 via-accent/30 to-transparent" aria-hidden />
-
-        {/* Intro: heading left, image right */}
-        <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)] lg:items-stretch lg:gap-12 xl:gap-16">
-          <div>
-            <p className="eyebrow text-primary/60">Withdrawal management</p>
-            <h2 className="mt-4 font-display text-[2.25rem] leading-[1.06] tracking-[-0.03em] text-deep-foreground sm:text-[3rem] lg:text-[3.25rem]">
+        <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10 xl:gap-14">
+          {/* Left: content */}
+          <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+            <p className="eyebrow">Withdrawal management</p>
+            <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Medically supported detox
             </h2>
-            <p className="mt-5 text-[1.0625rem] leading-relaxed text-deep-foreground/65">
-              Detox at Oasis is a fully supervised, on-site clinical process — not a
-              brief stabilisation before transfer elsewhere. The team that manages your
-              detox is the same team that will support your residential programme.
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
+              Detox is the process of safely managing withdrawal from alcohol or drugs under
+              clinical supervision. Every resident receives a clinical assessment before any
+              withdrawal plan begins — what someone needs from detox varies considerably.
             </p>
-
-            <ul className="mt-8 space-y-6">
-              {DETOX_FEATURES.map(({ title, desc }) => (
-                <li key={title} className="flex gap-4">
-                  <span className="mt-0.5 grid size-5 shrink-0 place-items-center rounded-full bg-primary/20">
-                    <Check className="size-3 text-primary" aria-hidden />
-                  </span>
-                  <div>
-                    <span className="block text-[0.9375rem] font-semibold leading-snug text-deep-foreground">
-                      {title}
-                    </span>
-                    <span className="mt-1 block text-sm leading-relaxed text-deep-foreground/55">
-                      {desc}
-                    </span>
-                  </div>
-                </li>
-              ))}
-            </ul>
+            <p className="mt-3 text-base leading-relaxed text-muted-foreground">
+              At Oasis, detox is managed on site by our clinical team. Residents are monitored
+              throughout, medication is prescribed where appropriate, and the plan is adjusted
+              based on how each individual is responding — not run as a fixed protocol.
+            </p>
           </div>
 
-          {/* Image with bottom gradient overlay */}
-          <div className="relative mt-10 overflow-hidden rounded-3xl lg:mt-0">
+          {/* Right: image */}
+          <div className="mt-8 overflow-hidden rounded-2xl lg:mt-0">
             <img
               src={IMGS.bedroom}
               alt="Private bedroom at Oasis Recovery Bradford"
               className="h-full w-full object-cover aspect-[4/5] lg:aspect-auto"
             />
-            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-deep/60 to-transparent" aria-hidden />
           </div>
         </div>
 
-        {/* Detox pathway cards */}
-        <div className="mt-14 grid gap-5 lg:grid-cols-2 lg:gap-6">
+        <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-6">
           {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
             <div
               key={title}
-              className="flex flex-col rounded-2xl border border-deep-foreground/15 bg-deep-foreground/8 p-6 sm:p-8"
+              className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/15 text-primary">
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                   <Icon className="size-[1.15rem]" aria-hidden />
                 </span>
                 <div className="min-w-0">
-                  <h3 className="text-[1.1875rem] font-medium leading-snug text-deep-foreground">
+                  <h3 className="text-[1.1875rem] font-medium leading-snug">
                     <a href={href} className="transition-colors hover:text-primary">
                       {title}
                     </a>
                   </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-deep-foreground/60">{desc}</p>
+                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
                 </div>
               </div>
 
-              <p className="eyebrow mt-7 text-[0.625rem] text-deep-foreground/40">{linksLabel}</p>
+              <p className="eyebrow mt-7 text-[0.625rem]">{linksLabel}</p>
               <div className="mt-3 flex flex-wrap gap-2">
                 {links.map((l) => (
-                  <a
-                    key={l.label}
-                    href={l.href}
-                    className="rounded-full border border-deep-foreground/20 px-3 py-1 text-[0.75rem] font-medium text-deep-foreground/70 transition-colors hover:border-primary/50 hover:text-primary"
-                  >
+                  <LinkChip key={l.label} href={l.href}>
                     {l.label}
-                  </a>
+                  </LinkChip>
                 ))}
               </div>
 
@@ -721,12 +680,12 @@ export function DetoxHub() {
         </div>
 
         <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
-          <Button asChild variant="outline" size="lg" className="w-full border-deep-foreground/25 text-deep-foreground hover:bg-deep-foreground/10 sm:w-auto sm:shrink-0">
+          <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
             <a href="/detox/">
               Explore medical detox <ArrowRight className="size-4" aria-hidden />
             </a>
           </Button>
-          <p className="max-w-md text-sm leading-relaxed text-deep-foreground/50">
+          <p className="max-w-md text-sm leading-relaxed text-muted-foreground">
             Not sure which applies, or whether detox is needed at all? Our admissions
             team can talk it through before any commitment.
           </p>
