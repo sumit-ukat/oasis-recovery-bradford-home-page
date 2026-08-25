@@ -65,8 +65,8 @@ const IMGS = {
   bedroom:   F("oasis_bradfords-055.jpg"),
   lounge:    F("oasis_bradfords-096.jpg"),
   reception: F("oasis_bradfords-013.jpg"),
-  tom:       `${CDN}/oasisorg/wp-content/uploads/2017/07/Tom-H-Braadford.jpg`,
-  durrani:   `${CDN}/oasisrecoverycom/wp-content/uploads/2023/02/dr-durrani.jpg`,
+  michelle:  "https://cdn.ukat.co.uk/sites/rehabfiles/michelle.png",
+  sophie:    "https://cdn.ukat.co.uk/sites/rehabfiles/sophie-l.png",
   family:    F("oasis_bradfords-185.jpg"),
   aftercare: F("oasis_bradfords-196.jpg"),
   article1:  F("oasis_bradfords-253.jpg"),
@@ -1225,16 +1225,16 @@ export function FacilitiesDailyLife() {
 
 const TEAM = [
   {
-    img: IMGS.tom,
-    name: "Tom Hegarty",
-    role: "Lead Therapist",
-    bio: "Leads the therapeutic programme at Oasis Bradford, overseeing individual and group therapy throughout residents' treatment.",
+    img: IMGS.michelle,
+    name: "Michelle Burgess",
+    role: "Centre Manager – Oasis Bradford",
+    bio: "With a background spanning the NHS, HMPPS and criminal justice services, Michelle holds a Post Graduate Degree from the University of Huddersfield and formal training in behavioural science, addiction studies and therapeutic practice. She is dedicated to improving care quality and accessibility for individuals and families affected by addiction.",
   },
   {
-    img: IMGS.durrani,
-    name: "Dr Mateen Durrani",
-    role: "Clinical Nurse Specialist",
-    bio: "Provides clinical oversight of medical detox and withdrawal management for residents at Oasis Bradford.",
+    img: IMGS.sophie,
+    name: "Sophie Lawton",
+    role: "Recovery Coach",
+    bio: "Sophie joined Oasis Bradford in 2021 and progressed from student placement to therapist. She holds a Master's in Forensic Psychology and brings a deep, personal commitment to supporting individuals through every stage of their recovery.",
   },
 ];
 
