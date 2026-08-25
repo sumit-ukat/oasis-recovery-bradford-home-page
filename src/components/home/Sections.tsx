@@ -249,42 +249,39 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(60%_100%_at_50%_100%,var(--color-secondary),transparent)]"
       />
-      <div className="section-x relative mx-auto max-w-7xl grid grid-cols-[3fr_2fr] items-center gap-5 py-10 sm:gap-10 sm:py-14 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-14 lg:py-20">
-        <div>
+      <div className="section-x relative mx-auto max-w-7xl py-10 sm:py-14 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-14 lg:py-20">
+        <div className="max-w-xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
             <ShieldCheck className="size-3.5 text-primary" aria-hidden />
             CQC registered · Confidential
           </p>
-          <h1 className="mt-3 text-[1.4rem] leading-[1.1] sm:text-[2.5rem] sm:leading-[1.08] lg:text-[3.5rem]">
+          <h1 className="mt-4 text-[2.125rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
             Private Addiction Rehab in Bradford, West Yorkshire
           </h1>
-          <p className="mt-3 hidden text-[0.9375rem] leading-relaxed text-muted-foreground sm:block sm:text-lg">
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground sm:text-lg">
             Oasis Recovery is a CQC-regulated residential addiction treatment centre in
             Bradford, part of the UKAT group. We provide confidential medical detox,
             residential rehabilitation and structured aftercare for adults affected by
             alcohol and drug addiction.
           </p>
-          <p className="mt-2 text-[0.75rem] leading-relaxed text-muted-foreground sm:hidden">
-            CQC-regulated residential rehab in Bradford. Part of the UKAT group.
-          </p>
 
-          <div className="mt-4 grid gap-2 sm:mt-6 sm:flex sm:flex-wrap sm:items-center">
+          <div className="mt-6 grid gap-2.5 sm:flex sm:flex-wrap sm:items-center">
             <Button asChild variant="cta" size="lg" className="w-full sm:w-auto">
               <a href="#contact">
                 <Phone aria-hidden /> Speak to admissions
               </a>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto">
-              <a href="/oasis-recovery-bradford-brochure.pdf" download>
-                <Download aria-hidden className="size-4" /> Download brochure
+              <a href="tel:+442038161576">
+                <Phone aria-hidden className="size-4" /> Call us — lines open 24/7
               </a>
             </Button>
           </div>
         </div>
 
-        <div>
+        <div className="mt-8 lg:mt-0">
           <div
-            className="relative aspect-[2/3] overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[4/3] lg:aspect-[5/4] lg:rounded-3xl"
+            className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
           >
