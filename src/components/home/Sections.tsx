@@ -78,7 +78,7 @@ const IMGS = {
  * Business-approved starting price — set to null until UKAT/Oasis admissions
  * confirm the real figure. Never hardcode an invented number here.
  */
-const STARTING_PRICE: number | null = null;
+const STARTING_PRICE: number | null = 9995;
 
 /* Small horizontal-scroll helpers, shared by every mobile carousel
    (Addictions, Facility gallery, Resources). Native scroll-snap — no
@@ -1618,6 +1618,7 @@ export function Costs() {
                   ? `£${STARTING_PRICE.toLocaleString("en-GB")}`
                   : "£[starting price to be confirmed]"}
               </p>
+              <p className="mt-1 text-sm text-muted-foreground/70">for a 28-day programme</p>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 Our admissions team can provide a personalised treatment quote once
                 they understand your circumstances — with no obligation to proceed.
@@ -1643,9 +1644,11 @@ export function Costs() {
           </div>
 
           <div className="hidden lg:block">
-            <span className="grid aspect-square w-full max-w-xs place-items-center justify-self-end rounded-3xl bg-primary/10">
-              <Banknote className="size-16 text-primary/40" aria-hidden />
-            </span>
+            <img
+              src={IMGS.reception}
+              alt="Reception at Oasis Recovery Bradford"
+              className="w-full rounded-3xl object-cover aspect-[4/5]"
+            />
           </div>
         </div>
       </div>
