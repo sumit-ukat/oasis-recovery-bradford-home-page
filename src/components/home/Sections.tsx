@@ -118,10 +118,7 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
   if (!el) return;
   const child = el.children[i] as HTMLElement | undefined;
   if (!child) return;
-  el.scrollTo({
-    left: child.offsetLeft - (el.clientWidth - child.offsetWidth) / 2,
-    behavior: "smooth",
-  });
+  child.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
 }
 
 function CarouselControls({
@@ -487,9 +484,22 @@ const ADDICTIONS = [
 
 export function AddictionsHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % ADDICTIONS.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
 
   return (
-    <section id="addictions" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="addictions" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
           <p className="eyebrow">What we treat</p>
@@ -1086,9 +1096,18 @@ const TYPICAL_DAY = [
 function FacilityGallery() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const active = useSnapIndex(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      scrollToChild(scrollerRef, (active + 1) % GALLERY.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, active]);
 
   return (
-    <div>
+    <div onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="relative">
         <div
           ref={scrollerRef}
@@ -1711,9 +1730,22 @@ const RESOURCES = [
 
 export function Resources() {
   const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % RESOURCES.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
 
   return (
-    <section id="resources" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="resources" className="bg-background py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
           <div>
