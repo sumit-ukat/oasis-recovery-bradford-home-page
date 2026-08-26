@@ -118,7 +118,8 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
   if (!el) return;
   const child = el.children[i] as HTMLElement | undefined;
   if (!child) return;
-  child.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+  const scrollPad = parseFloat(getComputedStyle(el).scrollPaddingLeft) || 0;
+  el.scrollTo({ left: child.offsetLeft - scrollPad, behavior: "smooth" });
 }
 
 function CarouselControls({
