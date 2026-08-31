@@ -1342,6 +1342,23 @@ export function Team() {
 
 const CQC_DOMAINS = ["Safe", "Effective", "Caring", "Responsive", "Well-led"] as const;
 
+function CqcLiveWidget() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src =
+      "https://www.cqc.org.uk/sites/all/modules/custom/cqc_widget/widget.js" +
+      "?data-id=1-2945735619&data-host=https://www.cqc.org.uk&type=location";
+    script.type = "text/javascript";
+    script.async = true;
+    document.body.appendChild(script);
+    return () => {
+      if (document.body.contains(script)) document.body.removeChild(script);
+    };
+  }, []);
+
+  return <div id="cqc-widget" className="mt-6" />;
+}
+
 export function CqcRating() {
   return (
     <section id="cqc" className="bg-background py-14 sm:py-20 lg:py-24">
@@ -1365,6 +1382,9 @@ export function CqcRating() {
             CQC Registered Manager.
           </p>
         </div>
+
+        {/* Live CQC widget — auto-updates when CQC refreshes their data */}
+        <CqcLiveWidget />
 
         {/* Overall rating badge */}
         <div className="mt-10 inline-flex items-center gap-5 rounded-2xl border border-primary/20 bg-primary/5 px-7 py-6">
