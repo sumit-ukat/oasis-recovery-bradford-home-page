@@ -10,6 +10,7 @@ import {
   RecoveryJourney,
   FacilitiesDailyLife,
   Team,
+  CqcRating,
   FamilySupport,
   RecoveryBeyondRehab,
   Outcomes,
@@ -88,6 +89,7 @@ function Index() {
         <RecoveryJourney />
         <FacilitiesDailyLife />
         <Team />
+        <CqcRating />
         <FamilySupport />
         <RecoveryBeyondRehab />
         <Costs />

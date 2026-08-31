@@ -220,11 +220,11 @@ function LinkChip({ href, children }: { href: string; children: React.ReactNode 
 ═══════════════════════════════════════════════════════════ */
 
 const TRUST_ROW = [
-  { icon: ShieldCheck,    label: "CQC Regulated",      sub: "Independently inspected" },
-  { icon: Check,          label: "Confidential",        sub: "No obligation to commit" },
-  { icon: Clock,          label: "Next Day Admission",   sub: "Fast-track into treatment" },
-  { icon: Users,          label: "UKAT Group",          sub: "10 UK rehab centres" },
-  { icon: HeartHandshake, label: "Aftercare Included",  sub: "Lifelong alumni support" },
+  { icon: ShieldCheck,    label: "CQC Regulated",      sub: "Rated Good · Feb 2026",          href: "#cqc" },
+  { icon: Check,          label: "Confidential",        sub: "No obligation to commit",         href: undefined },
+  { icon: Clock,          label: "Next Day Admission",  sub: "Fast-track into treatment",       href: undefined },
+  { icon: Users,          label: "UKAT Group",          sub: "10 UK rehab centres",             href: undefined },
+  { icon: HeartHandshake, label: "Aftercare Included",  sub: "Lifelong alumni support",         href: undefined },
 ];
 
 const HERO_SLIDES = [
@@ -322,24 +322,35 @@ export function Hero() {
             aria-label="Trust indicators"
             className="grid grid-cols-2 gap-px bg-deep-foreground/10 sm:grid-cols-5 sm:gap-0 sm:bg-transparent sm:divide-x sm:divide-deep-foreground/10"
           >
-            {TRUST_ROW.map(({ icon: Icon, label, sub }, i) => (
-              <li
-                key={label}
-                className={`flex flex-col items-center gap-2 bg-deep py-4 text-center sm:gap-2.5 sm:px-4 sm:py-5${i === 4 ? " col-span-2 sm:col-span-1" : ""}`}
-              >
-                <span className="grid size-8 place-items-center rounded-full bg-primary/15 ring-1 ring-primary/20">
-                  <Icon className="size-3.5 text-primary" aria-hidden />
-                </span>
-                <span>
-                  <span className="block text-[0.8125rem] font-semibold leading-snug text-deep-foreground/90">
-                    {label}
+            {TRUST_ROW.map(({ icon: Icon, label, sub, href }, i) => {
+              const inner = (
+                <>
+                  <span className="grid size-8 place-items-center rounded-full bg-primary/15 ring-1 ring-primary/20">
+                    <Icon className="size-3.5 text-primary" aria-hidden />
                   </span>
-                  <span className="mt-0.5 block text-[0.6875rem] leading-snug text-deep-foreground/45">
-                    {sub}
+                  <span>
+                    <span className="block text-[0.8125rem] font-semibold leading-snug text-deep-foreground/90">
+                      {label}
+                    </span>
+                    <span className="mt-0.5 block text-[0.6875rem] leading-snug text-deep-foreground/45">
+                      {sub}
+                    </span>
                   </span>
-                </span>
-              </li>
-            ))}
+                </>
+              );
+              return (
+                <li
+                  key={label}
+                  className={`flex flex-col items-center gap-2 bg-deep py-4 text-center sm:gap-2.5 sm:px-4 sm:py-5${i === 4 ? " col-span-2 sm:col-span-1" : ""}`}
+                >
+                  {href ? (
+                    <a href={href} className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity">
+                      {inner}
+                    </a>
+                  ) : inner}
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
@@ -1324,9 +1335,109 @@ export function Team() {
    "What support is available for family members and loved ones?"
 ═══════════════════════════════════════════════════════════ */
 
+/* ═══════════════════════════════════════════════════════════
+   8b — CQC RATING & REGULATION
+   Verified facts only — do not alter dates, ratings, or provider name.
+═══════════════════════════════════════════════════════════ */
+
+const CQC_DOMAINS = ["Safe", "Effective", "Caring", "Responsive", "Well-led"] as const;
+
+export function CqcRating() {
+  return (
+    <section id="cqc" className="bg-background py-14 sm:py-20 lg:py-24">
+      <div className="section-x mx-auto max-w-7xl">
+        <div className="max-w-2xl">
+          <p className="eyebrow text-primary/70">CQC regulation</p>
+          <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
+            Regulated &amp; rated Good by the CQC
+          </h2>
+          <p className="mt-5 text-base leading-relaxed text-muted-foreground">
+            The Care Quality Commission is England's independent regulator of health and
+            social care. Their inspections assess whether services are safe, effective,
+            caring, responsive and well-led. Oasis Recovery Bradford — run by Treatment
+            Direct Limited — received a rating of{" "}
+            <strong className="font-semibold text-foreground">Good</strong> across all
+            five inspection domains.
+          </p>
+          <p className="mt-3 text-sm text-muted-foreground">
+            Overseen by{" "}
+            <span className="font-medium text-foreground">Michelle Burgess</span>, our
+            CQC Registered Manager.
+          </p>
+        </div>
+
+        {/* Overall rating badge */}
+        <div className="mt-10 inline-flex items-center gap-5 rounded-2xl border border-primary/20 bg-primary/5 px-7 py-6">
+          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/15 ring-2 ring-primary/20">
+            <ShieldCheck className="size-6 text-primary" aria-hidden />
+          </span>
+          <div>
+            <p className="text-[0.6875rem] font-bold uppercase tracking-widest text-primary/70">
+              Overall CQC rating
+            </p>
+            <p className="mt-0.5 text-3xl font-semibold tracking-tight text-foreground">
+              Good
+            </p>
+          </div>
+        </div>
+
+        {/* Five domain grid */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {CQC_DOMAINS.map((label, i) => (
+            <div
+              key={label}
+              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center${
+                i === 4 ? " col-span-2 sm:col-span-1" : ""
+              }`}
+            >
+              <span className="grid size-7 place-items-center rounded-full bg-primary/10">
+                <Check className="size-3.5 text-primary" aria-hidden />
+              </span>
+              <p className="text-[0.8125rem] font-semibold leading-snug text-foreground">
+                {label}
+              </p>
+              <p className="text-[0.6875rem] font-medium text-primary/80">Good</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer row — date + links */}
+        <div className="mt-8 flex flex-col gap-4 border-t border-border/50 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            Report published{" "}
+            <span className="font-medium text-foreground">20 February 2026</span>
+            {" "}· Provider: Treatment Direct Limited
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <a
+              href="/cqc-report/"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+            >
+              Read our full CQC report <ArrowRight className="size-4" aria-hidden />
+            </a>
+            <a
+              href="https://www.cqc.org.uk/location/1-2945735619"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              View our official CQC profile <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
+   9 — FAMILY SUPPORT
+   "What support is available for family members and loved ones?"
+═══════════════════════════════════════════════════════════ */
+
 export function FamilySupport() {
   return (
-    <section id="family" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="family" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-20">
           <img
