@@ -1376,11 +1376,6 @@ export function CqcRating() {
             <strong className="font-semibold text-foreground">Good</strong> across all
             five inspection domains.
           </p>
-          <p className="mt-3 text-sm text-muted-foreground">
-            Overseen by{" "}
-            <span className="font-medium text-foreground">Michelle Burgess</span>, our
-            CQC Registered Manager.
-          </p>
         </div>
 
         {/* Live CQC widget — auto-updates when CQC refreshes their data */}
