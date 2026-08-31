@@ -67,6 +67,8 @@ const IMGS = {
   reception: F("oasis_bradfords-013.jpg"),
   michelle:  "https://cdn.ukat.co.uk/sites/rehabfiles/michelle.png",
   sophie:    "https://cdn.ukat.co.uk/sites/rehabfiles/sophie-l.png",
+  carol:     "https://cdn.ukat.co.uk/sites/rehabfiles/carol-difiori.png",
+  jennifer:  "https://cdn.ukat.co.uk/sites/rehabfiles/jennifer-smouse.png",
   family:    F("oasis_bradfords-185.jpg"),
   aftercare: F("oasis_bradfords-196.jpg"),
   article1:  F("oasis_bradfords-253.jpg"),
@@ -1255,6 +1257,18 @@ const TEAM = [
     name: "Sophie Lawton",
     role: "Recovery Coach",
     bio: "Sophie joined Oasis Bradford in 2021 and progressed from student placement to therapist. She holds a Master's in Forensic Psychology and brings a deep, personal commitment to supporting individuals through every stage of their recovery.",
+  },
+  {
+    img: IMGS.carol,
+    name: "Carol Difiori",
+    role: "Support Worker",
+    bio: "Carol holds NVQs in Health and Social Care and in Working with Children and Young People. Her background includes befriending young carers across multiple charities, and she brings both professional training and lived experience as a parent and grandparent to her work at Oasis.",
+  },
+  {
+    img: IMGS.jennifer,
+    name: "Jennifer Smouse",
+    role: "Nurse",
+    bio: "A registered general nurse with 19 years' experience, Jennifer's background in geriatric care gives her a strong foundation in compassionate, patient-centred support. She joined Oasis in 2018 and has since built specialist expertise in the substance misuse field.",
   },
 ];
 
