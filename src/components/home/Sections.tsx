@@ -220,7 +220,7 @@ function LinkChip({ href, children }: { href: string; children: React.ReactNode 
 const TRUST_ROW = [
   { icon: ShieldCheck,    label: "CQC Regulated",      sub: "Independently inspected" },
   { icon: Check,          label: "Confidential",        sub: "No obligation to commit" },
-  { icon: Clock,          label: "24/7 Admissions",     sub: "We're here round the clock" },
+  { icon: Clock,          label: "Next Day Admission",   sub: "Fast-track into treatment" },
   { icon: Users,          label: "UKAT Group",          sub: "10 UK rehab centres" },
   { icon: HeartHandshake, label: "Aftercare Included",  sub: "Lifelong alumni support" },
 ];

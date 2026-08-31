@@ -58,7 +58,7 @@ type NavEntry =
 /* ─────────────────────────────────────────── data */
 
 const ADMISSION_CTA: MegaFeatured = {
-  badge: "24/7 Admissions",
+  badge: "Next Day Admission",
   heading: "Ready to take the first step?",
   body: "Our admissions team is available around the clock. All enquiries are completely confidential — no obligation, no pressure.",
   primaryCta: "Speak to us now",
