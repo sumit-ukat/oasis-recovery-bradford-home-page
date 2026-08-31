@@ -1342,22 +1342,6 @@ export function Team() {
 
 const CQC_DOMAINS = ["Safe", "Effective", "Caring", "Responsive", "Well-led"] as const;
 
-function CqcLiveWidget() {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src =
-      "https://www.cqc.org.uk/sites/all/modules/custom/cqc_widget/widget.js" +
-      "?data-id=1-2945735619&data-host=https://www.cqc.org.uk&type=location";
-    script.type = "text/javascript";
-    script.async = true;
-    document.body.appendChild(script);
-    return () => {
-      if (document.body.contains(script)) document.body.removeChild(script);
-    };
-  }, []);
-
-  return <div id="cqc-widget" className="mt-6" />;
-}
 
 export function CqcRating() {
   return (
@@ -1378,8 +1362,65 @@ export function CqcRating() {
           </p>
         </div>
 
-        {/* Live CQC widget — auto-updates when CQC refreshes their data */}
-        <CqcLiveWidget />
+        {/* Overall rating badge */}
+        <div className="mt-10 inline-flex items-center gap-5 rounded-2xl border border-primary/20 bg-primary/5 px-7 py-6">
+          <span className="grid size-12 shrink-0 place-items-center rounded-full bg-primary/15 ring-2 ring-primary/20">
+            <ShieldCheck className="size-6 text-primary" aria-hidden />
+          </span>
+          <div>
+            <p className="text-[0.6875rem] font-bold uppercase tracking-widest text-primary/70">
+              Overall CQC rating
+            </p>
+            <p className="mt-0.5 text-3xl font-semibold tracking-tight text-foreground">
+              Good
+            </p>
+          </div>
+        </div>
+
+        {/* Five domain grid */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+          {CQC_DOMAINS.map((label, i) => (
+            <div
+              key={label}
+              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center${
+                i === 4 ? " col-span-2 sm:col-span-1" : ""
+              }`}
+            >
+              <span className="grid size-7 place-items-center rounded-full bg-primary/10">
+                <Check className="size-3.5 text-primary" aria-hidden />
+              </span>
+              <p className="text-[0.8125rem] font-semibold leading-snug text-foreground">
+                {label}
+              </p>
+              <p className="text-[0.6875rem] font-medium text-primary/80">Good</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Footer row — date + links */}
+        <div className="mt-8 flex flex-col gap-4 border-t border-border/50 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-muted-foreground">
+            Report published{" "}
+            <span className="font-medium text-foreground">20 February 2026</span>
+            {" "}· Provider: Treatment Direct Limited
+          </p>
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-6">
+            <a
+              href="/cqc-report/"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+            >
+              Read our full CQC report <ArrowRight className="size-4" aria-hidden />
+            </a>
+            <a
+              href="https://www.cqc.org.uk/location/1-2945735619"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+            >
+              View our official CQC profile <ArrowRight className="size-4" aria-hidden />
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
