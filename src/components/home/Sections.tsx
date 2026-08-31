@@ -1751,7 +1751,8 @@ export function Costs() {
             </div>
 
             <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
-              Treatment is available on a private payment basis.
+              Treatment is available on a private payment basis, and our admissions
+              team can advise on accepted medical insurance where applicable.
             </p>
 
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
