@@ -1265,7 +1265,7 @@ export function Team() {
         <div className="max-w-xl">
           <p className="eyebrow">Our team</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
-            Meet the clinical & recovery team
+            Meet the recovery team
           </h2>
           <p className="mt-5 text-base leading-relaxed text-muted-foreground">
             Every resident is supported by clinical, therapeutic and recovery
