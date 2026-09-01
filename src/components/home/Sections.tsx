@@ -88,7 +88,7 @@ const STARTING_PRICE: number | null = 9995;
    (Addictions, Facility gallery, Resources). Native scroll-snap — no
    carousel library, so it stays light and works with touch out of the box. */
 
-function useSnapIndex(ref: React.RefObject<HTMLDivElement | null>) {
+function useSnapIndex(ref: React.RefObject<HTMLElement | null>) {
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const el = ref.current;
@@ -117,7 +117,7 @@ function useSnapIndex(ref: React.RefObject<HTMLDivElement | null>) {
   return index;
 }
 
-function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
+function scrollToChild(ref: React.RefObject<HTMLElement | null>, i: number) {
   const el = ref.current;
   if (!el) return;
   const child = el.children[i] as HTMLElement | undefined;
@@ -130,7 +130,7 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
    these containers natively on touch, so this only binds to pointerType
    "mouse" — it fixes dragging with a cursor (e.g. testing in a desktop
    preview) without touching the touch-scroll behaviour that already works. */
-function useDragScroll(ref: React.RefObject<HTMLDivElement | null>, axis: "x" | "y" = "x") {
+function useDragScroll(ref: React.RefObject<HTMLElement | null>, axis: "x" | "y" = "x") {
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -190,7 +190,7 @@ function CarouselControls({
   count,
   className = "",
 }: {
-  scrollerRef: React.RefObject<HTMLDivElement | null>;
+  scrollerRef: React.RefObject<HTMLElement | null>;
   count: number;
   className?: string;
 }) {
@@ -403,6 +403,21 @@ export function Hero() {
     return () => clearInterval(id);
   }, [paused]);
 
+  const trustScrollerRef = useRef<HTMLUListElement>(null);
+  const trustIndex = useSnapIndex(trustScrollerRef);
+  useDragScroll(trustScrollerRef);
+  const [trustPaused, setTrustPaused] = useState(false);
+
+  useEffect(() => {
+    if (trustPaused) return;
+    const id = setInterval(() => {
+      const el = trustScrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(trustScrollerRef, (trustIndex + 1) % TRUST_ROW.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [trustPaused, trustIndex]);
+
   const onSlideDown = (e: React.PointerEvent) => {
     dragRef.current = { down: true, startX: e.clientX };
     setPaused(true);
@@ -499,10 +514,13 @@ export function Hero() {
         <div className="absolute inset-x-0 top-0 h-0.5 bg-gradient-to-r from-primary via-accent/60 to-primary" aria-hidden />
         <div className="section-x mx-auto max-w-7xl">
           <ul
+            ref={trustScrollerRef}
             aria-label="Trust indicators"
-            className="grid grid-cols-2 gap-px bg-deep-foreground/10 sm:grid-cols-5 sm:gap-0 sm:bg-transparent sm:divide-x sm:divide-deep-foreground/10"
+            onMouseEnter={() => setTrustPaused(true)}
+            onMouseLeave={() => setTrustPaused(false)}
+            className="flex cursor-grab snap-x snap-mandatory gap-px overflow-x-auto bg-deep-foreground/10 no-scrollbar active:cursor-grabbing sm:grid sm:cursor-auto sm:grid-cols-5 sm:gap-0 sm:overflow-visible sm:bg-transparent sm:divide-x sm:divide-deep-foreground/10"
           >
-            {TRUST_ROW.map(({ icon: Icon, label, sub, href }, i) => {
+            {TRUST_ROW.map(({ icon: Icon, label, sub, href }) => {
               const inner = (
                 <>
                   <span className="grid size-8 place-items-center rounded-full bg-primary/15 ring-1 ring-primary/20">
@@ -521,7 +539,7 @@ export function Hero() {
               return (
                 <li
                   key={label}
-                  className={`flex flex-col items-center gap-2 bg-deep py-4 text-center sm:gap-2.5 sm:px-4 sm:py-5${i === 4 ? " col-span-2 sm:col-span-1" : ""}`}
+                  className="flex w-1/2 shrink-0 snap-start flex-col items-center gap-2 bg-deep py-4 text-center sm:w-auto sm:gap-2.5 sm:px-4 sm:py-5"
                 >
                   {href ? (
                     <a href={href} className="flex flex-col items-center gap-2 hover:opacity-80 transition-opacity">
@@ -532,6 +550,7 @@ export function Hero() {
               );
             })}
           </ul>
+          <CarouselControls scrollerRef={trustScrollerRef} count={TRUST_ROW.length} className="mt-3 pb-3 sm:hidden" />
         </div>
       </div>
     </section>
