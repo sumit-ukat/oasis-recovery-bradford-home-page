@@ -1389,9 +1389,11 @@ export function RecoveryJourney() {
               className="max-h-[420px] cursor-grab snap-y snap-mandatory overflow-y-auto no-scrollbar active:cursor-grabbing lg:max-h-none lg:cursor-auto lg:snap-none lg:overflow-visible"
             >
               <ol className="relative space-y-0">
-                <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
-                {JOURNEY.map(({ num, title, desc, link }) => (
+                {JOURNEY.map(({ num, title, desc, link }, i) => (
                   <li key={num} className="relative flex gap-6 pb-9 last:pb-0 snap-start">
+                    {i < JOURNEY.length - 1 && (
+                      <div aria-hidden className="absolute left-[1.4375rem] top-[2.875rem] bottom-0 w-px bg-border/60" />
+                    )}
                     <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
                       <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
                         {num}
