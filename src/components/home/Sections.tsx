@@ -5,6 +5,8 @@ import {
   Check,
   ChevronLeft,
   ChevronRight,
+  ChevronUp,
+  ChevronDown,
   HeartHandshake,
   Home,
   Leaf,
@@ -168,6 +170,95 @@ function CarouselControls({
         className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card shadow-sm transition hover:bg-secondary disabled:opacity-30"
       >
         <ChevronRight className="size-4" aria-hidden />
+      </button>
+    </div>
+  );
+}
+
+/* Vertical counterparts, used by the RecoveryJourney timeline carousel —
+   same idea as the horizontal helpers above, but tracking scrollTop/offsetTop
+   against the <li> steps nested inside the timeline's connecting-line wrapper. */
+
+function useSnapIndexY(ref: React.RefObject<HTMLDivElement | null>) {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const onScroll = () => {
+      const items = Array.from(el.querySelectorAll("li")) as HTMLElement[];
+      if (!items.length) return;
+      let closest = 0;
+      let closestDist = Infinity;
+      items.forEach((item, i) => {
+        const dist = Math.abs(item.offsetTop - el.scrollTop);
+        if (dist < closestDist) {
+          closestDist = dist;
+          closest = i;
+        }
+      });
+      setIndex(closest);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [ref]);
+  return index;
+}
+
+function scrollToChildY(ref: React.RefObject<HTMLDivElement | null>, i: number) {
+  const el = ref.current;
+  if (!el) return;
+  const items = el.querySelectorAll("li");
+  const item = items[i] as HTMLElement | undefined;
+  if (!item) return;
+  const scrollPad = parseFloat(getComputedStyle(el).scrollPaddingTop) || 0;
+  el.scrollTo({ top: item.offsetTop - scrollPad, behavior: "smooth" });
+}
+
+function CarouselControlsY({
+  scrollerRef,
+  count,
+  className = "",
+}: {
+  scrollerRef: React.RefObject<HTMLDivElement | null>;
+  count: number;
+  className?: string;
+}) {
+  const index = useSnapIndexY(scrollerRef);
+  return (
+    <div className={`flex items-center gap-3 lg:hidden ${className}`}>
+      <button
+        type="button"
+        onClick={() => scrollToChildY(scrollerRef, index - 1)}
+        disabled={index === 0}
+        aria-label="Previous step"
+        className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card shadow-sm transition hover:bg-secondary disabled:opacity-30"
+      >
+        <ChevronUp className="size-4" aria-hidden />
+      </button>
+      <div className="flex flex-1 justify-center gap-1.5">
+        {Array.from({ length: count }).map((_, i) => (
+          <button
+            key={i}
+            type="button"
+            onClick={() => scrollToChildY(scrollerRef, i)}
+            aria-label={`Go to step ${i + 1}`}
+            className={`rounded-full transition-all duration-200 ${
+              i === index
+                ? "h-2 w-5 bg-primary"
+                : "size-2 bg-primary/25 hover:bg-primary/50"
+            }`}
+          />
+        ))}
+      </div>
+      <button
+        type="button"
+        onClick={() => scrollToChildY(scrollerRef, index + 1)}
+        disabled={index >= count - 1}
+        aria-label="Next step"
+        className="grid size-9 shrink-0 place-items-center rounded-full border border-border bg-card shadow-sm transition hover:bg-secondary disabled:opacity-30"
+      >
+        <ChevronDown className="size-4" aria-hidden />
       </button>
     </div>
   );
@@ -1053,8 +1144,23 @@ const JOURNEY = [
 ];
 
 export function RecoveryJourney() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndexY(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollHeight <= el.clientHeight + 1) return;
+      scrollToChildY(scrollerRef, (snapIndex + 1) % JOURNEY.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">How it works</p>
@@ -1069,29 +1175,37 @@ export function RecoveryJourney() {
 
         <div className="mt-14 lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:gap-20">
           {/* Timeline */}
-          <ol className="relative space-y-0">
-            <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
-            {JOURNEY.map(({ num, title, desc, link }) => (
-              <li key={num} className="relative flex gap-6 pb-9 last:pb-0">
-                <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
-                  <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
-                    {num}
-                  </span>
-                </div>
-                <div className="min-w-0 pt-2.5">
-                  <h3 className="text-[1.0625rem] font-medium">{title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {desc}{" "}
-                    {link && (
-                      <a href={link.href} className="font-medium text-primary hover:underline">
-                        {link.label} →
-                      </a>
-                    )}
-                  </p>
-                </div>
-              </li>
-            ))}
-          </ol>
+          <div>
+            <div
+              ref={scrollerRef}
+              className="max-h-[420px] snap-y snap-mandatory overflow-y-auto no-scrollbar lg:max-h-none lg:snap-none lg:overflow-visible"
+            >
+              <ol className="relative space-y-0">
+                <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
+                {JOURNEY.map(({ num, title, desc, link }) => (
+                  <li key={num} className="relative flex gap-6 pb-9 last:pb-0 snap-start">
+                    <div className="relative z-10 flex h-[2.875rem] w-[2.875rem] shrink-0 items-center justify-center rounded-full bg-card ring-1 ring-border">
+                      <span className="text-[0.625rem] font-bold tracking-[0.12em] text-primary/60">
+                        {num}
+                      </span>
+                    </div>
+                    <div className="min-w-0 pt-2.5">
+                      <h3 className="text-[1.0625rem] font-medium">{title}</h3>
+                      <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                        {desc}{" "}
+                        {link && (
+                          <a href={link.href} className="font-medium text-primary hover:underline">
+                            {link.label} →
+                          </a>
+                        )}
+                      </p>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+            </div>
+            <CarouselControlsY scrollerRef={scrollerRef} count={JOURNEY.length} className="mt-5" />
+          </div>
 
           {/* Image + CTA (desktop only) */}
           <div className="hidden lg:flex lg:flex-col lg:gap-8">
