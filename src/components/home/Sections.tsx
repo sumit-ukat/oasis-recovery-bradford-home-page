@@ -126,6 +126,65 @@ function scrollToChild(ref: React.RefObject<HTMLDivElement | null>, i: number) {
   el.scrollTo({ left: child.offsetLeft - scrollPad, behavior: "smooth" });
 }
 
+/* Click-and-drag scrolling for a mouse cursor. Real phones already scroll
+   these containers natively on touch, so this only binds to pointerType
+   "mouse" — it fixes dragging with a cursor (e.g. testing in a desktop
+   preview) without touching the touch-scroll behaviour that already works. */
+function useDragScroll(ref: React.RefObject<HTMLDivElement | null>, axis: "x" | "y" = "x") {
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    let isDown = false;
+    let dragged = false;
+    let startPos = 0;
+    let scrollStart = 0;
+
+    const pos = (e: PointerEvent) => (axis === "x" ? e.clientX : e.clientY);
+
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.pointerType !== "mouse") return;
+      isDown = true;
+      dragged = false;
+      startPos = pos(e);
+      scrollStart = axis === "x" ? el.scrollLeft : el.scrollTop;
+      el.setPointerCapture(e.pointerId);
+    };
+    const onPointerMove = (e: PointerEvent) => {
+      if (!isDown) return;
+      const delta = pos(e) - startPos;
+      if (Math.abs(delta) > 4) dragged = true;
+      if (axis === "x") el.scrollLeft = scrollStart - delta;
+      else el.scrollTop = scrollStart - delta;
+    };
+    const endDrag = () => {
+      isDown = false;
+    };
+    const onClickCapture = (e: MouseEvent) => {
+      if (!dragged) return;
+      e.preventDefault();
+      e.stopPropagation();
+      dragged = false;
+    };
+    const onDragStart = (e: DragEvent) => e.preventDefault();
+
+    el.addEventListener("pointerdown", onPointerDown);
+    el.addEventListener("pointermove", onPointerMove);
+    el.addEventListener("pointerup", endDrag);
+    el.addEventListener("pointerleave", endDrag);
+    el.addEventListener("click", onClickCapture, true);
+    el.addEventListener("dragstart", onDragStart);
+    return () => {
+      el.removeEventListener("pointerdown", onPointerDown);
+      el.removeEventListener("pointermove", onPointerMove);
+      el.removeEventListener("pointerup", endDrag);
+      el.removeEventListener("pointerleave", endDrag);
+      el.removeEventListener("click", onClickCapture, true);
+      el.removeEventListener("dragstart", onDragStart);
+    };
+  }, [ref, axis]);
+}
+
 function CarouselControls({
   scrollerRef,
   count,
@@ -336,12 +395,31 @@ const HERO_SLIDES = [
 export function Hero() {
   const [slide, setSlide] = useState(0);
   const [paused, setPaused] = useState(false);
+  const dragRef = useRef({ down: false, startX: 0 });
 
   useEffect(() => {
     if (paused) return;
     const id = setInterval(() => setSlide(s => (s + 1) % HERO_SLIDES.length), 4000);
     return () => clearInterval(id);
   }, [paused]);
+
+  const onSlideDown = (e: React.PointerEvent) => {
+    dragRef.current = { down: true, startX: e.clientX };
+    setPaused(true);
+  };
+  const onSlideUp = (e: React.PointerEvent) => {
+    if (!dragRef.current.down) return;
+    const delta = e.clientX - dragRef.current.startX;
+    dragRef.current.down = false;
+    if (Math.abs(delta) > 40) {
+      setSlide(s =>
+        delta < 0
+          ? (s + 1) % HERO_SLIDES.length
+          : (s - 1 + HERO_SLIDES.length) % HERO_SLIDES.length,
+      );
+    }
+    setPaused(false);
+  };
 
   return (
     <section id="top" className="relative overflow-hidden bg-sand">
@@ -381,15 +459,18 @@ export function Hero() {
 
         <div className="mt-8 lg:mt-0">
           <div
-            className="relative aspect-[4/3] overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
+            className="relative aspect-[4/3] cursor-grab touch-pan-y select-none overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] active:cursor-grabbing sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
+            onPointerDown={onSlideDown}
+            onPointerUp={onSlideUp}
           >
             {HERO_SLIDES.map(({ src, alt }, i) => (
               <img
                 key={src}
                 src={src}
                 alt={alt}
+                draggable={false}
                 className={cn(
                   "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
                   i === slide ? "opacity-100" : "opacity-0",
@@ -598,6 +679,7 @@ const ADDICTIONS = [
 export function AddictionsHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -656,7 +738,7 @@ export function AddictionsHub() {
         {/* Mobile: swipeable rail, ~86% width with next card peeking in */}
         <div
           ref={scrollerRef}
-          className="no-scrollbar mt-10 -mx-5 flex gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0"
+          className="no-scrollbar mt-10 -mx-5 flex cursor-grab gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory active:cursor-grabbing sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0"
         >
           {ADDICTIONS.map(({ icon: Icon, label, href, desc }) => (
             <a
@@ -740,6 +822,7 @@ const DETOX_GROUPS = [
 export function DetoxHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -806,7 +889,7 @@ export function DetoxHub() {
 
         <div
           ref={scrollerRef}
-          className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar lg:mt-12 lg:grid lg:grid-cols-2 lg:gap-6 lg:overflow-visible"
+          className="mt-10 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-12 lg:grid lg:cursor-auto lg:grid-cols-2 lg:gap-6 lg:overflow-visible"
         >
           {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
             <div
@@ -1048,6 +1131,7 @@ const THERAPY_GROUPS = [
 export function TherapiesHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -1078,7 +1162,7 @@ export function TherapiesHub() {
 
         <div
           ref={scrollerRef}
-          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto no-scrollbar lg:mt-14 lg:grid lg:grid-cols-2 lg:overflow-visible"
+          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-14 lg:grid lg:cursor-auto lg:grid-cols-2 lg:overflow-visible"
         >
           {THERAPY_GROUPS.map(({ title, desc, therapies }) => (
             <div
@@ -1154,6 +1238,7 @@ const JOURNEY = [
 export function RecoveryJourney() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndexY(scrollerRef);
+  useDragScroll(scrollerRef, "y");
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -1186,7 +1271,7 @@ export function RecoveryJourney() {
           <div>
             <div
               ref={scrollerRef}
-              className="max-h-[420px] snap-y snap-mandatory overflow-y-auto no-scrollbar lg:max-h-none lg:snap-none lg:overflow-visible"
+              className="max-h-[420px] cursor-grab snap-y snap-mandatory overflow-y-auto no-scrollbar active:cursor-grabbing lg:max-h-none lg:cursor-auto lg:snap-none lg:overflow-visible"
             >
               <ol className="relative space-y-0">
                 <div aria-hidden className="absolute left-[1.4375rem] top-6 bottom-6 w-px bg-border/60" />
@@ -1272,6 +1357,7 @@ const TYPICAL_DAY = [
 function FacilityGallery() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const active = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -1287,7 +1373,7 @@ function FacilityGallery() {
       <div className="relative">
         <div
           ref={scrollerRef}
-          className="no-scrollbar -mx-5 flex gap-4 overflow-x-auto scroll-px-5 px-5 pb-1 snap-x snap-mandatory sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:px-0"
+          className="no-scrollbar -mx-5 flex cursor-grab gap-4 overflow-x-auto scroll-px-5 px-5 pb-1 snap-x snap-mandatory active:cursor-grabbing sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:px-0"
         >
           {GALLERY.map((img) => (
             <figure
@@ -2056,6 +2142,7 @@ const RESOURCES = [
 export function Resources() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
 
   useEffect(() => {
@@ -2089,7 +2176,7 @@ export function Resources() {
 
         <div
           ref={scrollerRef}
-          className="no-scrollbar mt-10 -mx-5 flex gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:grid lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0"
+          className="no-scrollbar mt-10 -mx-5 flex cursor-grab gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory active:cursor-grabbing sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0"
         >
           {RESOURCES.map(({ img, cat, time, title }) => (
             <a
