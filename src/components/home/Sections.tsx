@@ -1556,8 +1556,24 @@ const TEAM = [
 ];
 
 export function Team() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % TEAM.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="team" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="team" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="max-w-xl">
           <p className="eyebrow">Our team</p>
@@ -1571,9 +1587,15 @@ export function Team() {
         </div>
 
         <div className="mt-12">
-          <ul className="grid gap-8 sm:grid-cols-2">
+          <ul
+            ref={scrollerRef}
+            className="flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto no-scrollbar active:cursor-grabbing lg:grid lg:cursor-auto lg:grid-cols-2 lg:gap-8 lg:overflow-visible"
+          >
             {TEAM.map((m) => (
-              <li key={m.name} className="flex items-start gap-5">
+              <li
+                key={m.name}
+                className="flex w-[85vw] shrink-0 snap-start items-start gap-5 sm:w-[420px] lg:w-auto lg:shrink"
+              >
                 <img
                   src={m.img}
                   alt={m.name}
@@ -1587,6 +1609,7 @@ export function Team() {
               </li>
             ))}
           </ul>
+          <CarouselControls scrollerRef={scrollerRef} count={TEAM.length} className="mt-6 lg:hidden" />
         </div>
 
         <div className="mt-8">
