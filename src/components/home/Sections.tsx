@@ -568,8 +568,24 @@ const DIFFERENTIATORS = [
 ];
 
 export function TreatmentCentre() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % DIFFERENTIATORS.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="centre" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="centre" className="bg-background py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         {/* Image left, content right */}
         <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-14 xl:gap-20">
@@ -627,9 +643,15 @@ export function TreatmentCentre() {
           </div>
         </div>
 
-        <div className="mt-12 grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4 lg:gap-x-12">
+        <div
+          ref={scrollerRef}
+          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-16 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-x-12 lg:gap-y-10 lg:overflow-visible"
+        >
           {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
-            <div key={title}>
+            <div
+              key={title}
+              className="snap-start shrink-0 w-[78vw] sm:w-[320px] lg:w-auto lg:shrink rounded-2xl border border-border/60 bg-card p-6"
+            >
               <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-[1.15rem]" aria-hidden />
               </span>
@@ -640,6 +662,8 @@ export function TreatmentCentre() {
             </div>
           ))}
         </div>
+
+        <CarouselControls scrollerRef={scrollerRef} count={DIFFERENTIATORS.length} className="mt-6 lg:hidden" />
 
         <div className="mt-12 flex flex-col gap-5 border-t border-border/50 pt-8 sm:flex-row sm:items-center sm:justify-between lg:mt-16">
           <p className="max-w-lg text-sm leading-relaxed text-muted-foreground">
