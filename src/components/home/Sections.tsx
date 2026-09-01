@@ -1835,10 +1835,11 @@ export function Location() {
           <div className="overflow-hidden rounded-2xl border border-border/60">
             <iframe
               title="Map showing Oasis Recovery Bradford, West Yorkshire"
-              src="https://www.google.com/maps?q=21A+Bolling+Road,+Bradford,+BD4+7BG&output=embed"
+              src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13970.781642126207!2d-1.746448!3d53.787547!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487be1384766bc5b%3A0x1f596ed7ffb813a!2sOasis%20Recovery%20Bradford%20-%20Drug%20Rehab%20%26%20Alcohol%20Rehab%20Yorkshire!5e1!3m2!1sen!2sin!4v1788254881959!5m2!1sen!2sin"
               className="h-[320px] w-full sm:h-[400px]"
+              allowFullScreen
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
             />
           </div>
         </div>
