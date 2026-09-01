@@ -1787,6 +1787,13 @@ const ACCESS_POINTS = [
   { icon: Users,      label: "Collection support", desc: "Our admissions team can advise on transport and collection where needed." },
 ];
 
+const NEARBY_TOWNS = [
+  { town: "Leeds",        road: "~20 min",  rail: "~20 min",       note: undefined },
+  { town: "Huddersfield", road: "~25 min",  rail: "35–40 min",     note: undefined },
+  { town: "Halifax",      road: "~20 min",  rail: "15–20 min",     note: undefined },
+  { town: "Wakefield",    road: "~30 min",  rail: "40–45 min",     note: "usually via Leeds" },
+];
+
 export function Location() {
   return (
     <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
@@ -1834,6 +1841,37 @@ export function Location() {
               referrerPolicy="no-referrer-when-downgrade"
             />
           </div>
+        </div>
+
+        {/* Distance from nearby towns */}
+        <div className="mt-14 border-t border-border/50 pt-10">
+          <p className="text-[0.9375rem] font-medium text-foreground">How far is Oasis from you?</p>
+          <p className="mt-1.5 text-sm text-muted-foreground">
+            We welcome residents from across West Yorkshire and beyond, including Leeds, Huddersfield, Halifax and Wakefield.
+          </p>
+          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {NEARBY_TOWNS.map(({ town, road, rail, note }) => (
+              <div key={town} className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card px-5 py-4">
+                <div className="flex items-center gap-2">
+                  <MapPin className="size-[1.0625rem] shrink-0 text-primary" aria-hidden />
+                  <span className="text-[0.9375rem] font-medium text-foreground">{town}</span>
+                </div>
+                <div className="space-y-1.5 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-2">
+                    <Car className="size-3.5 shrink-0 text-primary/60" aria-hidden />
+                    <span>{road} by road</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <TrainFront className="size-3.5 shrink-0 text-primary/60" aria-hidden />
+                    <span>{rail} by train{note ? `, ${note}` : ""}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-xs text-muted-foreground/70">
+            Times are approximate and vary with traffic and train timetables. If you're travelling from further afield, our admissions team can advise on transport and collection.
+          </p>
         </div>
       </div>
     </section>
