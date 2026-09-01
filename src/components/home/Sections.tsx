@@ -2148,8 +2148,24 @@ const NEARBY_TOWNS = [
 ];
 
 export function Location() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  useDragScroll(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % NEARBY_TOWNS.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
+    <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-16">
           <div>
@@ -2203,9 +2219,15 @@ export function Location() {
           <p className="mt-1.5 text-sm text-muted-foreground">
             We welcome residents from across West Yorkshire and beyond, including Leeds, Huddersfield, Halifax and Wakefield.
           </p>
-          <div className="mt-6 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          <div
+            ref={scrollerRef}
+            className="mt-6 flex cursor-grab snap-x snap-mandatory gap-3 overflow-x-auto no-scrollbar active:cursor-grabbing lg:grid lg:cursor-auto lg:grid-cols-4 lg:overflow-visible"
+          >
             {NEARBY_TOWNS.map(({ town, road, rail, note }) => (
-              <div key={town} className="flex flex-col gap-3 rounded-xl border border-border/60 bg-card px-5 py-4">
+              <div
+                key={town}
+                className="flex w-[78vw] shrink-0 snap-start flex-col gap-3 rounded-xl border border-border/60 bg-card px-5 py-4 sm:w-[280px] lg:w-auto lg:shrink"
+              >
                 <div className="flex items-center gap-2">
                   <MapPin className="size-[1.0625rem] shrink-0 text-primary" aria-hidden />
                   <span className="text-[0.9375rem] font-medium text-foreground">{town}</span>
@@ -2223,6 +2245,7 @@ export function Location() {
               </div>
             ))}
           </div>
+          <CarouselDots scrollerRef={scrollerRef} count={NEARBY_TOWNS.length} className="mt-4 lg:hidden" />
           <p className="mt-5 text-xs text-muted-foreground/70">
             Times are approximate and vary with traffic and train timetables.
           </p>
@@ -2649,8 +2672,7 @@ export function Contact() {
             </Button>
             <p className="mt-3 text-xs leading-relaxed text-muted-foreground">
               *By submitting your details, you consent to us contacting you regarding your enquiry.
-              Your information will be handled in accordance with our{" "}
-              <a href="/privacy-policy/" className="underline hover:text-foreground">Privacy Policy</a>.
+              Your information will be handled in accordance with our Privacy Policy.
             </p>
           </form>
         </div>
