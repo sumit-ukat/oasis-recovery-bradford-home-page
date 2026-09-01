@@ -855,7 +855,7 @@ export function SiteHeader() {
 
           <Button asChild variant="cta" size="sm" className="hidden sm:inline-flex">
             <a href="#contact">
-              <Phone aria-hidden /> Speak to us
+              <Phone aria-hidden /> 020 3816 1576
             </a>
           </Button>
 
