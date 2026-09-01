@@ -2516,7 +2516,7 @@ const FOOTER_COLS = [
 
 export function SiteFooter() {
   return (
-    <footer className="bg-deep pb-24 text-deep-foreground lg:pb-0">
+    <footer className="bg-deep text-deep-foreground">
       <div className="section-x mx-auto max-w-7xl py-14">
 
         <div className="mb-10 flex flex-wrap items-start justify-between gap-8 border-b border-deep-foreground/15 pb-10">
