@@ -101,7 +101,6 @@ function Index() {
         <Contact />
       </main>
       <SiteFooter />
-      <MobileCallBar />
     </div>
   );
 }
