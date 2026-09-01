@@ -639,8 +639,23 @@ const DETOX_GROUPS = [
 ];
 
 export function DetoxHub() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % DETOX_GROUPS.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10 xl:gap-14">
           {/* Left: content */}
@@ -690,11 +705,14 @@ export function DetoxHub() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-5 lg:mt-12 lg:grid-cols-2 lg:gap-6">
+        <div
+          ref={scrollerRef}
+          className="mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar lg:mt-12 lg:grid lg:grid-cols-2 lg:gap-6 lg:overflow-visible"
+        >
           {DETOX_GROUPS.map(({ icon: Icon, title, href, cta, desc, linksLabel, links }) => (
             <div
               key={title}
-              className="flex flex-col rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
+              className="snap-start shrink-0 w-[85vw] sm:w-[420px] lg:w-auto lg:shrink flex flex-col rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
             >
               <div className="flex items-start gap-4">
                 <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
@@ -729,6 +747,8 @@ export function DetoxHub() {
             </div>
           ))}
         </div>
+
+        <CarouselControls scrollerRef={scrollerRef} count={DETOX_GROUPS.length} className="mt-6 lg:hidden" />
 
         <div className="mt-10 flex flex-col gap-5 sm:flex-row sm:items-center">
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
