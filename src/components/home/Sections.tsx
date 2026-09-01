@@ -1870,7 +1870,7 @@ export function Location() {
             ))}
           </div>
           <p className="mt-5 text-xs text-muted-foreground/70">
-            Times are approximate and vary with traffic and train timetables. If you're travelling from further afield, our admissions team can advise on transport and collection.
+            Times are approximate and vary with traffic and train timetables.
           </p>
         </div>
       </div>
