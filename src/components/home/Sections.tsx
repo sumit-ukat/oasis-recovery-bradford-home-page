@@ -2003,7 +2003,7 @@ export function Outcomes() {
           <div>
             <p className="eyebrow text-primary/70">Trust & outcomes</p>
             <h2 className="mt-4 max-w-xl text-[2rem] leading-[1.1] sm:text-[2.625rem] lg:text-[3rem]">
-              Outcomes & resident stories
+              Client Reviews
             </h2>
           </div>
           <a
