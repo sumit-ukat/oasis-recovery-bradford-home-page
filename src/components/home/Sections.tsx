@@ -758,6 +758,28 @@ const ADDICTIONS = [
   { icon: ShieldCheck, label: "Dual diagnosis",                href: "/dual-diagnosis/",              desc: "When addiction sits alongside a mental health condition such as anxiety, depression, PTSD or ADHD." },
 ];
 
+/* Narrower addiction/substance pages not already covered by one of the
+   8 cards above — surfaced as link chips so they stay reachable from the
+   homepage instead of only via the mega menu. */
+const MORE_ADDICTIONS = [
+  { label: "Legal high addiction",     href: "/addiction/legal-high/" },
+  { label: "Crack cocaine addiction",  href: "/addiction/drug/crack-cocaine/" },
+  { label: "Crystal meth addiction",   href: "/addiction/drug/crystal-meth/" },
+  { label: "Ecstasy addiction",        href: "/addiction/drug/ecstasy/" },
+  { label: "Ketamine addiction",       href: "/addiction/drug/ketamine/" },
+  { label: "LSD addiction",            href: "/addiction/drug/lsd/" },
+  { label: "Stimulant addiction",      href: "/addiction/drug/stimulants/" },
+  { label: "Sleeping pill addiction",  href: "/addiction/prescription-drug/sleeping-pill/" },
+  { label: "Opioid addiction",         href: "/addiction/prescription-drug/opioid/" },
+  { label: "Benzodiazepine addiction", href: "/addiction/prescription-drug/benzodiazepine/" },
+  { label: "Gambling addiction",       href: "/addiction/behavioural/gambling/" },
+  { label: "Gaming addiction",         href: "/addiction/behavioural/gaming/" },
+  { label: "Eating disorders",         href: "/addiction/behavioural/eating-disorders/" },
+  { label: "Sex & love addiction",     href: "/addiction/behavioural/sex-and-love/" },
+  { label: "Shopping addiction",       href: "/addiction/behavioural/shopping/" },
+  { label: "Social media addiction",   href: "/addiction/behavioural/social-media/" },
+];
+
 export function AddictionsHub() {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const snapIndex = useSnapIndex(scrollerRef);
@@ -842,6 +864,17 @@ export function AddictionsHub() {
         </div>
 
         <CarouselControls scrollerRef={scrollerRef} count={ADDICTIONS.length} className="mt-6" />
+
+        <div className="mt-10 border-t border-border/50 pt-8">
+          <p className="eyebrow text-[0.625rem]">More addiction pages</p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            {MORE_ADDICTIONS.map((l) => (
+              <LinkChip key={l.label} href={l.href}>
+                {l.label}
+              </LinkChip>
+            ))}
+          </div>
+        </div>
 
         <div className="mt-6">
           <a
