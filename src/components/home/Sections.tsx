@@ -1728,8 +1728,7 @@ export function Costs() {
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
               The cost of private treatment depends on factors such as length of
               stay, individual clinical requirements, and the specific programme
-              recommended following assessment — so we don't publish a fixed price
-              list. What we can tell you upfront:
+              recommended following assessment. Our treatment starts from:
             </p>
 
             <div className="mt-7 rounded-2xl border border-border/60 bg-card p-6 sm:p-8">
