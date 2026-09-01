@@ -947,8 +947,23 @@ const THERAPY_GROUPS = [
 ];
 
 export function TherapiesHub() {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const snapIndex = useSnapIndex(scrollerRef);
+  const [paused, setPaused] = useState(false);
+
+  useEffect(() => {
+    if (paused) return;
+    const id = setInterval(() => {
+      const el = scrollerRef.current;
+      if (!el || el.scrollWidth <= el.clientWidth + 1) return;
+      scrollToChild(scrollerRef, (snapIndex + 1) % THERAPY_GROUPS.length);
+    }, 4000);
+    return () => clearInterval(id);
+  }, [paused, snapIndex]);
+
   return (
-    <section id="therapies" className="bg-background py-14 sm:py-20 lg:py-24">
+    <section id="therapies" className="bg-background py-14 sm:py-20 lg:py-24"
+      onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
           <p className="eyebrow">Treatment programmes</p>
@@ -962,11 +977,14 @@ export function TherapiesHub() {
           </p>
         </div>
 
-        <div className="mt-12 grid gap-6 lg:mt-14 lg:grid-cols-2">
+        <div
+          ref={scrollerRef}
+          className="mt-12 flex snap-x snap-mandatory gap-6 overflow-x-auto no-scrollbar lg:mt-14 lg:grid lg:grid-cols-2 lg:overflow-visible"
+        >
           {THERAPY_GROUPS.map(({ title, desc, therapies }) => (
             <div
               key={title}
-              className="rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
+              className="snap-start shrink-0 w-[85vw] sm:w-[420px] lg:w-auto lg:shrink rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
             >
               <h3 className="text-[1.125rem] font-medium leading-snug">{title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
@@ -980,6 +998,8 @@ export function TherapiesHub() {
             </div>
           ))}
         </div>
+
+        <CarouselControls scrollerRef={scrollerRef} count={THERAPY_GROUPS.length} className="mt-6 lg:hidden" />
 
         <div className="mt-8 flex flex-col gap-5 sm:flex-row sm:items-center">
           <Button asChild variant="outline" size="lg" className="w-full sm:w-auto sm:shrink-0">
