@@ -220,11 +220,11 @@ function LinkChip({ href, children }: { href: string; children: React.ReactNode 
 ═══════════════════════════════════════════════════════════ */
 
 const TRUST_ROW = [
-  { icon: ShieldCheck,    label: "CQC Regulated",      sub: "Rated Good · Feb 2026",          href: "#cqc" },
-  { icon: Check,          label: "Confidential",        sub: "No obligation to commit",         href: undefined },
-  { icon: Clock,          label: "Next Day Admission",  sub: "Fast-track into treatment",       href: undefined },
-  { icon: Users,          label: "UKAT Group",          sub: "10 UK rehab centres",             href: undefined },
-  { icon: HeartHandshake, label: "Aftercare Included",  sub: "Lifelong alumni support",         href: undefined },
+  { icon: ShieldCheck,    label: "CQC Regulated",         sub: "Rated Good · Feb 2026",        href: "#cqc" },
+  { icon: Clock,          label: "Next Day Admission",     sub: "Fast-track into treatment",    href: undefined },
+  { icon: Users,          label: "UKAT Group",             sub: "10 UK rehab centres",          href: undefined },
+  { icon: HeartHandshake, label: "Aftercare Included",     sub: "Free for 12 months",           href: undefined },
+  { icon: Check,          label: "Lifelong alumni support",sub: "Ongoing recovery community",   href: undefined },
 ];
 
 const HERO_SLIDES = [
