@@ -234,6 +234,39 @@ function CarouselControls({
   );
 }
 
+/* Minimal dots-only indicator — for a carousel too short on vertical
+   space for the full prev/next + dots row above (e.g. the trust bar). */
+function CarouselDots({
+  scrollerRef,
+  count,
+  className = "",
+  dotClassName = "bg-primary/25 hover:bg-primary/50",
+  activeDotClassName = "bg-primary",
+}: {
+  scrollerRef: React.RefObject<HTMLElement | null>;
+  count: number;
+  className?: string;
+  dotClassName?: string;
+  activeDotClassName?: string;
+}) {
+  const index = useSnapIndex(scrollerRef);
+  return (
+    <div className={`flex justify-center gap-1.5 ${className}`}>
+      {Array.from({ length: count }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          onClick={() => scrollToChild(scrollerRef, i)}
+          aria-label={`Go to item ${i + 1}`}
+          className={`rounded-full transition-all duration-200 ${
+            i === index ? `h-1.5 w-4 ${activeDotClassName}` : `size-1.5 ${dotClassName}`
+          }`}
+        />
+      ))}
+    </div>
+  );
+}
+
 /* Vertical counterparts, used by the RecoveryJourney timeline carousel —
    same idea as the horizontal helpers above, but tracking scrollTop/offsetTop
    against the <li> steps nested inside the timeline's connecting-line wrapper. */
@@ -550,7 +583,13 @@ export function Hero() {
               );
             })}
           </ul>
-          <CarouselControls scrollerRef={trustScrollerRef} count={TRUST_ROW.length} className="mt-3 pb-3 sm:hidden" />
+          <CarouselDots
+            scrollerRef={trustScrollerRef}
+            count={TRUST_ROW.length}
+            className="mt-2.5 pb-3 sm:hidden"
+            dotClassName="bg-deep-foreground/25 hover:bg-deep-foreground/40"
+            activeDotClassName="bg-primary"
+          />
         </div>
       </div>
     </section>
