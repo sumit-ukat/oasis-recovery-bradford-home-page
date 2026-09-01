@@ -196,6 +196,14 @@ function useSnapIndexY(ref: React.RefObject<HTMLDivElement | null>) {
           closest = i;
         }
       });
+      // A short final step can sit at an offsetTop past the max scrollable
+      // position, so it never wins the distance check above — clamp against
+      // the actual scroll edges instead of relying on geometry alone.
+      if (el.scrollTop + el.clientHeight >= el.scrollHeight - 1) {
+        closest = items.length - 1;
+      } else if (el.scrollTop <= 0) {
+        closest = 0;
+      }
       setIndex(closest);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
