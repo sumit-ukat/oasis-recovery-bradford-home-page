@@ -883,14 +883,19 @@ export function SiteHeader() {
           className="animate-in fade-in slide-in-from-top-2 absolute inset-x-0 top-full z-50 border-b border-border bg-background shadow-[var(--shadow-lift)] duration-150"
         >
           <div className="section-x mx-auto max-w-7xl py-7">
+            {/* key by menu so each panel starts from its own first item —
+                otherwise sliding Addiction → Detox → Rehab reuses the same
+                component instance and keeps the previous panel's active item */}
             {panel.layout === "rail" ? (
               <PanelRailLayout
+                key={activeMega}
                 panel={panel}
                 panelLabel={activeMega}
                 onClose={closeMega}
               />
             ) : (
               <PanelGridLayout
+                key={activeMega}
                 panel={panel}
                 panelLabel={activeMega}
                 onClose={closeMega}
