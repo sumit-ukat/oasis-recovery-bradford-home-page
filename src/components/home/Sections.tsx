@@ -392,6 +392,45 @@ function PhoneField({ id, name, required }: { id: string; name: string; required
   );
 }
 
+/* Scroll-reveal — progressive enhancement, never a visibility gate.
+ *
+ * Always starts (and stays, if anything below fails) visible. On mount it
+ * checks whether the element is already within ~8% of the viewport; if so
+ * it leaves it alone entirely (above/near the fold shouldn't animate in —
+ * that's the LCP content). Only an element confirmed *below* the fold gets
+ * opted into `.reveal` and then flipped to `.reveal-visible` the moment an
+ * IntersectionObserver reports it crossing into view, disconnecting
+ * immediately after. `prefers-reduced-motion` is handled globally (the
+ * transition collapses to ~0), so no separate check is needed here.
+ */
+function useReveal<T extends HTMLElement>() {
+  const ref = useRef<T>(null);
+  const [state, setState] = useState<"static" | "hidden" | "visible">("static");
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || typeof IntersectionObserver === "undefined") return;
+    const rect = el.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92) return; // already in view — leave static
+
+    setState("hidden");
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setState("visible");
+          io.disconnect();
+        }
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
+  const className = state === "hidden" ? "reveal" : state === "visible" ? "reveal reveal-visible" : "";
+  return { ref, className };
+}
+
 /* Compact pill link — lets the detox and rehab hubs carry a lot of
    internal links without the section turning into a wall of bullets. */
 function LinkChip({ href, children }: { href: string; children: React.ReactNode }) {
@@ -475,6 +514,7 @@ export function Hero() {
         aria-hidden
         className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(60%_100%_at_50%_100%,var(--color-secondary),transparent)]"
       />
+      <div aria-hidden className="bg-grid-faint pointer-events-none absolute inset-x-0 top-0 h-[26rem]" />
       <div className="section-x relative mx-auto max-w-7xl py-10 sm:py-14 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-14 lg:py-20">
         <div className="max-w-xl">
           <p className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
@@ -630,6 +670,7 @@ export function TreatmentCentre() {
   const snapIndex = useSnapIndex(scrollerRef);
   useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
+  const intro = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     if (paused) return;
@@ -653,7 +694,7 @@ export function TreatmentCentre() {
             className="w-full rounded-3xl object-cover aspect-[4/5] lg:aspect-[3/4]"
           />
 
-          <div className="mt-10 lg:mt-0">
+          <div ref={intro.ref} className={`mt-10 lg:mt-0 ${intro.className}`}>
             <p className="eyebrow text-primary/70">Oasis Recovery Bradford</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.75rem]">
               A supportive residential treatment centre in Bradford
@@ -703,12 +744,12 @@ export function TreatmentCentre() {
 
         <div
           ref={scrollerRef}
-          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-16 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-x-12 lg:gap-y-10 lg:overflow-visible"
+          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-16 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-border/60 lg:overflow-visible lg:rounded-2xl lg:border lg:border-border/60"
         >
           {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="snap-start shrink-0 w-[78vw] sm:w-[320px] lg:w-auto lg:shrink rounded-2xl border border-border/60 bg-card p-6"
+              className="snap-start shrink-0 w-[78vw] rounded-2xl border border-border/60 bg-card p-6 sm:w-[320px] lg:w-auto lg:shrink lg:rounded-none lg:border-0 lg:bg-transparent lg:p-8"
             >
               <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-[1.15rem]" aria-hidden />
@@ -795,12 +836,13 @@ export function AddictionsHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="addictions" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
           <p className="eyebrow">What we treat</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Addictions we treat at Oasis
@@ -949,6 +991,7 @@ export function DetoxHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24"
@@ -956,7 +999,7 @@ export function DetoxHub() {
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10 xl:gap-14">
           {/* Left: content */}
-          <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+          <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
             <p className="eyebrow">Withdrawal management</p>
             <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Medically supported detox
@@ -1133,10 +1176,11 @@ const THERAPIES = [
 ];
 
 export function RehabHub() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="rehab" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
           <p className="eyebrow">Structured recovery treatment</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Residential rehab for lasting recovery
@@ -1258,12 +1302,13 @@ export function TherapiesHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="therapies" className="bg-background py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
+        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
           <p className="eyebrow">Treatment programmes</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Therapies in your treatment plan
@@ -1365,12 +1410,13 @@ export function RecoveryJourney() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
+        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
           <p className="eyebrow">How it works</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Your recovery journey
@@ -1557,10 +1603,11 @@ function FacilityGallery() {
 }
 
 export function FacilitiesDailyLife() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="facility" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
+        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
           <p className="eyebrow">Inside Oasis</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Facilities & daily life at Oasis
@@ -1663,12 +1710,13 @@ export function Team() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="team" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-xl">
+        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
           <p className="eyebrow">Our team</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Meet the recovery team
@@ -1732,10 +1780,11 @@ const CQC_DOMAINS = ["Safe", "Effective", "Caring", "Responsive", "Well-led"] as
 
 
 export function CqcRating() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="cqc" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div className="max-w-2xl">
+        <div ref={intro.ref} className={`max-w-2xl ${intro.className}`}>
           <p className="eyebrow text-primary/70">CQC regulation</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Regulated &amp; rated Good by the CQC
@@ -1820,6 +1869,7 @@ export function CqcRating() {
 ═══════════════════════════════════════════════════════════ */
 
 export function FamilySupport() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="family" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
@@ -1829,7 +1879,7 @@ export function FamilySupport() {
             alt="Family support session at Oasis Recovery Bradford"
             className="aspect-[4/3] rounded-2xl lg:aspect-[3/2] w-full object-cover"
           />
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">Family support</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Family support during treatment
@@ -1871,7 +1921,7 @@ const PROMISE_INCLUSIONS = [
 
 export function RecoveryBeyondRehab() {
   return (
-    <section id="recovery-beyond" className="relative overflow-hidden bg-deep py-20 text-deep-foreground sm:py-28 lg:py-36">
+    <section id="recovery-beyond" className="bg-grain relative overflow-hidden bg-deep py-20 text-deep-foreground sm:py-28 lg:py-36">
       <span
         aria-hidden
         className="pointer-events-none absolute -right-12 top-1/2 -translate-y-1/2 select-none font-display text-[16rem] font-black leading-none tracking-tight text-deep-foreground/[0.035] sm:text-[22rem] lg:-right-16 lg:text-[28rem]"
@@ -1988,6 +2038,7 @@ const OWN_REVIEWS = [
 
 export function Outcomes() {
   const [active, setActive] = useState(0);
+  const intro = useReveal<HTMLDivElement>();
 
   function prev() {
     setActive((a) => (a === 0 ? OWN_REVIEWS.length - 1 : a - 1));
@@ -2000,7 +2051,7 @@ export function Outcomes() {
     <section id="outcomes" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow text-primary/70">Trust & outcomes</p>
             <h2 className="mt-4 max-w-xl text-[2rem] leading-[1.1] sm:text-[2.625rem] lg:text-[3rem]">
               Client Reviews
@@ -2104,11 +2155,12 @@ export function Outcomes() {
 ═══════════════════════════════════════════════════════════ */
 
 export function Costs() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="costs" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-20">
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">Investing in recovery</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Private rehab costs at Oasis
@@ -2151,12 +2203,19 @@ export function Costs() {
             </div>
           </div>
 
-          <div className="hidden lg:block">
+          <div className="relative hidden lg:block">
             <img
               src={IMGS.reception}
               alt="Reception at Oasis Recovery Bradford"
               className="w-full rounded-3xl object-cover aspect-[4/5]"
             />
+            <div className="absolute bottom-6 left-6 rounded-2xl border border-border/60 bg-card/95 px-5 py-4 shadow-[var(--shadow-lift)] backdrop-blur-sm">
+              <p className="eyebrow text-[0.625rem]">Starts from</p>
+              <p className="mt-0.5 text-2xl font-medium tracking-[-0.02em] text-foreground">
+                {STARTING_PRICE != null ? `£${STARTING_PRICE.toLocaleString("en-GB")}` : "POA"}
+              </p>
+              <p className="text-xs text-muted-foreground/70">28-day programme</p>
+            </div>
           </div>
         </div>
       </div>
@@ -2197,13 +2256,14 @@ export function Location() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-16">
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">Getting to Oasis</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Location & getting to Oasis
@@ -2317,13 +2377,14 @@ export function Resources() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="resources" className="bg-background py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">Still researching?</p>
             <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Addiction & recovery resources
@@ -2444,11 +2505,12 @@ function FaqColumn({ items }: { items: typeof FAQS }) {
 }
 
 export function Faq() {
+  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="faq" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">FAQs</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Questions you may have
@@ -2561,13 +2623,14 @@ export function BrochureCta() {
 
 export function Contact() {
   const [prevTreatment, setPrevTreatment] = useState<"yes" | "no" | null>(null);
+  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="contact" className="bg-sand py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
 
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="eyebrow">Take the first step</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Take the first step towards recovery
