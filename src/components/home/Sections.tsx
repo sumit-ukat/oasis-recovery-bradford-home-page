@@ -62,6 +62,7 @@ const CDN = "https://cdn.rehabfiles.com/sites";
 const F = (name: string) => `${CDN}/ukat/wp-content/uploads/2016/10/${name}`;
 const IMGS = {
   hero:      `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
+  heroFront: `${CDN}/oasisrecoverycom/wp-content/uploads/2026/10/oasis-bradford-front.jpg`,
   therapy:   F("oasis_bradfords-143.jpg"),
   wide:      `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
   bedroom:   F("oasis_bradfords-055.jpg"),
@@ -495,10 +496,8 @@ const TRUST_ROW = [
 ];
 
 const HERO_SLIDES = [
+  { src: IMGS.heroFront, alt: "Oasis Recovery Bradford — front of building" },
   { src: IMGS.hero,      alt: "Oasis Recovery Bradford — exterior" },
-  { src: IMGS.lounge,    alt: "Communal lounge at Oasis Recovery Bradford" },
-  { src: IMGS.bedroom,   alt: "Private bedroom at Oasis Recovery Bradford" },
-  { src: IMGS.reception, alt: "Reception at Oasis Recovery Bradford" },
 ];
 
 export function Hero() {
@@ -546,91 +545,96 @@ export function Hero() {
   };
 
   return (
-    <section id="top" className="relative overflow-hidden bg-deep text-deep-foreground">
-      {/* Full-bleed photo carousel — the whole hero sits on it now, not a
-          card beside the text (DESIGN.md §4, hero treatment). */}
-      <div
-        className="absolute inset-0 cursor-grab touch-pan-y select-none active:cursor-grabbing"
-        onMouseEnter={() => setPaused(true)}
-        onMouseLeave={() => setPaused(false)}
-        onPointerDown={onSlideDown}
-        onPointerUp={onSlideUp}
-      >
-        {HERO_SLIDES.map(({ src, alt }, i) => (
-          <img
-            key={src}
-            src={src}
-            alt={alt}
-            draggable={false}
-            className={cn(
-              "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
-              i === slide ? "opacity-100" : "opacity-0",
-            )}
-          />
-        ))}
-        {/* Dark gradient so white text stays legible over any of the
-            photos — uniform now that the copy is centered, strongest at
-            the bottom where the trust line and dots sit. */}
-        <div aria-hidden className="absolute inset-0 bg-deep/55" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-deep via-deep/60 to-deep/30" />
-      </div>
+    <section id="top" className="relative bg-sand py-6 sm:py-8 lg:py-10">
+      <div className="section-x relative mx-auto max-w-7xl">
+        {/* Inset rounded photo panel — framed by the page background on
+            every side, not edge-to-edge (matches the client's reference:
+            a large rounded card, not a full-bleed banner). */}
+        <div className="relative overflow-hidden rounded-[2rem] text-deep-foreground sm:rounded-[2.5rem]">
+          <div
+            className="absolute inset-0 cursor-grab touch-pan-y select-none active:cursor-grabbing"
+            onMouseEnter={() => setPaused(true)}
+            onMouseLeave={() => setPaused(false)}
+            onPointerDown={onSlideDown}
+            onPointerUp={onSlideUp}
+          >
+            {HERO_SLIDES.map(({ src, alt }, i) => (
+              <img
+                key={src}
+                src={src}
+                alt={alt}
+                draggable={false}
+                className={cn(
+                  "absolute inset-0 h-full w-full object-cover transition-opacity duration-700",
+                  i === slide ? "opacity-100" : "opacity-0",
+                )}
+              />
+            ))}
+            {/* Dark gradient so white text stays legible over any of the
+                photos — uniform since the copy is centered, strongest at
+                the bottom where the trust line and dots sit. */}
+            <div aria-hidden className="absolute inset-0 bg-deep/55" />
+            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-deep via-deep/60 to-deep/30" />
+          </div>
 
-      <div className="section-x relative mx-auto flex min-h-[600px] max-w-5xl flex-col items-center justify-center py-16 text-center sm:min-h-[38rem] sm:py-20 lg:min-h-[42rem] lg:py-24">
-        <p className="inline-flex items-center gap-2 text-sm font-medium text-deep-foreground/90">
-          <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-          CQC Registered · Your Recovery, Our Priority
-        </p>
-        <h1 className="mt-5 text-[2.125rem] leading-[1.08] text-deep-foreground sm:text-5xl lg:text-[3.75rem]">
-          Private Addiction Rehab{" "}
-          <span className="text-primary">You Can Rely On</span>
-        </h1>
-        <p className="mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-deep-foreground/70 sm:text-lg">
-          Oasis Recovery is a CQC-regulated residential addiction treatment centre in
-          Bradford, part of the UKAT group. Confidential medical detox, residential
-          rehabilitation and structured aftercare for adults affected by alcohol and
-          drug addiction.
-        </p>
+          <div className="relative mx-auto flex min-h-[520px] max-w-3xl flex-col items-center justify-center px-5 py-16 text-center sm:min-h-[34rem] sm:px-10 sm:py-20 lg:min-h-[38rem] lg:py-24">
+            <p className="inline-flex items-center gap-2 text-sm font-medium text-deep-foreground/90">
+              <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
+              CQC Registered · Your Recovery, Our Priority
+            </p>
+            <h1 className="mt-5 text-[2.125rem] leading-[1.08] text-deep-foreground sm:text-5xl lg:text-[3.75rem]">
+              Private Addiction Rehab{" "}
+              <span className="text-primary">You Can Rely On</span>
+            </h1>
+            <p className="mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-deep-foreground/70 sm:text-lg">
+              Oasis Recovery is a CQC-regulated residential addiction treatment centre in
+              Bradford, part of the UKAT group. Confidential medical detox, residential
+              rehabilitation and structured aftercare for adults affected by alcohol and
+              drug addiction.
+            </p>
 
-        <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
-          <Button asChild variant="cta" size="lg" className="text-[0.8125rem] sm:text-base">
-            <a href="#contact">
-              <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to Admissions
-            </a>
-          </Button>
-          <Button asChild variant="onDeep" size="lg" className="text-[0.8125rem] sm:text-base">
-            <a href="/oasis-recovery-bradford-brochure.pdf" download>
-              <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download Brochure
-            </a>
-          </Button>
+            <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
+              <Button asChild variant="cta" size="lg" className="text-[0.8125rem] sm:text-base">
+                <a href="#contact">
+                  <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to Admissions
+                </a>
+              </Button>
+              <Button asChild variant="onDeep" size="lg" className="text-[0.8125rem] sm:text-base">
+                <a href="/oasis-recovery-bradford-brochure.pdf" download>
+                  <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download Brochure
+                </a>
+              </Button>
+            </div>
+
+            {/* Trust line under the CTAs — real facts already stated in the
+                trust bar below (DESIGN.md §4b), not an invented rating/count. */}
+            <div className="mt-9 flex w-full max-w-sm flex-col items-center gap-3 border-t border-deep-foreground/15 pt-6 sm:mt-14 sm:max-w-none sm:flex-row sm:justify-center sm:gap-8">
+              <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
+                <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
+                CQC Rated <span className="font-semibold text-deep-foreground">Good</span> · Feb 2026
+              </span>
+              <span className="hidden h-4 w-px bg-deep-foreground/20 sm:block" aria-hidden />
+              <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
+                <Users className="size-4 shrink-0 text-primary" aria-hidden />
+                Part of the <span className="font-semibold text-deep-foreground">UKAT Group</span> · 10 UK centres
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5 sm:bottom-6">
+            {HERO_SLIDES.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setSlide(i)}
+                aria-label={`Go to image ${i + 1}`}
+                className={cn(
+                  "h-1.5 rounded-full transition-all duration-200",
+                  i === slide ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/75",
+                )}
+              />
+            ))}
+          </div>
         </div>
-
-        {/* Trust line under the CTAs — real facts already stated in the
-            trust bar below (DESIGN.md §4b), not an invented rating/count. */}
-        <div className="mt-9 flex w-full max-w-sm flex-col items-center gap-3 border-t border-deep-foreground/15 pt-6 sm:mt-14 sm:max-w-none sm:flex-row sm:justify-center sm:gap-8">
-          <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
-            <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-            CQC Rated <span className="font-semibold text-deep-foreground">Good</span> · Feb 2026
-          </span>
-          <span className="hidden h-4 w-px bg-deep-foreground/20 sm:block" aria-hidden />
-          <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
-            <Users className="size-4 shrink-0 text-primary" aria-hidden />
-            Part of the <span className="font-semibold text-deep-foreground">UKAT Group</span> · 10 UK centres
-          </span>
-        </div>
-      </div>
-
-      <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5 sm:bottom-6">
-        {HERO_SLIDES.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setSlide(i)}
-            aria-label={`Go to image ${i + 1}`}
-            className={cn(
-              "h-1.5 rounded-full transition-all duration-200",
-              i === slide ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/75",
-            )}
-          />
-        ))}
       </div>
 
       {/* Authority trust bar — gradient accent line + icon tile columns */}
