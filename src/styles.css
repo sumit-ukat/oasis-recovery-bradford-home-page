@@ -279,6 +279,29 @@
   transform: translateY(0);
 }
 
+/* ── Diagonal marquee ribbon ──────────────────────────────────────────
+   A continuously-scrolling strip of short phrases, rotated slightly off
+   axis — a genuine section-break with its own identity, not another
+   eyebrow+heading block. The track's content is duplicated by the
+   component (twice back to back) so translating exactly -50% loops with
+   no visible seam. prefers-reduced-motion freezes it via the global rule
+   below (animation-duration collapses to ~0). */
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@utility marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 32s linear infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto !important;

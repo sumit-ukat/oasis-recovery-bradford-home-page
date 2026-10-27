@@ -3,6 +3,7 @@ import { SiteHeader } from "@/components/home/SiteHeader";
 import {
   Hero,
   TreatmentCentre,
+  MarqueeRibbon,
   AddictionsHub,
   DetoxHub,
   RehabHub,
@@ -82,6 +83,7 @@ function Index() {
       <main>
         <Hero />
         <TreatmentCentre />
+        <MarqueeRibbon />
         <AddictionsHub />
         <DetoxHub />
         <RehabHub />
