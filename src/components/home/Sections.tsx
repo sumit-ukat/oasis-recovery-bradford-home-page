@@ -569,59 +569,53 @@ export function Hero() {
           />
         ))}
         {/* Dark gradient so white text stays legible over any of the
-            photos — strongest at the left/bottom where the copy sits. */}
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-deep via-deep/75 to-deep/25" />
-        <div aria-hidden className="absolute inset-0 bg-gradient-to-r from-deep/85 via-deep/40 to-transparent lg:to-deep/10" />
+            photos — uniform now that the copy is centered, strongest at
+            the bottom where the trust line and dots sit. */}
+        <div aria-hidden className="absolute inset-0 bg-deep/55" />
+        <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-deep via-deep/60 to-deep/30" />
       </div>
 
-      <div className="section-x relative mx-auto flex min-h-[560px] max-w-7xl flex-col justify-center py-16 sm:min-h-[36rem] sm:py-20 lg:min-h-[40rem] lg:py-24">
-        <div className="max-w-xl">
-          <p className="inline-flex items-center gap-2 rounded-full border border-deep-foreground/25 bg-deep-foreground/10 px-3 py-1 text-xs font-medium text-deep-foreground/90 backdrop-blur-sm">
-            <span className="size-1.5 rounded-full bg-primary" aria-hidden />
-            CQC registered · Confidential
-          </p>
-          <h1 className="mt-5 text-[2.125rem] leading-[1.08] text-deep-foreground sm:text-5xl lg:text-[3.75rem]">
-            Private Addiction Rehab in <span className="text-primary">Bradford, West Yorkshire</span>
-          </h1>
-          <p className="mt-4 text-[0.9375rem] leading-relaxed text-deep-foreground/70 sm:text-lg">
-            Oasis Recovery is a CQC-regulated residential addiction treatment centre in
-            Bradford, part of the UKAT group. We provide confidential medical detox,
-            residential rehabilitation and structured aftercare for adults affected by
-            alcohol and drug addiction.
-          </p>
+      <div className="section-x relative mx-auto flex min-h-[600px] max-w-5xl flex-col items-center justify-center py-16 text-center sm:min-h-[38rem] sm:py-20 lg:min-h-[42rem] lg:py-24">
+        <p className="inline-flex items-center gap-2 text-sm font-medium text-deep-foreground/90">
+          <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
+          CQC Registered · Your Recovery, Our Priority
+        </p>
+        <h1 className="mt-5 text-[2.125rem] leading-[1.08] text-deep-foreground sm:text-5xl lg:text-[3.75rem]">
+          Private Addiction Rehab{" "}
+          <span className="text-primary">You Can Rely On</span>
+        </h1>
+        <p className="mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-deep-foreground/70 sm:text-lg">
+          Oasis Recovery is a CQC-regulated residential addiction treatment centre in
+          Bradford, part of the UKAT group. Confidential medical detox, residential
+          rehabilitation and structured aftercare for adults affected by alcohol and
+          drug addiction.
+        </p>
 
-          <div className="mt-7 flex gap-2 sm:gap-2.5">
-            <Button asChild variant="cta" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
-              <a href="#contact">
-                <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to admissions
-              </a>
-            </Button>
-            <Button asChild variant="onDeep" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
-              <a href="/oasis-recovery-bradford-brochure.pdf" download>
-                <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download brochure
-              </a>
-            </Button>
-          </div>
+        <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
+          <Button asChild variant="cta" size="lg" className="text-[0.8125rem] sm:text-base">
+            <a href="#contact">
+              <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to Admissions
+            </a>
+          </Button>
+          <Button asChild variant="onDeep" size="lg" className="text-[0.8125rem] sm:text-base">
+            <a href="/oasis-recovery-bradford-brochure.pdf" download>
+              <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download Brochure
+            </a>
+          </Button>
         </div>
 
-        {/* Floating stat cards sitting low in the hero, echoing real facts
-            already stated in the trust bar below (DESIGN.md §4b) — not
-            invented numbers. */}
-        <div className="mt-10 flex flex-wrap gap-2.5 sm:mt-16">
-          <div className="flex items-center gap-2 rounded-xl border border-border/60 bg-card px-3.5 py-2.5 shadow-[var(--shadow-lift)] sm:px-4 sm:py-3">
+        {/* Trust line under the CTAs — real facts already stated in the
+            trust bar below (DESIGN.md §4b), not an invented rating/count. */}
+        <div className="mt-9 flex w-full max-w-sm flex-col items-center gap-3 border-t border-deep-foreground/15 pt-6 sm:mt-14 sm:max-w-none sm:flex-row sm:justify-center sm:gap-8">
+          <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
             <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-            <div className="leading-tight">
-              <p className="text-[0.75rem] font-semibold text-foreground sm:text-sm">CQC Rated Good</p>
-              <p className="text-[0.625rem] text-muted-foreground">Feb 2026</p>
-            </div>
-          </div>
-          <div className="hidden items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-3 shadow-[var(--shadow-lift)] sm:flex">
+            CQC Rated <span className="font-semibold text-deep-foreground">Good</span> · Feb 2026
+          </span>
+          <span className="hidden h-4 w-px bg-deep-foreground/20 sm:block" aria-hidden />
+          <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
             <Users className="size-4 shrink-0 text-primary" aria-hidden />
-            <div className="leading-tight">
-              <p className="text-sm font-semibold text-foreground">10 UK centres</p>
-              <p className="text-[0.625rem] text-muted-foreground">UKAT group</p>
-            </div>
-          </div>
+            Part of the <span className="font-semibold text-deep-foreground">UKAT Group</span> · 10 UK centres
+          </span>
         </div>
       </div>
 
