@@ -554,7 +554,7 @@ export function Hero() {
         {/* Inset rounded photo panel — framed by the page background on
             every side, not edge-to-edge (matches the client's reference:
             a large rounded card, not a full-bleed banner). */}
-        <div className="relative overflow-hidden rounded-[2rem] text-deep-foreground sm:rounded-[2.5rem]">
+        <div className="relative overflow-hidden rounded-[2.5rem] text-deep-foreground sm:rounded-[4rem]">
           <div
             className="absolute inset-0 cursor-grab touch-pan-y select-none active:cursor-grabbing"
             onMouseEnter={() => setPaused(true)}
