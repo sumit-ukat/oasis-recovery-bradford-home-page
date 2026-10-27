@@ -1814,12 +1814,13 @@ export function CqcRating() {
           </div>
         </div>
 
-        {/* Five domain grid */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
+        {/* Five domain grid — boxed cards on mobile, one bordered/divided
+            panel from sm+ (see DESIGN.md §4a) */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-0 sm:divide-x sm:divide-border/60 sm:rounded-2xl sm:border sm:border-border/60">
           {CQC_DOMAINS.map((label, i) => (
             <div
               key={label}
-              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center${
+              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center sm:rounded-none sm:border-0 sm:bg-transparent sm:py-6${
                 i === 4 ? " col-span-2 sm:col-span-1" : ""
               }`}
             >
@@ -2554,13 +2555,14 @@ const BROCHURE_BULLETS = [
 ];
 
 export function BrochureCta() {
+  const intro = useReveal<HTMLDivElement>();
   return (
-    <section className="bg-deep py-14 sm:py-20 lg:py-24" aria-labelledby="brochure-heading">
+    <section className="bg-grain bg-deep relative py-14 sm:py-20 lg:py-24" aria-labelledby="brochure-heading">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
 
           {/* Left — copy */}
-          <div>
+          <div ref={intro.ref} className={intro.className}>
             <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-primary/80">
               Free resource
             </p>
