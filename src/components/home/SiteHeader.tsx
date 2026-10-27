@@ -2,7 +2,6 @@ import { useState, useRef, useEffect } from "react";
 import {
   Menu,
   Phone,
-  Clock,
   X,
   ChevronDown,
   ChevronRight,
@@ -776,37 +775,20 @@ export function SiteHeader() {
 
       {/* ── Utility strip ── */}
       <div className="bg-deep">
-        <div className="section-x mx-auto flex max-w-7xl items-center justify-between gap-4 py-1.5">
-          <div className="hidden items-center gap-4 sm:flex">
-            <span className="inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-deep-foreground/65">
-              <Clock className="size-3" aria-hidden />
-              Next Day Admission
-            </span>
-            <span className="h-3 w-px bg-deep-foreground/20" aria-hidden />
-            <a
-              href="tel:+442038161576"
-              className="inline-flex items-center gap-1.5 text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
-            >
-              <Phone className="size-3" aria-hidden />
-              020 3816 1576
-            </a>
-          </div>
-
-          <div className="flex items-center gap-4">
-            <a
-              href="/help-guides/"
-              className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
-            >
-              Help Guides
-            </a>
-            <span className="h-3 w-px bg-deep-foreground/20" aria-hidden />
-            <a
-              href="/blog/"
-              className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
-            >
-              Blogs
-            </a>
-          </div>
+        <div className="section-x mx-auto flex max-w-7xl items-center justify-end gap-4 py-1.5">
+          <a
+            href="/help-guides/"
+            className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
+          >
+            Help Guides
+          </a>
+          <span className="h-3 w-px bg-deep-foreground/20" aria-hidden />
+          <a
+            href="/blog/"
+            className="text-[0.75rem] font-medium text-deep-foreground/65 transition-colors hover:text-deep-foreground"
+          >
+            Blogs
+          </a>
         </div>
       </div>
 

@@ -62,7 +62,6 @@ const CDN = "https://cdn.rehabfiles.com/sites";
 const F = (name: string) => `${CDN}/ukat/wp-content/uploads/2016/10/${name}`;
 const IMGS = {
   hero:      `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
-  heroFront: `${CDN}/oasisrecoverycom/wp-content/uploads/2026/10/oasis-bradford-front.jpg`,
   therapy:   F("oasis_bradfords-143.jpg"),
   wide:      `${CDN}/oasisorg/wp-content/uploads/2017/07/bradford_banner.jpg`,
   bedroom:   F("oasis_bradfords-055.jpg"),
@@ -393,45 +392,6 @@ function PhoneField({ id, name, required }: { id: string; name: string; required
   );
 }
 
-/* Scroll-reveal — progressive enhancement, never a visibility gate.
- *
- * Always starts (and stays, if anything below fails) visible. On mount it
- * checks whether the element is already within ~8% of the viewport; if so
- * it leaves it alone entirely (above/near the fold shouldn't animate in —
- * that's the LCP content). Only an element confirmed *below* the fold gets
- * opted into `.reveal` and then flipped to `.reveal-visible` the moment an
- * IntersectionObserver reports it crossing into view, disconnecting
- * immediately after. `prefers-reduced-motion` is handled globally (the
- * transition collapses to ~0), so no separate check is needed here.
- */
-function useReveal<T extends HTMLElement>() {
-  const ref = useRef<T>(null);
-  const [state, setState] = useState<"static" | "hidden" | "visible">("static");
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || typeof IntersectionObserver === "undefined") return;
-    const rect = el.getBoundingClientRect();
-    if (rect.top < window.innerHeight * 0.92) return; // already in view — leave static
-
-    setState("hidden");
-    const io = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setState("visible");
-          io.disconnect();
-        }
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" },
-    );
-    io.observe(el);
-    return () => io.disconnect();
-  }, []);
-
-  const className = state === "hidden" ? "reveal" : state === "visible" ? "reveal reveal-visible" : "";
-  return { ref, className };
-}
-
 /* Compact pill link — lets the detox and rehab hubs carry a lot of
    internal links without the section turning into a wall of bullets. */
 function LinkChip({ href, children }: { href: string; children: React.ReactNode }) {
@@ -442,43 +402,6 @@ function LinkChip({ href, children }: { href: string; children: React.ReactNode 
     >
       {children}
     </a>
-  );
-}
-
-/* Diagonal scrolling marquee — a genuine section-break with its own
-   identity (see DESIGN.md), used once between TreatmentCentre and
-   AddictionsHub. Every phrase here restates a fact already stated
-   plainly elsewhere on the page (hero, trust bar) — nothing new is
-   claimed, it's purely a visual beat. aria-hidden since a screen reader
-   gains nothing from an infinitely-repeating decorative list. */
-const MARQUEE_PHRASES = [
-  "CQC Regulated",
-  "Confidential & Compassionate",
-  "Part of the UKAT Group",
-  "Next Day Admission",
-  "Private Residential Treatment",
-];
-
-export function MarqueeRibbon() {
-  return (
-    <div className="relative overflow-hidden bg-deep py-9 sm:py-11">
-      <div aria-hidden className="-rotate-1 sm:-rotate-2">
-        <div className="marquee-track gap-10 sm:gap-14">
-          {[0, 1].map((rep) => (
-            <div key={rep} className="flex shrink-0 items-center gap-10 sm:gap-14">
-              {MARQUEE_PHRASES.map((phrase) => (
-                <span key={phrase} className="flex shrink-0 items-center gap-10 sm:gap-14">
-                  <span className="whitespace-nowrap text-base font-semibold text-deep-foreground sm:text-xl">
-                    {phrase}
-                  </span>
-                  <Sparkles className="size-4 shrink-0 text-primary sm:size-5" aria-hidden />
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
   );
 }
 
@@ -496,8 +419,10 @@ const TRUST_ROW = [
 ];
 
 const HERO_SLIDES = [
-  { src: IMGS.heroFront, alt: "Oasis Recovery Bradford — front of building" },
   { src: IMGS.hero,      alt: "Oasis Recovery Bradford — exterior" },
+  { src: IMGS.lounge,    alt: "Communal lounge at Oasis Recovery Bradford" },
+  { src: IMGS.bedroom,   alt: "Private bedroom at Oasis Recovery Bradford" },
+  { src: IMGS.reception, alt: "Reception at Oasis Recovery Bradford" },
 ];
 
 export function Hero() {
@@ -545,18 +470,44 @@ export function Hero() {
   };
 
   return (
-    <section id="top" className="relative bg-sand py-6 sm:py-8 lg:py-10">
-      {/* Wider than the site's usual max-w-7xl content column — the client
-          asked for this banner specifically to run close to full viewport
-          width, matching the reference theme, not the standard text
-          measure every other section uses. */}
-      <div className="section-x relative mx-auto max-w-[1800px]">
-        {/* Inset rounded photo panel — framed by the page background on
-            every side, not edge-to-edge (matches the client's reference:
-            a large rounded card, not a full-bleed banner). */}
-        <div className="relative overflow-hidden rounded-[2.5rem] text-deep-foreground sm:rounded-[4rem]">
+    <section id="top" className="relative overflow-hidden bg-sand">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-40 h-80 bg-[radial-gradient(60%_100%_at_50%_100%,var(--color-secondary),transparent)]"
+      />
+      <div className="section-x relative mx-auto max-w-7xl py-10 sm:py-14 lg:grid lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-center lg:gap-14 lg:py-20">
+        <div className="max-w-xl">
+          <p className="inline-flex items-center gap-2 rounded-full border border-border bg-background/70 px-3 py-1 text-xs font-medium text-muted-foreground">
+            <ShieldCheck className="size-3.5 text-primary" aria-hidden />
+            CQC registered · Confidential
+          </p>
+          <h1 className="mt-4 text-[2.125rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
+            Private Addiction Rehab in Bradford, West Yorkshire
+          </h1>
+          <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground sm:text-lg">
+            Oasis Recovery is a CQC-regulated residential addiction treatment centre in
+            Bradford, part of the UKAT group. We provide confidential medical detox,
+            residential rehabilitation and structured aftercare for adults affected by
+            alcohol and drug addiction.
+          </p>
+
+          <div className="mt-6 flex gap-2 sm:gap-2.5">
+            <Button asChild variant="cta" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
+              <a href="#contact">
+                <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to admissions
+              </a>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="min-w-0 flex-1 text-[0.8125rem] sm:flex-none sm:text-base">
+              <a href="/oasis-recovery-bradford-brochure.pdf" download>
+                <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download brochure
+              </a>
+            </Button>
+          </div>
+        </div>
+
+        <div className="mt-8 lg:mt-0">
           <div
-            className="absolute inset-0 cursor-grab touch-pan-y select-none active:cursor-grabbing"
+            className="relative aspect-[4/3] cursor-grab touch-pan-y select-none overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] active:cursor-grabbing sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
             onPointerDown={onSlideDown}
@@ -574,69 +525,19 @@ export function Hero() {
                 )}
               />
             ))}
-            {/* Dark gradient so white text stays legible over any of the
-                photos — uniform since the copy is centered, strongest at
-                the bottom where the trust line and dots sit. */}
-            <div aria-hidden className="absolute inset-0 bg-deep/55" />
-            <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-deep via-deep/60 to-deep/30" />
-          </div>
-
-          <div className="relative mx-auto flex min-h-[520px] max-w-3xl flex-col items-center justify-center px-5 py-16 text-center sm:min-h-[34rem] sm:px-10 sm:py-20 lg:min-h-[38rem] lg:py-24">
-            <p className="inline-flex items-center gap-2 text-sm font-medium text-deep-foreground/90">
-              <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-              CQC Registered · Your Recovery, Our Priority
-            </p>
-            <h1 className="mt-5 text-[2.125rem] leading-[1.08] text-deep-foreground sm:text-5xl lg:text-[3.75rem]">
-              Private Addiction Rehab{" "}
-              <span className="text-primary">You Can Rely On</span>
-            </h1>
-            <p className="mt-5 max-w-2xl text-[0.9375rem] leading-relaxed text-deep-foreground/70 sm:text-lg">
-              Oasis Recovery is a CQC-regulated residential addiction treatment centre in
-              Bradford, part of the UKAT group. Confidential medical detox, residential
-              rehabilitation and structured aftercare for adults affected by alcohol and
-              drug addiction.
-            </p>
-
-            <div className="mt-8 flex flex-col gap-2.5 sm:flex-row sm:gap-3">
-              <Button asChild variant="cta" size="lg" className="text-[0.8125rem] sm:text-base">
-                <a href="#contact">
-                  <Phone className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Speak to Admissions
-                </a>
-              </Button>
-              <Button asChild variant="onDeep" size="lg" className="text-[0.8125rem] sm:text-base">
-                <a href="/oasis-recovery-bradford-brochure.pdf" download>
-                  <Download className="size-3.5 shrink-0 sm:size-4" aria-hidden /> Download Brochure
-                </a>
-              </Button>
+            <div className="absolute bottom-3 left-1/2 flex -translate-x-1/2 gap-1.5">
+              {HERO_SLIDES.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setSlide(i)}
+                  aria-label={`Go to image ${i + 1}`}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-200",
+                    i === slide ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/75",
+                  )}
+                />
+              ))}
             </div>
-
-            {/* Trust line under the CTAs — real facts already stated in the
-                trust bar below (DESIGN.md §4b), not an invented rating/count. */}
-            <div className="mt-9 flex w-full max-w-sm flex-col items-center gap-3 border-t border-deep-foreground/15 pt-6 sm:mt-14 sm:max-w-none sm:flex-row sm:justify-center sm:gap-8">
-              <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
-                <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-                CQC Rated <span className="font-semibold text-deep-foreground">Good</span> · Feb 2026
-              </span>
-              <span className="hidden h-4 w-px bg-deep-foreground/20 sm:block" aria-hidden />
-              <span className="inline-flex items-center gap-2 text-sm text-deep-foreground/80">
-                <Users className="size-4 shrink-0 text-primary" aria-hidden />
-                Part of the <span className="font-semibold text-deep-foreground">UKAT Group</span> · 10 UK centres
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute bottom-5 left-1/2 flex -translate-x-1/2 gap-1.5 sm:bottom-6">
-            {HERO_SLIDES.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setSlide(i)}
-                aria-label={`Go to image ${i + 1}`}
-                className={cn(
-                  "h-1.5 rounded-full transition-all duration-200",
-                  i === slide ? "w-5 bg-white" : "w-1.5 bg-white/50 hover:bg-white/75",
-                )}
-              />
-            ))}
           </div>
         </div>
       </div>
@@ -729,7 +630,6 @@ export function TreatmentCentre() {
   const snapIndex = useSnapIndex(scrollerRef);
   useDragScroll(scrollerRef);
   const [paused, setPaused] = useState(false);
-  const intro = useReveal<HTMLDivElement>();
 
   useEffect(() => {
     if (paused) return;
@@ -747,26 +647,13 @@ export function TreatmentCentre() {
       <div className="section-x mx-auto max-w-7xl">
         {/* Image left, content right */}
         <div className="lg:grid lg:grid-cols-[minmax(0,2fr)_minmax(0,3fr)] lg:items-start lg:gap-14 xl:gap-20">
-          <div className="relative">
-            <div
-              aria-hidden
-              className="absolute -right-3 -bottom-3 -left-3 top-5 -z-10 rounded-[2rem] bg-primary/15"
-            />
-            <img
-              src={IMGS.lounge}
-              alt="Communal lounge at Oasis Recovery Bradford"
-              className="w-full rounded-3xl object-cover aspect-[4/5] lg:aspect-[3/4]"
-            />
-            <div className="absolute right-5 bottom-5 flex items-center gap-2 rounded-xl border border-border/60 bg-card px-3.5 py-2.5 shadow-[var(--shadow-lift)]">
-              <Clock className="size-4 shrink-0 text-primary" aria-hidden />
-              <div className="leading-tight">
-                <p className="text-[0.75rem] font-semibold text-foreground">24-hour care</p>
-                <p className="text-[0.625rem] text-muted-foreground">Nursing cover overnight</p>
-              </div>
-            </div>
-          </div>
+          <img
+            src={IMGS.lounge}
+            alt="Communal lounge at Oasis Recovery Bradford"
+            className="w-full rounded-3xl object-cover aspect-[4/5] lg:aspect-[3/4]"
+          />
 
-          <div ref={intro.ref} className={`mt-10 lg:mt-0 ${intro.className}`}>
+          <div className="mt-10 lg:mt-0">
             <p className="eyebrow text-primary/70">Oasis Recovery Bradford</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[2.75rem]">
               A supportive residential treatment centre in Bradford
@@ -816,12 +703,12 @@ export function TreatmentCentre() {
 
         <div
           ref={scrollerRef}
-          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-16 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-0 lg:divide-x lg:divide-border/60 lg:overflow-visible lg:rounded-2xl lg:border lg:border-border/60"
+          className="mt-12 flex cursor-grab snap-x snap-mandatory gap-5 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-16 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-x-12 lg:gap-y-10 lg:overflow-visible"
         >
           {DIFFERENTIATORS.map(({ icon: Icon, title, desc }) => (
             <div
               key={title}
-              className="snap-start shrink-0 w-[78vw] rounded-2xl border border-border/60 bg-card p-6 sm:w-[320px] lg:w-auto lg:shrink lg:rounded-none lg:border-0 lg:bg-transparent lg:p-8"
+              className="snap-start shrink-0 w-[78vw] sm:w-[320px] lg:w-auto lg:shrink rounded-2xl border border-border/60 bg-card p-6"
             >
               <span className="grid size-11 place-items-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-[1.15rem]" aria-hidden />
@@ -908,13 +795,12 @@ export function AddictionsHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="addictions" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
+        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
           <p className="eyebrow">What we treat</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Addictions we treat at Oasis
@@ -953,19 +839,16 @@ export function AddictionsHub() {
           </p>
         </div>
 
-        {/* Mobile/tablet: swipeable rail, ~86% width with next card peeking
-            in. Desktop gets a completely different composition below (a
-            numbered divided list, not the same cards in a grid) — see
-            DESIGN.md §4 / the CiyaCare reference. */}
+        {/* Mobile: swipeable rail, ~86% width with next card peeking in */}
         <div
           ref={scrollerRef}
-          className="no-scrollbar mt-10 -mx-5 flex cursor-grab gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory active:cursor-grabbing sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:hidden"
+          className="no-scrollbar mt-10 -mx-5 flex cursor-grab gap-4 overflow-x-auto scroll-px-5 px-5 pb-2 snap-x snap-mandatory active:cursor-grabbing sm:-mx-8 sm:scroll-px-8 sm:px-8 lg:mx-0 lg:grid lg:cursor-auto lg:grid-cols-4 lg:gap-5 lg:overflow-visible lg:px-0"
         >
           {ADDICTIONS.map(({ icon: Icon, label, href, desc }) => (
             <a
               key={label}
               href={href}
-              className="group flex w-[86vw] shrink-0 snap-start flex-col rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[340px]"
+              className="group flex w-[86vw] shrink-0 snap-start flex-col rounded-2xl border border-border/60 bg-card p-6 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[var(--shadow-soft)] sm:w-[340px] lg:w-auto"
             >
               <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
                 <Icon className="size-5" aria-hidden />
@@ -981,31 +864,6 @@ export function AddictionsHub() {
         </div>
 
         <CarouselControls scrollerRef={scrollerRef} count={ADDICTIONS.length} className="mt-6" />
-
-        {/* Desktop: numbered divided list */}
-        <div className="mt-10 hidden divide-y divide-border/60 border-t border-border/60 lg:block">
-          {ADDICTIONS.map(({ icon: Icon, label, href, desc }, i) => (
-            <a
-              key={label}
-              href={href}
-              className="group flex items-center gap-8 py-7 transition-colors hover:bg-card/60"
-            >
-              <span className="w-16 shrink-0 font-display text-4xl font-semibold text-primary/15">
-                {String(i + 1).padStart(2, "0")}
-              </span>
-              <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-primary/10 text-primary">
-                <Icon className="size-5" aria-hidden />
-              </span>
-              <span className="min-w-0 flex-1">
-                <span className="block text-[1.0625rem] font-medium leading-snug">{label}</span>
-                <span className="mt-1 block max-w-xl text-sm leading-relaxed text-muted-foreground">{desc}</span>
-              </span>
-              <span className="grid size-11 shrink-0 place-items-center rounded-full border border-border transition-colors group-hover:border-primary/40 group-hover:bg-primary/5">
-                <ArrowRight className="size-4 text-primary transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
-              </span>
-            </a>
-          ))}
-        </div>
 
         <div className="mt-10 border-t border-border/50 pt-8">
           <p className="eyebrow text-[0.625rem]">More addiction pages</p>
@@ -1091,7 +949,6 @@ export function DetoxHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="detox" className="bg-background py-14 sm:py-20 lg:py-24"
@@ -1099,7 +956,7 @@ export function DetoxHub() {
       <div className="section-x mx-auto max-w-7xl">
         <div className="lg:grid lg:grid-cols-[minmax(0,3fr)_minmax(0,2fr)] lg:items-stretch lg:gap-10 xl:gap-14">
           {/* Left: content */}
-          <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
+          <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
             <p className="eyebrow">Withdrawal management</p>
             <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Medically supported detox
@@ -1276,11 +1133,10 @@ const THERAPIES = [
 ];
 
 export function RehabHub() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="rehab" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
+        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
           <p className="eyebrow">Structured recovery treatment</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Residential rehab for lasting recovery
@@ -1402,13 +1258,12 @@ export function TherapiesHub() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="therapies" className="bg-background py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`border-l-2 border-primary/50 pl-5 lg:pl-6 ${intro.className}`}>
+        <div className="border-l-2 border-primary/50 pl-5 lg:pl-6">
           <p className="eyebrow">Treatment programmes</p>
           <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Therapies in your treatment plan
@@ -1510,13 +1365,12 @@ export function RecoveryJourney() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="journey" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
+        <div className="max-w-xl">
           <p className="eyebrow">How it works</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Your recovery journey
@@ -1641,7 +1495,7 @@ function FacilityGallery() {
           {GALLERY.map((img) => (
             <figure
               key={img.caption}
-              className="relative w-[88%] shrink-0 snap-start overflow-hidden rounded-lg sm:w-[70%] lg:w-[46%]"
+              className="w-[88%] shrink-0 snap-start overflow-hidden rounded-2xl sm:w-[70%] lg:w-[46%]"
             >
               <img
                 src={img.src}
@@ -1649,12 +1503,6 @@ function FacilityGallery() {
                 className="aspect-[16/9] w-full object-cover"
                 loading="lazy"
               />
-              {/* Caption overlaid directly on the photo — a full-bleed tile,
-                  not a photo-then-caption card (DESIGN.md §4). */}
-              <div aria-hidden className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0 to-transparent" />
-              <figcaption className="absolute bottom-4 left-4 text-base font-semibold text-white">
-                {img.caption}
-              </figcaption>
             </figure>
           ))}
         </div>
@@ -1662,7 +1510,7 @@ function FacilityGallery() {
         {/* Desktop controls */}
         <div className="mt-4 hidden items-center justify-between sm:flex">
           <p className="text-sm text-muted-foreground">
-            {active + 1} / {GALLERY.length}
+            {GALLERY[active]!.caption} · {active + 1} / {GALLERY.length}
           </p>
           <div className="flex items-center gap-2">
             <button
@@ -1685,11 +1533,10 @@ function FacilityGallery() {
         </div>
       </div>
 
-      {/* Mobile: counter + dots only (swipe is primary interaction; caption
-          lives on the photo itself now) */}
+      {/* Mobile: counter + dots only (swipe is primary interaction) */}
       <div className="mt-4 flex items-center justify-between sm:hidden">
         <p className="text-xs text-muted-foreground">
-          {active + 1} / {GALLERY.length}
+          {GALLERY[active]!.caption} · {active + 1} / {GALLERY.length}
         </p>
         <div className="flex gap-1.5">
           {GALLERY.map((_, i) => (
@@ -1710,11 +1557,10 @@ function FacilityGallery() {
 }
 
 export function FacilitiesDailyLife() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="facility" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
+        <div className="max-w-xl">
           <p className="eyebrow">Inside Oasis</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Facilities & daily life at Oasis
@@ -1817,13 +1663,12 @@ export function Team() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="team" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`max-w-xl ${intro.className}`}>
+        <div className="max-w-xl">
           <p className="eyebrow">Our team</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Meet the recovery team
@@ -1887,11 +1732,10 @@ const CQC_DOMAINS = ["Safe", "Effective", "Caring", "Responsive", "Well-led"] as
 
 
 export function CqcRating() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="cqc" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
-        <div ref={intro.ref} className={`max-w-2xl ${intro.className}`}>
+        <div className="max-w-2xl">
           <p className="eyebrow text-primary/70">CQC regulation</p>
           <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
             Regulated &amp; rated Good by the CQC
@@ -1921,13 +1765,12 @@ export function CqcRating() {
           </div>
         </div>
 
-        {/* Five domain grid — boxed cards on mobile, one bordered/divided
-            panel from sm+ (see DESIGN.md §4a) */}
-        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5 sm:gap-0 sm:divide-x sm:divide-border/60 sm:rounded-2xl sm:border sm:border-border/60">
+        {/* Five domain grid */}
+        <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-5">
           {CQC_DOMAINS.map((label, i) => (
             <div
               key={label}
-              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center sm:rounded-none sm:border-0 sm:bg-transparent sm:py-6${
+              className={`flex flex-col items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-5 text-center${
                 i === 4 ? " col-span-2 sm:col-span-1" : ""
               }`}
             >
@@ -1977,7 +1820,6 @@ export function CqcRating() {
 ═══════════════════════════════════════════════════════════ */
 
 export function FamilySupport() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="family" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
@@ -1987,7 +1829,7 @@ export function FamilySupport() {
             alt="Family support session at Oasis Recovery Bradford"
             className="aspect-[4/3] rounded-2xl lg:aspect-[3/2] w-full object-cover"
           />
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">Family support</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Family support during treatment
@@ -2029,7 +1871,7 @@ const PROMISE_INCLUSIONS = [
 
 export function RecoveryBeyondRehab() {
   return (
-    <section id="recovery-beyond" className="bg-grain relative overflow-hidden bg-deep py-20 text-deep-foreground sm:py-28 lg:py-36">
+    <section id="recovery-beyond" className="relative overflow-hidden bg-deep py-20 text-deep-foreground sm:py-28 lg:py-36">
       <span
         aria-hidden
         className="pointer-events-none absolute -right-12 top-1/2 -translate-y-1/2 select-none font-display text-[16rem] font-black leading-none tracking-tight text-deep-foreground/[0.035] sm:text-[22rem] lg:-right-16 lg:text-[28rem]"
@@ -2146,7 +1988,6 @@ const OWN_REVIEWS = [
 
 export function Outcomes() {
   const [active, setActive] = useState(0);
-  const intro = useReveal<HTMLDivElement>();
 
   function prev() {
     setActive((a) => (a === 0 ? OWN_REVIEWS.length - 1 : a - 1));
@@ -2159,7 +2000,7 @@ export function Outcomes() {
     <section id="outcomes" className="bg-background py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow text-primary/70">Trust & outcomes</p>
             <h2 className="mt-4 max-w-xl text-[2rem] leading-[1.1] sm:text-[2.625rem] lg:text-[3rem]">
               Client Reviews
@@ -2189,26 +2030,26 @@ export function Outcomes() {
 
           {/* Swipeable resident/family quotes */}
           <div className="flex flex-col rounded-2xl border border-border/60 bg-secondary/40 p-7 sm:p-9">
-            <span className="text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground/70">
-              From our residents
-            </span>
+            <div className="flex items-center justify-between">
+              <span className="text-[0.65rem] font-bold uppercase tracking-widest text-muted-foreground/70">
+                From our residents
+              </span>
+              <div className="flex gap-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="size-3.5 fill-amber-400 text-amber-400" aria-hidden />
+                ))}
+              </div>
+            </div>
 
             <blockquote className="mt-7 flex-1">
-              <p className="font-display text-[1.125rem] leading-relaxed text-foreground/85 italic sm:text-xl">
+              <p className="text-[1.125rem] leading-relaxed text-foreground/85 sm:text-xl">
                 &ldquo;{OWN_REVIEWS[active]!.quote}&rdquo;
               </p>
             </blockquote>
 
             <div className="mt-8 flex items-center justify-between gap-4">
               <div>
-                <div className="flex items-center gap-1.5">
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="size-3 fill-amber-400 text-amber-400" aria-hidden />
-                    ))}
-                  </div>
-                  <p className="text-sm font-semibold">{OWN_REVIEWS[active]!.author}</p>
-                </div>
+                <p className="text-sm font-semibold">{OWN_REVIEWS[active]!.author}</p>
                 <p className="text-xs text-muted-foreground/70">{OWN_REVIEWS[active]!.date}</p>
               </div>
               <div className="flex items-center gap-2">
@@ -2263,12 +2104,11 @@ export function Outcomes() {
 ═══════════════════════════════════════════════════════════ */
 
 export function Costs() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="costs" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)] lg:items-center lg:gap-20">
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">Investing in recovery</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Private rehab costs at Oasis
@@ -2279,15 +2119,15 @@ export function Costs() {
               recommended following assessment. Our treatment starts from:
             </p>
 
-            <div className="bg-grain relative mt-7 overflow-hidden rounded-2xl bg-primary p-6 text-primary-foreground sm:p-8">
-              <p className="text-sm font-medium text-primary-foreground/75">Treatment prices start from</p>
-              <p className="mt-1 text-3xl font-medium tracking-[-0.02em] sm:text-4xl">
+            <div className="mt-7 rounded-2xl border border-border/60 bg-card p-6 sm:p-8">
+              <p className="text-sm font-medium text-muted-foreground">Treatment prices start from</p>
+              <p className="mt-1 text-3xl font-medium tracking-[-0.02em] text-foreground sm:text-4xl">
                 {STARTING_PRICE != null
                   ? `£${STARTING_PRICE.toLocaleString("en-GB")}`
                   : "£[starting price to be confirmed]"}
               </p>
-              <p className="mt-1 text-sm text-primary-foreground/70">for a 28-day programme</p>
-              <p className="mt-3 text-sm leading-relaxed text-primary-foreground/80">
+              <p className="mt-1 text-sm text-muted-foreground/70">for a 28-day programme</p>
+              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                 Our admissions team can provide a personalised treatment quote once
                 they understand your circumstances — with no obligation to proceed.
               </p>
@@ -2311,19 +2151,12 @@ export function Costs() {
             </div>
           </div>
 
-          <div className="relative hidden lg:block">
+          <div className="hidden lg:block">
             <img
               src={IMGS.reception}
               alt="Reception at Oasis Recovery Bradford"
               className="w-full rounded-3xl object-cover aspect-[4/5]"
             />
-            <div className="absolute bottom-6 left-6 flex items-center gap-2 rounded-xl border border-border/60 bg-card/95 px-4 py-3 shadow-[var(--shadow-lift)] backdrop-blur-sm">
-              <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
-              <div className="leading-tight">
-                <p className="text-sm font-semibold text-foreground">Private & Confidential</p>
-                <p className="text-[0.625rem] text-muted-foreground">No obligation to commit</p>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -2364,14 +2197,13 @@ export function Location() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="location" className="bg-secondary/50 py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-center lg:gap-16">
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">Getting to Oasis</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Location & getting to Oasis
@@ -2485,14 +2317,13 @@ export function Resources() {
     }, 4000);
     return () => clearInterval(id);
   }, [paused, snapIndex]);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="resources" className="bg-background py-14 sm:py-20 lg:py-24"
       onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)}>
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">Still researching?</p>
             <h2 className="mt-3 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Addiction & recovery resources
@@ -2526,9 +2357,11 @@ export function Resources() {
               </div>
               <div className="flex flex-1 flex-col p-5">
                 <p className="eyebrow">{cat} · {time}</p>
-                <h3 className="mt-2.5 text-lg leading-snug tracking-[-0.015em] transition-colors group-hover:text-primary">
-                  {title}
-                </h3>
+                <h3 className="mt-2.5 flex-1 text-lg leading-snug tracking-[-0.015em]">{title}</h3>
+                <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary">
+                  Read article{" "}
+                  <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden />
+                </span>
               </div>
             </a>
           ))}
@@ -2611,12 +2444,11 @@ function FaqColumn({ items }: { items: typeof FAQS }) {
 }
 
 export function Faq() {
-  const intro = useReveal<HTMLDivElement>();
   return (
     <section id="faq" className="bg-secondary/50 py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="flex items-end justify-between gap-4">
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">FAQs</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem]">
               Questions you may have
@@ -2660,14 +2492,13 @@ const BROCHURE_BULLETS = [
 ];
 
 export function BrochureCta() {
-  const intro = useReveal<HTMLDivElement>();
   return (
-    <section className="bg-grain bg-deep relative py-14 sm:py-20 lg:py-24" aria-labelledby="brochure-heading">
+    <section className="bg-deep py-14 sm:py-20 lg:py-24" aria-labelledby="brochure-heading">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid items-center gap-10 lg:grid-cols-2 lg:gap-20">
 
           {/* Left — copy */}
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="text-[0.6875rem] font-semibold uppercase tracking-[0.18em] text-primary/80">
               Free resource
             </p>
@@ -2730,14 +2561,13 @@ export function BrochureCta() {
 
 export function Contact() {
   const [prevTreatment, setPrevTreatment] = useState<"yes" | "no" | null>(null);
-  const intro = useReveal<HTMLDivElement>();
 
   return (
     <section id="contact" className="bg-sand py-14 sm:py-20 lg:py-24">
       <div className="section-x mx-auto max-w-7xl">
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)] lg:gap-20">
 
-          <div ref={intro.ref} className={intro.className}>
+          <div>
             <p className="eyebrow">Take the first step</p>
             <h2 className="mt-4 text-[2rem] leading-[1.08] tracking-[-0.025em] sm:text-[2.5rem] lg:text-[3rem]">
               Take the first step towards recovery
@@ -2777,20 +2607,7 @@ export function Contact() {
             className="rounded-2xl border border-border bg-card p-6 sm:p-8"
             onSubmit={(e) => e.preventDefault()}
           >
-            <a
-              href="tel:+442038161576"
-              className="flex items-center gap-3 rounded-xl border border-border/60 bg-secondary/40 p-4 transition-colors hover:border-primary/40"
-            >
-              <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/15 text-primary">
-                <Phone className="size-[1.125rem]" aria-hidden />
-              </span>
-              <span>
-                <span className="block text-xs font-medium text-muted-foreground">Admissions line</span>
-                <span className="block text-lg font-semibold tracking-[-0.01em] text-foreground">020 3816 1576</span>
-              </span>
-            </a>
-
-            <p className="mt-6 text-[0.6875rem] font-semibold uppercase tracking-widest text-primary">
+            <p className="text-[0.6875rem] font-semibold uppercase tracking-widest text-primary">
               100% Confidential
             </p>
             <h3 className="mt-1 text-xl font-semibold tracking-[-0.02em]">Request a Free Callback</h3>
