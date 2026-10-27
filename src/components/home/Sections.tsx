@@ -1214,6 +1214,8 @@ export function RehabHub() {
 
 const THERAPY_GROUPS = [
   {
+    icon: MessageCircle,
+    img: IMGS.therapy,
     title: "Talking & psychological therapies",
     desc: "Evidence-based approaches that help residents understand their addiction, address underlying causes and develop coping strategies.",
     therapies: [
@@ -1228,6 +1230,8 @@ const THERAPY_GROUPS = [
     ],
   },
   {
+    icon: Sparkles,
+    img: IMGS.aftercare,
     title: "Holistic & wellbeing therapies",
     desc: "Complementary approaches that support physical recovery, reduce stress and build resilience alongside the core therapeutic programme.",
     therapies: [
@@ -1279,13 +1283,32 @@ export function TherapiesHub() {
           ref={scrollerRef}
           className="mt-12 flex cursor-grab snap-x snap-mandatory gap-6 overflow-x-auto no-scrollbar active:cursor-grabbing lg:mt-14 lg:grid lg:cursor-auto lg:grid-cols-2 lg:overflow-visible"
         >
-          {THERAPY_GROUPS.map(({ title, desc, therapies }) => (
+          {THERAPY_GROUPS.map(({ icon: Icon, img, title, desc, therapies }) => (
             <div
               key={title}
               className="snap-start shrink-0 w-[85vw] sm:w-[420px] lg:w-auto lg:shrink rounded-2xl border border-border/60 bg-card p-6 sm:p-8"
             >
-              <h3 className="text-[1.125rem] font-medium leading-snug">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+              {/* Icon + title, divided from the description below — no
+                  arrow/link affordance here: unlike a single-modality page
+                  (CBT, DBT, etc.), this grouping has no dedicated page of
+                  its own to point to. */}
+              <div className="flex items-center gap-3 border-b border-border/60 pb-5">
+                <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary text-primary-foreground">
+                  <Icon className="size-[1.125rem]" aria-hidden />
+                </span>
+                <h3 className="text-[1.125rem] font-medium leading-snug">{title}</h3>
+              </div>
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">{desc}</p>
+
+              <div className="mt-5 overflow-hidden rounded-xl">
+                <img
+                  src={img}
+                  alt={title}
+                  className="aspect-[16/10] w-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+
               <div className="mt-6 flex flex-wrap gap-2">
                 {therapies.map((t) => (
                   <LinkChip key={t.label} href={t.href}>
