@@ -890,6 +890,53 @@ export function AddictionsHub() {
 }
 
 /* ═══════════════════════════════════════════════════════════
+   3b — MID-PAGE ADMISSIONS CTA
+   Sits between "Addictions we treat" and "Medically supported detox" —
+   a breather between two information-heavy hubs, with the three ways to
+   get in touch (phone, on-page contact form, brochure), all reusing the
+   same real links used elsewhere on the page.
+═══════════════════════════════════════════════════════════ */
+
+export function AdmissionsCta() {
+  return (
+    <section className="bg-primary py-10 sm:py-12">
+      <div className="section-x mx-auto max-w-7xl">
+        <div className="flex flex-col items-center gap-6 text-center sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:text-left">
+          <div>
+            <p className="text-sm font-medium text-primary-foreground/75">Have questions about treatment?</p>
+            <h2 className="mt-1 text-xl font-semibold tracking-[-0.01em] text-primary-foreground sm:text-2xl">
+              Speak to our admissions team today
+            </h2>
+          </div>
+
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+            <a
+              href="tel:+442038161576"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary-foreground px-5 py-3 text-sm font-semibold text-primary transition-colors hover:bg-primary-foreground/90"
+            >
+              <Phone className="size-4 shrink-0" aria-hidden /> 020 3816 1576
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-foreground/30 px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            >
+              <MessageCircle className="size-4 shrink-0" aria-hidden /> Contact Us
+            </a>
+            <a
+              href="/oasis-recovery-bradford-brochure.pdf"
+              download
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-primary-foreground/30 px-5 py-3 text-sm font-semibold text-primary-foreground transition-colors hover:bg-primary-foreground/10"
+            >
+              <Download className="size-4 shrink-0" aria-hidden /> Download Brochure
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════
    4 — MEDICAL DETOX (topic hub #2)
    "How can someone safely stop using alcohol or drugs?"
 ═══════════════════════════════════════════════════════════ */

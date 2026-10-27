@@ -4,6 +4,7 @@ import {
   Hero,
   TreatmentCentre,
   AddictionsHub,
+  AdmissionsCta,
   DetoxHub,
   RehabHub,
   TherapiesHub,
@@ -83,6 +84,7 @@ function Index() {
         <Hero />
         <TreatmentCentre />
         <AddictionsHub />
+        <AdmissionsCta />
         <DetoxHub />
         <RehabHub />
         <TherapiesHub />
