@@ -521,8 +521,8 @@ export function Hero() {
             <ShieldCheck className="size-3.5 text-primary" aria-hidden />
             CQC registered · Confidential
           </p>
-          <h1 className="mt-4 text-[2.125rem] leading-[1.08] sm:text-5xl lg:text-[3.5rem]">
-            Private Addiction Rehab in Bradford, West Yorkshire
+          <h1 className="mt-4 text-[2.125rem] leading-[1.08] sm:text-5xl lg:text-[3.75rem]">
+            Private Addiction Rehab in <span className="text-primary">Bradford, West Yorkshire</span>
           </h1>
           <p className="mt-4 text-[0.9375rem] leading-relaxed text-muted-foreground sm:text-lg">
             Oasis Recovery is a CQC-regulated residential addiction treatment centre in
@@ -545,7 +545,13 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="mt-8 lg:mt-0">
+        <div className="relative mt-12 lg:mt-0">
+          {/* Layered offset panel behind the photo — gives it depth instead
+              of sitting flat on the page (DESIGN.md §4, photo treatment). */}
+          <div
+            aria-hidden
+            className="absolute -right-3 -bottom-3 -left-3 top-6 -z-10 rounded-[2rem] bg-primary/15 lg:-right-4 lg:-bottom-4 lg:-left-4 lg:top-8 lg:rounded-[2.5rem]"
+          />
           <div
             className="relative aspect-[4/3] cursor-grab touch-pan-y select-none overflow-hidden rounded-2xl shadow-[var(--shadow-lift)] active:cursor-grabbing sm:aspect-[16/9] lg:aspect-[5/4] lg:rounded-3xl"
             onMouseEnter={() => setPaused(true)}
@@ -577,6 +583,26 @@ export function Hero() {
                   )}
                 />
               ))}
+            </div>
+          </div>
+
+          {/* Floating stat pills overlapping the photo's bottom-left corner
+              — real figures already shown in the trust bar below, echoed
+              here (DESIGN.md §4b), not invented numbers. */}
+          <div className="absolute -bottom-5 left-5 flex gap-2.5 sm:left-6">
+            <div className="flex items-center gap-2 rounded-xl border border-border/60 bg-card px-3.5 py-2.5 shadow-[var(--shadow-lift)] sm:px-4 sm:py-3">
+              <ShieldCheck className="size-4 shrink-0 text-primary" aria-hidden />
+              <div className="leading-tight">
+                <p className="text-[0.75rem] font-semibold text-foreground sm:text-sm">CQC Rated Good</p>
+                <p className="text-[0.625rem] text-muted-foreground">Feb 2026</p>
+              </div>
+            </div>
+            <div className="hidden items-center gap-2 rounded-xl border border-border/60 bg-card px-4 py-3 shadow-[var(--shadow-lift)] sm:flex">
+              <Users className="size-4 shrink-0 text-primary" aria-hidden />
+              <div className="leading-tight">
+                <p className="text-sm font-semibold text-foreground">10 UK centres</p>
+                <p className="text-[0.625rem] text-muted-foreground">UKAT group</p>
+              </div>
             </div>
           </div>
         </div>
