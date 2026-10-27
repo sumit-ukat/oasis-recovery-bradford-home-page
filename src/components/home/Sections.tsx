@@ -546,7 +546,11 @@ export function Hero() {
 
   return (
     <section id="top" className="relative bg-sand py-6 sm:py-8 lg:py-10">
-      <div className="section-x relative mx-auto max-w-7xl">
+      {/* Wider than the site's usual max-w-7xl content column — the client
+          asked for this banner specifically to run close to full viewport
+          width, matching the reference theme, not the standard text
+          measure every other section uses. */}
+      <div className="section-x relative mx-auto max-w-[1800px]">
         {/* Inset rounded photo panel — framed by the page background on
             every side, not edge-to-edge (matches the client's reference:
             a large rounded card, not a full-bleed banner). */}
